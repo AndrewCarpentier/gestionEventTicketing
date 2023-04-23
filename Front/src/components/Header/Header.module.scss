@@ -1,0 +1,23 @@
+.header{
+    height: 50px;
+    width: 100%;
+
+    .start{
+        width: 100%;
+        i{
+            font-size: 25px;
+            margin: 12px;
+        }
+    }
+    .center{
+        width: 100%;
+        input{
+            padding: 5px 15px;
+            border-radius: 20px;
+            transition: 0.2s opacity;
+        }
+    }
+    .end{
+        width: 100%;
+    }
+}
