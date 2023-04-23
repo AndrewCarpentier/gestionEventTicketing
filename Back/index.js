@@ -1,29 +1,19 @@
 const bodyParser = require("body-parser");
 const express = require("express");
-const mysql = require("mysql");
-
+const cookie = require("cookie-parser");
+const routes = require("./routes");
 const app = express();
 const http = require("http");
 const server = http.createServer(app);
 
+require('./database');
 const cors = require("cors");
 const port = 8000;
 
-const connection = mysql.createConnection({
-  host: "",
-  user: "",
-  password: "",
-  database: "",
-});
-
-connection.connect((err) => {
-  if (err) throw err;
-  console.log("Connecté à la base de données MySQL");
-});
-
 // Middleware pour gérer les requêtes JSON
 app.use(bodyParser.json());
-
+app.use(routes);
+app.use(cookie());
 // Middleware pour éviter les problèmes de CORS
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
@@ -31,6 +21,10 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Headers", "Content-Type");
   next();
 });
+
+app.use('*', (req, res)=>{
+  res.status(400).end();
+})
 
 // Lancement du serveur Node.js
 app.listen(port, () => {
