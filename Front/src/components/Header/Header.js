@@ -13,7 +13,7 @@ function Header(){
             </div>
             <div className={`${style.end} mr10 d-flex align-items-center justify-content-end`}>
                 <i className={`fas fa-ellipsis-vertical ${style.ellipsis}`}/>
-                <button className="btn btn-primary"><i className='fas fa-user mr10'/><Link to="/signin">Se connecter</Link></button>
+                <button className="btn btn-primary"><Link to="/signin">Se connecter</Link></button>
             </div>
         </div>
     );
