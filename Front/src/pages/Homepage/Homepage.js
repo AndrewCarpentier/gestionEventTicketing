@@ -8,8 +8,8 @@ function Homepage(){
     const [eventList, setEventList] = useState([]);
 
     useEffect(()=>{
-        //getEvents().then(response => setEventList(response));
-    }, [eventList])
+        getEvents().then(response=> setEventList(response));
+    }, [])
 
     return(
         <div>
