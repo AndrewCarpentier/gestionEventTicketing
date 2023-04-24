@@ -19,5 +19,15 @@
     }
     .end{
         width: 100%;
+        .ellipsis{
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 15px;
+            padding-right: 15px;
+            border-radius: 100px;
+            &:hover{
+                background-color: var(--gray-1);
+            }
+        }
     }
 }

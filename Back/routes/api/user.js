@@ -3,12 +3,11 @@ const bcrypt = require('bcrypt');
 const connection = require('../../database/index');
 
 router.post('/', async(req, res)=>{
-    const {mail, firstname, lastname, password, passwordConfirm} = req.query;
+    const {mail, firstname, lastname, password, passwordConfirm} = req.body;
     const newUser = {
         mail, firstname, lastname,
         password : await bcrypt.hash(password, 10)
     };
-    console.log(newUser)
     sqlVerifMail = "SELECT * FROM user WHERE mail = ?";
     valueSqlVerifMail = [newUser.mail];
     sqlAddUser = "INSERT INTO user(mail, firstname, lastname, password) VALUES (?,?,?,?)";

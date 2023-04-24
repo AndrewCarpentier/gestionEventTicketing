@@ -9,6 +9,12 @@ const server = http.createServer(app);
 require('./database');
 const cors = require("cors");
 const port = 8000;
+const corsOptions ={
+  origin:'*', 
+  credentials:true,            //access-control-allow-credentials:true
+  optionSuccessStatus:200,
+}
+app.use(cors(corsOptions))
 
 // Middleware pour gérer les requêtes JSON
 app.use(bodyParser.json());

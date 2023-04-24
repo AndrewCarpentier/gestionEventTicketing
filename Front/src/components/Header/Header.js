@@ -1,3 +1,4 @@
+import { Link, redirect } from 'react-router-dom';
 import style from './Header.module.scss';
 
 function Header(){
@@ -5,13 +6,14 @@ function Header(){
         <div className={`${style.header} d-flex`}>
             <div className={`${style.start} d-flex`}>
                 <i className='fas fa-bars'/>
-                <h1 className='d-flex align-items-center'>EventMaster</h1>
+                <h1 className='d-flex align-items-center'><Link to="/">EventMaster</Link></h1>
             </div>
             <div className={`${style.center} d-flex align-items-center justify-content-center`}>
                 <input placeholder='search'/>
             </div>
             <div className={`${style.end} mr10 d-flex align-items-center justify-content-end`}>
-                <button className="btn btn-primary"><i className='fas fa-user mr10'/>Se connecter</button>
+                <i className={`fas fa-ellipsis-vertical ${style.ellipsis}`}/>
+                <button className="btn btn-primary"><i className='fas fa-user mr10'/><Link to="/signin">Se connecter</Link></button>
             </div>
         </div>
     );
