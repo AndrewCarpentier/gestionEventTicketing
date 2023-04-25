@@ -5,6 +5,8 @@ import Signin from '../pages/Signin/Signin';
 import Signup from '../pages/Signup/Signup';
 import {userLoader} from '../loaders/userLoader';
 import ProtectedRoutesAuth from '../protectedRoutes/ProtectedRouteAuth';
+import ProtectedRoutesNotAuth from '../protectedRoutes/ProtectedRouteNotAuth';
+import Profile from '../pages/Profile/Profile';
  
 export const router = createBrowserRouter([{
     path: '/',
@@ -22,6 +24,10 @@ export const router = createBrowserRouter([{
         {
             path: '/signup',
             element: <ProtectedRoutesAuth><Signup/></ProtectedRoutesAuth>
+        },
+        {
+            path: "/profile",
+            element: <ProtectedRoutesNotAuth><Profile/></ProtectedRoutesNotAuth>
         }
     ]
 

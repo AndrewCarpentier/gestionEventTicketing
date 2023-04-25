@@ -60,7 +60,15 @@ router.get('/current', async(req, res)=>{
             const decodedToken = jsonwebtoken.verify(token, keyPub);
             connection.query(sql, [decodedToken.sub], (err, result)=>{
                 if(result){
-                    res.json(result[0]);
+                    console.log(result[0])
+                    res.json({
+                        id : result[0].id,
+                        mail : result[0].mail,
+                        firstname : result[0].firstname,
+                        lastname : result[0].lastname,
+                        urlThumbnail : result[0].urlThumbnail,
+                        gender : result[0].gender,
+                    });
                 }else{
                     res.json(null)
                 }

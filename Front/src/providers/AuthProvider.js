@@ -6,6 +6,7 @@ import {signout as logout} from '../apis/Auth';
 
 function AuthProvider({children}){
     const [user, setUser] = useState(useLoaderData());
+    console.log(user)
 
     async function signin(credential){
         setUser(await login(credential));

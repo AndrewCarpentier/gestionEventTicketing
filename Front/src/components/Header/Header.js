@@ -17,7 +17,10 @@ function Header(){
             <div className={`${style.end} mr10 d-flex align-items-center justify-content-end`}>
                 {
                     user ? (
+                        <>
+                        <Link className='mr10' to="/profile">Profile</Link>
                         <button className="btn btn-primary"><Link onClick={()=>signout()}>Se déconnecter</Link></button>
+                        </>
                     ) : (
                         <>
                         <i className={`fas fa-ellipsis-vertical ${style.ellipsis}`}/>
