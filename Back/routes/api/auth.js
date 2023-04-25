@@ -6,10 +6,12 @@ const connection = require('../../database/index');
 
 router.post('/', async(req, res)=>{
     const {mail, password} = req.body;
+    console.log(mail)
     sql = "SELECT * FROM user WHERE mail = ?";
     value = [mail];
     try{
         connection.query(sql, value, (err, result)=>{
+            if(err) throw err;
             const user = {
                 id: result[0].id,
                 mail : result[0].mail,
@@ -25,8 +27,18 @@ router.post('/', async(req, res)=>{
                         expiresIn: 3600 * 24 * 31 * 12,
                         algorithm: "RS256",
                     });
-                    res.cookie('token', token);
-                    res.json(user);
+                    console.log(result)
+                    res.cookie('token', token, {
+                        sameSite: 'none',
+                        httpOnly: true,
+                        secure: true
+                    });
+                    res.json({
+                        id: user.id,
+                        mail: user.mail,
+                        firstname: user.firstname,
+                        lastname: user.lastname
+                    });
                 }else{
                     res.status(400).json('Email et/ou mot de passe incorrect');
                 }                 
@@ -46,8 +58,12 @@ router.get('/current', async(req, res)=>{
     if(token){
         try{
             const decodedToken = jsonwebtoken.verify(token, keyPub);
-            connection.query(sql, [decodedToken], (err, result)=>{
-                console.log(result)
+            connection.query(sql, [decodedToken.sub], (err, result)=>{
+                if(result){
+                    res.json(result[0]);
+                }else{
+                    res.json(null)
+                }
             });
         }catch (error){
             res.json(null);
@@ -56,5 +72,10 @@ router.get('/current', async(req, res)=>{
         res.json(null);
     }
 });
+
+router.delete('/', (req, res)=>{
+    res.clearCookie('token');
+    res.end();
+})
 
 module.exports = router;
