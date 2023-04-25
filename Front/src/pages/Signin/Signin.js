@@ -3,9 +3,12 @@ import {useForm} from 'react-hook-form';
 import * as yup from 'yup';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {Link} from 'react-router-dom';
-import { signin } from '../../apis/Auth';
+import { useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
 
 function Signin(){
+    const {signin} = useContext(AuthContext);
+
     const validationSchema = yup.object({
         mail: yup
         .string()
@@ -34,8 +37,7 @@ function Signin(){
     const submit = handleSubmit(async(values)=>{
         try {
             clearErrors();
-            const user = await signin(values);
-            console.log(user);
+            await signin(values);
         } catch (message) {
             setError("generic", {type: 'generic', message});
         }

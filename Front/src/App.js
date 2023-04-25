@@ -3,18 +3,21 @@ import Header from './components/Header/Header';
 import { Outlet } from 'react-router-dom';
 import { Suspense } from 'react';
 import Sidebar from './components/Sidebar/Sidebar';
+import AuthProvider from './providers/AuthProvider';
 
 function App() {
   return (
-    <div className={`d-flex flex-column ${styles.appContainer}`}>
-        <Header/>
-        <div className='d-flex'>
-        <Sidebar/>
-        <Suspense>
-          <Outlet/>
-        </Suspense>
+    <AuthProvider>
+      <div className={`d-flex flex-column ${styles.appContainer}`}>
+            <Header/>
+            <div className='d-flex'>
+            <Sidebar/>
+            <Suspense>
+              <Outlet/>
+            </Suspense>
+            </div>
         </div>
-    </div>
+    </AuthProvider>
   );
 }
 

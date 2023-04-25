@@ -1,7 +1,10 @@
-import { Link, redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import style from './Header.module.scss';
+import { useContext } from 'react';
+import {AuthContext} from '../../context/AuthContext';
 
 function Header(){
+    const {user, signout} = useContext(AuthContext);
     return(
         <div className={`${style.header} d-flex`}>
             <div className={`${style.start} d-flex`}>
@@ -12,8 +15,17 @@ function Header(){
                 <input placeholder='search'/>
             </div>
             <div className={`${style.end} mr10 d-flex align-items-center justify-content-end`}>
-                <i className={`fas fa-ellipsis-vertical ${style.ellipsis}`}/>
-                <button className="btn btn-primary"><Link to="/signin">Se connecter</Link></button>
+                {
+                    user ? (
+                        <button className="btn btn-primary"><Link onClick={()=>signout()}>Se déconnecter</Link></button>
+                    ) : (
+                        <>
+                        <i className={`fas fa-ellipsis-vertical ${style.ellipsis}`}/>
+                        <button className="btn btn-primary"><Link to="/signin">Se connecter</Link></button>
+                        </>
+                    )
+                }
+                
             </div>
         </div>
     );
