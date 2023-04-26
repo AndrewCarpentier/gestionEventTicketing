@@ -38,4 +38,37 @@ router.post('/', async(req, res)=>{
 
 });
 
+router.post('/edit', (req, res)=>{
+    const {id, mail, lastname, firstname} = req.body;
+    console.log(`${id} ${lastname}`)
+    const sql = "SELECT * FROM user WHERE mail = ?";
+    const valueSql = [mail, id];
+    const sql2 = "UPDATE user SET mail = ? , lastname = ?, firstname = ? WHERE id = ?";
+    const valueSql2 = [mail, lastname, firstname, id];
+    connection.query(sql, valueSql, (err, result)=>{
+        if(err) throw err;
+        if(result.length){
+            if((result[0].id === parseInt(id))){
+                connection.query(sql2, valueSql2, (err, result)=>{
+                    if(result.affectedRows == 1){
+                        res.json(true);
+                    }else{
+                        res.json(false);
+                    }
+                });
+            }else{
+                res.status(400).json('mail déjà existant');
+            }
+        }else{
+            connection.query(sql2, valueSql2, (err, result)=>{
+                if(result.affectedRows == 1){
+                    res.json(true);
+                }else{
+                    res.json(false);
+                }
+            });
+        }
+    });
+});
+
 module.exports = router;
