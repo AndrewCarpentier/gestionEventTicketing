@@ -18,7 +18,7 @@ function Header(){
                 {
                     user ? (
                         <>
-                        <Link className='mr10' to="/profile">Profile</Link>
+                        <Link className='mr10' to="/profile/information">Profile</Link>
                         <button className="btn btn-primary"><Link onClick={()=>signout()}>Se déconnecter</Link></button>
                         </>
                     ) : (

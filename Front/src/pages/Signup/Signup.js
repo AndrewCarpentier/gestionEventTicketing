@@ -1,9 +1,10 @@
-import styles from './Signup.module.scss';
+import style from './Signup.module.scss';
 import {useForm} from 'react-hook-form';
 import * as yup from 'yup';
 import {yupResolver} from '@hookform/resolvers/yup';
 import { createUser } from '../../apis/Users';
 import { useState } from 'react';
+import {Link, Navigate} from 'react-router-dom';
 
 function Signup(){
     const [registerSuccess, setRegisterSuccess] = useState(false);
@@ -55,42 +56,46 @@ function Signup(){
         }
     })
     return(
-        <div className={`flex-fill d-flex align-items-center justify-content-center`}>
-            <form onSubmit={submit} className={`d-flex flex-column card ${styles.form}`}>
-                <h2 className="mb10 m10">S'inscrire'</h2>
-                <div className="mb10 m10 d-flex flex-column">
-                    <label htmlFor="email">Mail</label>
-                    <input type="email" name="email" {...register("mail")}/>
-                    {errors.email && <p className='form-error'>{errors.email.message}</p>}
+        <div className={`d-flex flex-fill justify-content-center align-items-center ${style.appContainer}`}>
+            {registerSuccess? <Navigate to="/signin"/> : <></>}
+            <form onSubmit={submit}>
+                <div className={style.group}>
+                    <input type="text" id="mail" required {...register('mail')}/>
+                    <span className={style.bar}></span>
+                    <label htmlFor="mail">E-Mail</label>
                 </div>
-                <div className="mb10 m10 d-flex flex-column">
+                <div className={style.group}>
+                    <input type="text" id="lastname" required {...register('lastname')}/>
+                    <span className={style.bar}></span>
                     <label htmlFor="lastname">Nom</label>
-                    <input type="text" name="lastname" {...register("lastname")}/>
-                    {errors.lastname && <p className='form-error'>{errors.lastname.message}</p>}
                 </div>
-                <div className="mb10 m10 d-flex flex-column">
+                <div className={style.group}>
+                    <input type="text" id="firstname" required {...register('firstname')}/>
+                    <span className={style.bar}></span>
                     <label htmlFor="firstname">Prénom</label>
-                    <input type="text" name="firstname" {...register("firstname")}/>
-                    {errors.firstname && <p className='form-error'>{errors.firstname.message}</p>}
                 </div>
-                <div className="mb10 m10 d-flex flex-column">
-                    <label htmlFor="password">Mot de passe</label>
-                    <input type="password" name="password" {...register("password")}/>
-                    {errors.password && <p className='form-error'>{errors.password.message}</p>}
+                <div className='d-flex flex-row'>
+                    <div className={style.group}>
+                        <input type="password" name="password" id="password" required {...register('password')}/>
+                        <span className={style.bar}></span>
+                        <label htmlFor="password">Mot de passe</label>
+                    </div>
                 </div>
-                <div className="mb10 m10 d-flex flex-column">
+                <div className={style.group}>
+                    <input type="password" id="passwordConfirm" required {...register('passwordConfirm')}/>
+                    <span className={style.bar}></span>
                     <label htmlFor="passwordConfirm">Confirmation de mot de passe</label>
-                    <input type="password" name="passwordConfirm" {...register("passwordConfirm")}/>
-                    {errors.passwordConfirm && <p className='form-error'>{errors.passwordConfirm.message}</p>}
                 </div>
-                <div className='ml10'>
-                    {errors.generic && (
-                        <p className='form-error'>{errors.generic.message}</p>
-                    )}
-                </div>
-                <div className="m10 d-flex justify-content-center">
-                    <button disabled={isSubmitting} className="btn btn-primary">S'inscrire'</button>
-                </div>
+                <ul className="errors-message d-flex flex-column mb20">
+                    {errors?.mail && <li className='error-message'>{errors.mail.message}</li>}
+                    {errors?.firstname && <li className='error-message'>{errors.firstname.message}</li>}
+                    {errors?.lastname && <li className='error-message'>{errors.lastname.message}</li>}
+                    {errors?.password && <li className='error-message'>{errors.password.message}</li>}
+                    {errors?.confirmPassword && <li className='error-message'>{errors.confirmPassword.message}</li>}
+                    {errors.generic && <li className='error-message'>{errors.generic.message}</li>}
+                </ul>
+                <button disabled={isSubmitting} className={`btn btn-primary ${style.btnSubmit}`}>S'inscrire</button>
+                <Link to='/signin' className={`${style.login} d-flex justify-content-center my20`}>Déjà inscrit</Link>
             </form>
         </div>
     )

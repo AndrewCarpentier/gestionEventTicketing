@@ -1,14 +1,10 @@
-.appContainer{
-    min-height: 100vh;
-}
-
 form{
     max-width: 500px;
     margin: auto;
 }
 
 .btnSubmit{
-  width: 100%;
+  width: 50%;
 }
 
 .group 			  { 
@@ -76,17 +72,5 @@ form{
     -webkit-animation:inputHighlighter 0.3s ease;
     -moz-animation:inputHighlighter 0.3s ease;
     animation:inputHighlighter 0.3s ease;
-  }
-}
-
-i{
-  cursor: pointer;
-}
-
-.register{
-  cursor: pointer;
-  color: var(--primary);
-  &:hover{
-    color: var(--accent);
   }
 }
