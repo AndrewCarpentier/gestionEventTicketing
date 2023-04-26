@@ -1,14 +1,20 @@
 import style from './ContactDetail.module.scss';
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../../../context/AuthContext";
 import * as yup from 'yup';
 import {useForm} from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { editUser } from '../../../../apis/Users';
 
 function ContactDetail(){
     const {user} = useContext(AuthContext);
+    const [save, setSave]= useState(false);
 
     const validationSchema = yup.object({
+        mail: yup
+        .string()
+        .required('Ce champ doit être saisi')
+        .email('Email non valide'),
         lastname: yup
         .string()
         .required('Ce champ doit être saisi'),
@@ -17,8 +23,9 @@ function ContactDetail(){
         .required('Ce champ doit être saisi'),
     });
     const initialValues = {
-        lastname: "",
-        firstname: "",
+        mail: user.mail,
+        lastname: user.lastname,
+        firstname: user.firstname,
     }
     const {
         handleSubmit,
@@ -32,7 +39,17 @@ function ContactDetail(){
 
     const submit = handleSubmit(async(values)=>{
         try {
-            alert();
+            if(await editUser({
+                id: user.id,
+                mail : values.mail,
+                lastname : values.lastname,
+                firstname : values.firstname
+            })){
+                setSave(true);
+                setTimeout(() => {
+                    setSave(false);
+                }, 1000);
+            }
         } catch (message) {
             setError("generic", {type: 'generic', message});
         }
@@ -44,13 +61,18 @@ function ContactDetail(){
             <div className={`d-flex flex-fill align-items-center justify-content-center m30 mt50`}>
             <form onSubmit={submit}>
                 <div className={style.group}>
-                    <input  type="text" id="lastname" value={user.lastname} required {...register('lastname')}/>
+                    <input  type="text" id="mail" defaultValue={user.mail} required {...register('mail')}/>
+                    <span className={style.bar}></span>
+                    <label htmlFor="mail">E-mail</label>
+                </div>
+                <div className={style.group}>
+                    <input  type="text" id="lastname" defaultValue={user.lastname} required {...register('lastname')}/>
                     <span className={style.bar}></span>
                     <label htmlFor="lastname">Nom</label>
                 </div>
                 <div className="d-flex flex-row">
                     <div className={style.group}>
-                        <input type="text" id="firstname" value={user.firstname} required {...register('firstname')}/>
+                        <input type="text" id="firstname" defaultValue={user.firstname} required {...register('firstname')}/>
                         <span className={style.bar}></span>
                         <label htmlFor="firstname">Prénom</label>
                     </div>
@@ -59,9 +81,10 @@ function ContactDetail(){
                     {errors?.mail && <li className='error-message'>{errors.lastname.message}</li>}
                     {errors?.password && <li className='error-message'>{errors.firstname.message}</li>}
                     {errors.generic && <li className='error-message'>{errors.generic.message}</li>}
+                    {save && <li>modification bien effectuer</li>}
                 </ul>
                 <div className='d-flex justify-content-end'>
-                    <button disabled={isSubmitting} className={`btn btn-primary ${style.btnSubmit}`}>Se connecter</button>
+                    <button disabled={isSubmitting} className={`btn btn-primary ${style.btnSubmit}`}>Sauvegarder</button>
                 </div>
             </form>
         </div>

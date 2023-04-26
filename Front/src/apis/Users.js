@@ -18,3 +18,23 @@ export async function createUser(newUser){
         }
     }
 }
+
+export async function editUser(user){
+    const response = await fetch(`${API_USERS}/edit`,{
+        method: "POST",
+        body: JSON.stringify(user),
+        headers: {'Content-Type' : 'Application/json'}
+    });
+
+    const backResponse = await response.json();
+    if(response.ok){
+        return backResponse;
+    }else{
+        if(backResponse){
+            throw backResponse;
+        }else{
+            throw new Error('Error api edit user');
+        }
+    }
+
+}
