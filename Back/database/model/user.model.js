@@ -1,0 +1,134 @@
+const connection = require("../../database/index");
+
+class User {
+  constructor() {
+    this.id = null;
+    this.mail = null;
+    this.firstname = null;
+    this.lastname = null;
+    this.password = null;
+    this.urlThumbnail = null;
+    this.gender = null;
+  }
+
+  reset() {
+    this.id = null;
+    this.mail = null;
+    this.firstname = null;
+    this.lastname = null;
+    this.password = null;
+    this.urlThumbnail = null;
+    this.gender = null;
+  }
+
+  get getUserWithoutPassword() {
+    return {
+      id: this.id,
+      mail: this.mail,
+      firstname: this.firstname,
+      lastname: this.lastname,
+      urlThumbnail: this.urlThumbnail,
+      gender: this.gender,
+    };
+  }
+
+  getByMail(mail) {
+    return new Promise((resolve, reject) => {
+      try {
+        connection.query(
+          "SELECT * FROM user WHERE mail = ?",
+          [mail],
+          (err, result) => {
+            if (err) throw err;
+            if (result.length) {
+              this.id = result[0].id;
+              this.mail = result[0].mail;
+              this.firstname = result[0].firstname;
+              this.lastname = result[0].lastname;
+              this.password = result[0].password;
+              this.urlThumbnail = result[0].urlThumbnail;
+              this.gender = result[0].gender;
+            } else {
+              this.reset();
+            }
+            resolve(this);
+          }
+        );
+      } catch (error) {
+        resolve(null);
+      }
+    });
+  }
+
+  getById(id) {
+    return new Promise((resolve, reject) => {
+      try {
+        connection.query(
+          "SELECT * FROM user WHERE id = ?",
+          [id],
+          (err, result) => {
+            if (err) throw err;
+            if (result.length) {
+              this.id = result[0].id;
+              this.mail = result[0].mail;
+              this.firstname = result[0].firstname;
+              this.lastname = result[0].lastname;
+              this.password = result[0].password;
+              this.urlThumbnail = result[0].urlThumbnail;
+              this.gender = result[0].gender;
+            } else {
+              this.reset();
+            }
+            resolve(this);
+          }
+        );
+      } catch (error) {
+        resolve(null);
+      }
+    });
+  }
+
+  add(mail, firstname, lastname, password) {
+    return new Promise((resolve, reject) => {
+      try {
+        connection.query(
+          "INSERT INTO user(mail, firstname, lastname, password) VALUES (?,?,?,?)",
+          [mail, firstname, lastname, password],
+          (err, result) => {
+            if (err) throw err;
+            if (result) {
+              resolve(true);
+            } else {
+              resolve(false);
+            }
+          }
+        );
+      } catch (error) {
+        resolve(null);
+      }
+    });
+  }
+
+  update(id, mail, lastname, firstname) {
+    return new Promise((resolve, reject) => {
+      try {
+        connection.query(
+          "UPDATE user SET mail = ? , lastname = ?, firstname = ? WHERE id = ?",
+          [mail, lastname, firstname, id],
+          (err, result) => {
+            if (err) throw err;
+            if (result) {
+              resolve(true);
+            } else {
+              resolve(false);
+            }
+          }
+        );
+      } catch (error) {
+        resolve(null);
+      }
+    });
+  }
+}
+
+module.exports = User;
