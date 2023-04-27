@@ -1,0 +1,12 @@
+.item{
+    height: 40px;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 10px;
+    border-radius: 10px;
+    &:hover{
+        color: var(--white);
+        background-color: var(--primary);
+        cursor: pointer;
+    }
+}

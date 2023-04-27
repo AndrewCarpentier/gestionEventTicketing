@@ -12,8 +12,8 @@ i{
 }
 
 .card{
-    min-width: 250px;
-    margin: 10%;
+    max-width: 250px;
+    margin: 50px;
     transition: 1s transform;
     &:hover{
         transform: scale(1.2);

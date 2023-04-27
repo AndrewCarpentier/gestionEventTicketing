@@ -17,7 +17,7 @@ function Homepage(){
                 !eventList.length?(
                     <div>Loading...</div>
                 ) : (
-                    <div className={`${style.container}`}>
+                    <div className={`${style.container} d-flex justify-content-center`}>
                         {
                             eventList.map(e=>(
                                 <Event key={e.id} event={e}/>

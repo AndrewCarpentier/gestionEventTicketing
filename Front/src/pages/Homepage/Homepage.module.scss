@@ -1,4 +1,4 @@
 .container{
-    display: grid;
-    grid-template-columns: repeat(4, 25%);
+    display: flex;
+    flex-wrap: wrap;
 }

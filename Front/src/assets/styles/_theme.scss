@@ -22,9 +22,14 @@
 .card{
     border-radius: 20px;
     background-color: var(--white);
+    max-width: 400px;
 }
 
 .sidebar{
+    @media only screen and (max-width: 600px) {
+        display: none;
+    }
+
     border-right: 1px solid var(--primary);
     width: 200px;
     height: 100vh;
