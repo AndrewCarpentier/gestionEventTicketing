@@ -18,7 +18,7 @@ router.post("/", async (req, res) => {
         expiresIn: 3600 * 24 * 31 * 12,
         algorithm: "RS256",
       });
-      res.cookie("token", token, {
+      res.cookie("auth", token, {
         sameSite: "none",
         httpOnly: true,
         secure: true,
@@ -33,9 +33,9 @@ router.post("/", async (req, res) => {
 });
 
 router.get("/current", async (req, res) => {
-  const { token } = req.cookies;
-  if(token){
-    const decodedToken = jsonwebtoken.verify(token, keyPub);
+  const { auth } = req.cookies;
+  if(auth){
+    const decodedToken = jsonwebtoken.verify(auth, keyPub);
     const user = new User();
     await user.getById(decodedToken.sub);
     if(user){
@@ -49,7 +49,7 @@ router.get("/current", async (req, res) => {
 });
 
 router.delete("/", (req, res) => {
-  res.clearCookie("token");
+  res.clearCookie("auth");
   res.end();
 });
 

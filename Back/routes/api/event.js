@@ -1,11 +1,11 @@
 const router = require('express').Router();
-const connection = require('../../database/index');
+const Event = require('../../database/model/event.model');
 
-router.get('/', (req,res)=>{
-    connection.query('SELECT * FROM event', (err, result)=>{
-        //console.log(result)
-        res.json(result);
-    })
+router.get('/getAll', async(req,res)=>{
+    const {id} = req.query;
+    const event = new Event();
+    const events = await event.getEvents(id);
+    res.json(events);
 });
 
 module.exports = router;
