@@ -30,6 +30,14 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        path: "/bookmark",
+        element: (
+          <ProtectedRoutesNotAuth>
+            <Homepage />
+          </ProtectedRoutesNotAuth>
+        ),
+      },
+      {
         path: "/signup",
         element: (
           <ProtectedRoutesAuth>

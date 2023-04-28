@@ -10,7 +10,6 @@ router.post("/", async (req, res) => {
   const { mail, password } = req.body;
   const user = new User();
   await user.getByMail(mail);
-  console.log(user);
   if (user) {
     if (bcrypt.compareSync(password, user.password)) {
       const token = jsonwebtoken.sign({}, key, {
@@ -59,7 +58,6 @@ router.post("/sendLinkPasswordLost", async(req,res)=>{
   await user.getByMail(mail);
   if(user.id !== null){
     const token = TokenGenerator(32);
-    console.log(token)
     if(user.setPasswordLost(token, user.id)){
       if(await sendMail(token, mail)){
         res.json('Un mail vous à était envoyer')

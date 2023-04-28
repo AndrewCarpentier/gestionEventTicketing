@@ -1,17 +1,22 @@
 import {useContext, useEffect, useState} from 'react';
 import style from './Homepage.module.scss';
 import Event from '../Event/Event/Event';
-import { getEvents } from '../../apis/Event';
+import { getBookmarkEvents, getEvents } from '../../apis/Event';
 import { AuthContext } from '../../context/AuthContext';
-
+import {useLocation} from 'react-router-dom';
 
 function Homepage(){
     const [eventList, setEventList] = useState([]);
     const {user} = useContext(AuthContext);
+    const location = useLocation();
 
     useEffect(()=>{
-        getEvents(user ? user.id : null).then(response=> setEventList(response));
-    }, [user])
+        if(location.pathname === "/"){
+            getEvents(user ? user.id : null).then(response=> setEventList(response));
+        }else if(location.pathname === "/bookmark"){
+            getBookmarkEvents(user.id).then(response => setEventList(response));
+        }
+    }, [user, location])
 
     return(
         <div>
