@@ -8,7 +8,7 @@ import UserBar from "../UserBar/UserBar";
 function Header() {
   const { user } = useContext(AuthContext);
   const [showEllipsisBar, setShowEllipsisBar] = useState(false);
-  const [showUserBar, setShowUserBar] = useState(true);
+  const [showUserBar, setShowUserBar] = useState(false);
 
     function handleClickEllipsis(){
         setShowEllipsisBar(!showEllipsisBar);

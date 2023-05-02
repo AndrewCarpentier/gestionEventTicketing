@@ -106,3 +106,8 @@ a{
 .d-none{
     display: none;
 }
+
+.active{
+    background-color: var(--primary);
+    color: var(--white);
+}
