@@ -15,7 +15,7 @@ function Event({ event }) {
   }, [])
 
   function HandleClick() {
-    if (user.id !== "null") {
+    if (user !== "null") {
       if (bookmark) {
         if(deleteBookmark(user.id, event.id)){
             setBookmark(!bookmark);

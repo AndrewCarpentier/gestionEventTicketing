@@ -1,12 +1,12 @@
 .container{
     position: absolute;
-    right: 120px;
+    right: 20px;
     top: 48px;
     border-radius: 20px;
-    border: 1px solid black;
+    border: 1px solid var(--primary);
     background-color: var(--white);
-    height: 80px;
-    width: 100px;
+    height: 378px;
+    width: 200px;
 
     .item{
         height: 40px;
@@ -20,10 +20,34 @@
     .item_top{
         border-top-right-radius: 20px;
         border-top-left-radius: 20px;
+        height: 50px;
+    }
+
+    .item_top_change{
+        border-top-right-radius: 20px;
+        border-top-left-radius: 20px;
+        height: 30px;
     }
 
     .item_bottom{
         border-bottom-right-radius: 20px;
         border-bottom-left-radius: 20px;
     }
+
+    .link{
+        color: var(--primary);
+        &:hover{
+            color: var(--dark);
+        }
+    }
+
+    .separate{
+        border: 1px solid #e4e4e4;
+    }
+}
+
+.userIcon{
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
 }

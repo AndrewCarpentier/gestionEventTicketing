@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import style from "./Header.module.scss";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import EllipsisBar from "../EllipsisBar/EllipsisBar";
-import UserBar from "../UserBar/UserBar";
+import EllipsisBar from "../Bar/EllipsisBar/EllipsisBar";
+import UserBar from "../Bar/UserBar/UserBar";
 
 function Header() {
   const { user } = useContext(AuthContext);
@@ -22,7 +22,7 @@ function Header() {
     <div className={`${style.header} d-flex`}>
       <div className={`${style.start} d-flex`}>
         <i className="fas fa-bars" />
-        <h1 className="d-flex align-items-center">
+        <h1 className={`d-flex align-items-center`}>
           <Link to="/">EventMaster</Link>
         </h1>
       </div>
