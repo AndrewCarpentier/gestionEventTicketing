@@ -85,7 +85,7 @@ function UserBar() {
                 {user.firstname} {user.lastname}
               </div>
               <div>
-                <Link to="/profile/information" className={style.link}>
+                <Link to="/account/information" className={style.link}>
                 {t('manageYourAccount')}
                 </Link>
               </div>

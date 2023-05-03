@@ -22,6 +22,12 @@
             border-radius: 20px;
             transition: 0.2s opacity;
         }
+
+        .search{
+            @media only screen and (max-width: 600px) {
+                display: none;
+            }
+        }
     }
     .end{
         width: 100%;
@@ -31,8 +37,41 @@
             padding-left: 15px;
             padding-right: 15px;
             border-radius: 100px;
+            margin-right: 5px;
             &:hover{
                 background-color: var(--gray-1);
+            }
+        }
+
+        .searchMobile{
+            position: absolute;
+            right: 40px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 15px;
+            padding-right: 15px;
+            border-radius: 100px;
+            &:hover{
+                background-color: var(--gray-1);
+            }
+            @media (min-width: 600px) {
+                display: none;
+            }
+        }
+
+        .searchMobileNotConnected{
+            position: absolute;
+            right: 140px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 15px;
+            padding-right: 15px;
+            border-radius: 100px;
+            &:hover{
+                background-color: var(--gray-1);
+            }
+            @media (min-width: 600px) {
+                display: none;
             }
         }
 

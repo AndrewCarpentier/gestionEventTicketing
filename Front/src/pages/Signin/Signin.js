@@ -76,9 +76,9 @@ function Signin(){
           {errors?.password && (
             <li className="error-message">{errors.password.message}</li>
           )}
-          {errors.generic && (
+          {/* {errors.generic && (
             <li className="error-message">{errors.generic.message}</li>
-          )}
+          )} */}
         </ul>
         <button
           disabled={isSubmitting}

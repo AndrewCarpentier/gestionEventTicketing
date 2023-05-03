@@ -6,7 +6,7 @@ import Signup from "../pages/Signup/Signup";
 import { userLoader } from "../loaders/userLoader";
 import ProtectedRoutesAuth from "../protectedRoutes/ProtectedRouteAuth";
 import ProtectedRoutesNotAuth from "../protectedRoutes/ProtectedRouteNotAuth";
-import Information from "../pages/Profile/Information/Information";
+import Information from "../pages/Account/Information/Information";
 import PasswordLost from "../pages/PasswordLost/PasswordLost";
 import SendLink from "../pages/PasswordLost/SendLink/SendLink";
 import ResetPassword from "../pages/PasswordLost/ResetPassword/ResetPassword";
@@ -46,7 +46,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "profile/information",
+        path: "account/information",
         element: (
           <ProtectedRoutesNotAuth>
             <Information />
@@ -71,9 +71,6 @@ export const router = createBrowserRouter([
           },
         ],
       },
-      {
-        path: "/*"
-      }
     ],
   },
 ]);

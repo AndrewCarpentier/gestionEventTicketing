@@ -5,6 +5,7 @@ import { Suspense } from 'react';
 import Sidebar from './components/Bar/Sidebar/Sidebar';
 import AuthProvider from './providers/AuthProvider';
 import './i18n/i18n';
+import MobileSidebar from './components/Bar/MobileSidebar/MobileSidebar';
 
 function App() {
   if(localStorage.getItem('mode') === "dark"){
@@ -19,6 +20,7 @@ function App() {
             <Header/>
             <div className='d-flex justify-content-center'>
             <Sidebar/>
+            <MobileSidebar/>
             <Suspense>
               <Outlet/>
             </Suspense>

@@ -33,6 +33,7 @@
     "fieldRequired": "This field must be entered",
     "fieldMail": "Invalid Email",
     "fieldMin6": "At least six characters",
-    "fieldPasswordConfirm": "Passwords must match"
+    "fieldPasswordConfirm": "Passwords must match",
+    "information" : "Information"
     
 }

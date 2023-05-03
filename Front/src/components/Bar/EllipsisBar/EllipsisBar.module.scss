@@ -8,6 +8,11 @@
     height: 150px;
     width: 150px;
 
+    @media only screen and (max-width: 600px) {
+        height: 378px;
+        width: 75%;
+    }
+
     .item{
         height: 40px;
         &:hover{

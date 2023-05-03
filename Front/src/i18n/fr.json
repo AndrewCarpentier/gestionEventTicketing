@@ -33,5 +33,6 @@
     "fieldRequired": "Ce champ doit être saisi",
     "fieldMail": "Email non valide",
     "fieldMin6": "Au moins six caractères",
-    "fieldPasswordConfirm": "Les mots de passe doivent correspondre"
+    "fieldPasswordConfirm": "Les mots de passe doivent correspondre",
+    "information" : "Information"
 }

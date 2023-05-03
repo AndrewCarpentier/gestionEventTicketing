@@ -122,9 +122,9 @@ function Signup() {
           {errors?.confirmPassword && (
             <li className="error-message">{errors.confirmPassword.message}</li>
           )}
-          {errors.generic && (
+          {/* {errors.generic && (
             <li className="error-message">{errors.generic.message}</li>
-          )}
+          )} */}
         </ul>
         <button
           disabled={isSubmitting}
