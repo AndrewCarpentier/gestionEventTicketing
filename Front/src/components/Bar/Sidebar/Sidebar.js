@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import style from "./Sidebar.module.scss";
 import { Link, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 function Sidebar() {
   const location = useLocation();
-
+  const {t} = useTranslation();
   useEffect(() => {
-
     function reset(){
       document.getElementById('home').classList.remove("active");
       document.getElementById('bookmark').classList.remove("active");
@@ -27,21 +27,21 @@ function Sidebar() {
           id="home"
           className={`${style.item} active d-flex justify-content-center align-items-center`}
         >
-          Accueil
+          {t('home')}
         </div>
       </Link>
       <Link to="/ticket">
         <div
           className={`${style.item} d-flex justify-content-center align-items-center`}
         >
-          Billet
+          {t('ticket')}
         </div>
       </Link>
       <Link to="/history">
         <div
           className={`${style.item} d-flex justify-content-center align-items-center`}
         >
-          Historique
+          {t('history')}
         </div>
       </Link>
       <Link to="/bookmark">
@@ -49,7 +49,7 @@ function Sidebar() {
           id="bookmark"
           className={`${style.item} d-flex justify-content-center align-items-center`}
         >
-          Marque page
+          {t('bookmark')}
         </div>
       </Link>
     </div>

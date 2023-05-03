@@ -1,10 +1,14 @@
 import { useState } from "react";
 import style from "./EllipsisBar.module.scss";
+import i18n from 'i18next';
+import {useTranslation} from 'react-i18next';
 
 function EllipsisBar() {
+  const {t} = useTranslation();
+  
   const [showChangeApparence, setShowChangeApparence] = useState(false);
   const [showChangeLangage, setShowChangeLangage] = useState(false);
-
+  
   function handleClickChangeApparence() {
     setShowChangeApparence(!showChangeApparence);
   }
@@ -14,11 +18,18 @@ function EllipsisBar() {
   }
 
   function darkMode() {
+    localStorage.setItem('mode', 'dark');
     document.documentElement.setAttribute("data-theme", "dark");
   }
 
   function lightMode() {
+    localStorage.setItem('mode', '');
     document.documentElement.setAttribute("data-theme", "");
+  }
+
+  function changeLangage(x){
+    localStorage.setItem('lng', x);
+    i18n.changeLanguage(x);
   }
 
   return (
@@ -35,13 +46,13 @@ function EllipsisBar() {
             onClick={lightMode}
             className={`${style.item} d-flex align-items-center`}
           >
-            Thème clair
+            {t("lightMode")}
           </div>
           <div
             onClick={darkMode}
             className={`${style.item} d-flex align-items-center`}
           >
-            Thème sombre
+            {t("darkMode")}
           </div>
         </div>
       ) : showChangeLangage ? (
@@ -52,11 +63,11 @@ function EllipsisBar() {
           >
             <i className="fas fa-arrow-left" />
           </div>
-          <div className={`${style.item} d-flex align-items-center`}>
-            Français
+          <div onClick={()=>changeLangage('fr')} className={`${style.item} d-flex align-items-center`}>
+            {t("french")}
           </div>
-          <div className={`${style.item} d-flex align-items-center`}>
-            Anglais
+          <div onClick={()=>changeLangage('en')} className={`${style.item} d-flex align-items-center`}>
+            {t("english")}
           </div>
         </div>
       ) : (
@@ -65,13 +76,13 @@ function EllipsisBar() {
             onClick={handleClickChangeApparence}
             className={`${style.item} ${style.item_top} d-flex align-items-center justify-content-center`}
           >
-            Apparence
+            {t("appearance")}
           </div>
           <div
             onClick={handleClickChangeLangage}
             className={`${style.item} d-flex align-items-center justify-content-center`}
           >
-            Langue
+            {t("language")}
           </div>
         </div>
       )}

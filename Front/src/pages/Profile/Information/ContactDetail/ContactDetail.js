@@ -5,8 +5,10 @@ import * as yup from 'yup';
 import {useForm} from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { editUser } from '../../../../apis/Users';
+import {useTranslation} from 'react-i18next';
 
 function ContactDetail(){
+    const {t} = useTranslation();
     const {user} = useContext(AuthContext);
     const [save, setSave]= useState(false);
 
@@ -57,7 +59,7 @@ function ContactDetail(){
 
     return(
         <div className="m20">
-            <h3 className='mb20'>Coordonnée</h3>
+            <h3 className='mb20'>{t('contactDetail')}</h3>
             <div className={`d-flex flex-fill align-items-center justify-content-center m30 mt50`}>
             <form onSubmit={submit}>
                 <div className={style.group}>
@@ -68,13 +70,13 @@ function ContactDetail(){
                 <div className={style.group}>
                     <input  type="text" id="lastname" defaultValue={user.lastname} required {...register('lastname')}/>
                     <span className={style.bar}></span>
-                    <label htmlFor="lastname">Nom</label>
+                    <label htmlFor="lastname">{t('lastname')}</label>
                 </div>
                 <div className="d-flex flex-row">
                     <div className={style.group}>
                         <input type="text" id="firstname" defaultValue={user.firstname} required {...register('firstname')}/>
                         <span className={style.bar}></span>
-                        <label htmlFor="firstname">Prénom</label>
+                        <label htmlFor="firstname">{t('firstname')}</label>
                     </div>
                 </div>
                 <ul className="errors-message d-flex flex-column mb20">
@@ -84,7 +86,7 @@ function ContactDetail(){
                     {save && <li>modification bien effectuer</li>}
                 </ul>
                 <div className='d-flex justify-content-end'>
-                    <button disabled={isSubmitting} className={`btn btn-primary ${style.btnSubmit}`}>Sauvegarder</button>
+                    <button disabled={isSubmitting} className={`btn btn-primary ${style.btnSubmit}`}>{t('save')}</button>
                 </div>
             </form>
         </div>

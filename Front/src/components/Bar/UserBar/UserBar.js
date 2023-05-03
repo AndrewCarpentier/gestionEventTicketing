@@ -2,10 +2,12 @@ import { useContext, useState } from "react";
 import style from "./UserBar.module.scss";
 import { AuthContext } from "../../../context/AuthContext";
 import { Link } from "react-router-dom";
+import i18n from 'i18next';
+import {useTranslation} from 'react-i18next';
 
 function UserBar() {
   const { user, signout } = useContext(AuthContext);
-
+  const {t} = useTranslation();
   const [showChangeApparence, setShowChangeApparence] = useState(false);
   const [showChangeLangage, setShowChangeLangage] = useState(false);
 
@@ -18,11 +20,18 @@ function UserBar() {
   }
 
   function darkMode() {
+    localStorage.setItem('mode', 'dark');
     document.documentElement.setAttribute("data-theme", "dark");
   }
 
   function lightMode() {
+    localStorage.setItem('mode', '');
     document.documentElement.setAttribute("data-theme", "");
+  }
+
+  function changeLangage(x){
+    localStorage.setItem('lng', x);
+    i18n.changeLanguage(x);
   }
 
   return (
@@ -39,13 +48,13 @@ function UserBar() {
             onClick={lightMode}
             className={`${style.item} d-flex align-items-center`}
           >
-            Thème clair
+            {t('lightMode')}
           </div>
           <div
             onClick={darkMode}
             className={`${style.item} d-flex align-items-center`}
           >
-            Thème sombre
+            {t('darkMode')}
           </div>
         </div>
       ) : showChangeLangage ? (
@@ -56,11 +65,11 @@ function UserBar() {
               className="fas fa-arrow-left"
             />
           </div>
-          <div className={`${style.item} d-flex align-items-center`}>
-            Français
+          <div onClick={()=>changeLangage('fr')} className={`${style.item} d-flex align-items-center`}>
+          {t('french')}
           </div>
-          <div className={`${style.item} d-flex align-items-center`}>
-            Anglais
+          <div onClick={()=>changeLangage('en')} className={`${style.item} d-flex align-items-center`}>
+          {t('english')}
           </div>
         </div>
       ) : (
@@ -77,7 +86,7 @@ function UserBar() {
               </div>
               <div>
                 <Link to="/profile/information" className={style.link}>
-                  Settings
+                {t('manageYourAccount')}
                 </Link>
               </div>
             </div>
@@ -85,49 +94,49 @@ function UserBar() {
           <div
             className={`${style.item} d-flex align-items-center justify-content-start`}
           >
-            Profile
+            {t('profil')}
           </div>
           <div
             className={`${style.item} d-flex align-items-center justify-content-start`}
           >
             <Link onClick={signout} to="/signin">
-              Se déconnecter
+            {t('signout')} 
             </Link>
           </div>
           <div className={style.separate} />
           <div
             className={`${style.item} d-flex align-items-center justify-content-start`}
           >
-            Intérêts
+            {t('interest')}
           </div>
           <div
             className={`${style.item} d-flex align-items-center justify-content-start`}
           >
-            Carte de crédit
+            {t('creditCard')}
           </div>
           <div
             className={`${style.item} d-flex align-items-center justify-content-start`}
           >
-            Donnée personnel
+            {t('personalData')}
           </div>
           <div className={style.separate} />
           <div
             onClick={handleClickChangeApparence}
             className={`${style.item} d-flex align-items-center justify-content-start`}
           >
-            Apparence
+            {t('appearance')}
           </div>
           <div
             onClick={handleClickChangeLangage}
             className={`${style.item} d-flex align-items-center justify-content-start`}
           >
-            Langue
+            {t('language')}
           </div>
           <div className={style.separate} />
           <div
             className={`${style.item} ${style.item_bottom} d-flex align-items-center justify-content-start`}
           >
-            Contact
+            {t('contact')}
           </div>
         </div>
       )}

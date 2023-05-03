@@ -120,7 +120,7 @@ class User {
     return new Promise((resolve, reject) => {
       try {
         connection.query(
-          "INSERT INTO user(mail, firstname, lastname, password) VALUES (?,?,?,?)",
+          "INSERT INTO user(mail, firstname, lastname, password, creationDate) VALUES (?,?,?,?,NOW())",
           [mail, firstname, lastname, password],
           (err, result) => {
             if (err) throw err;

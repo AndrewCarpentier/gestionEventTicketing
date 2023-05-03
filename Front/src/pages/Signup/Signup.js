@@ -1,67 +1,68 @@
-import style from './Signup.module.scss';
-import {useForm} from 'react-hook-form';
-import * as yup from 'yup';
-import {yupResolver} from '@hookform/resolvers/yup';
-import { createUser } from '../../apis/Users';
-import { useState } from 'react';
-import {Link, Navigate} from 'react-router-dom';
+import style from "./Signup.module.scss";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { createUser } from "../../apis/Users";
+import { useState } from "react";
+import { Link, Navigate } from "react-router-dom";
+import { useTranslation, Trans } from "react-i18next";
 
-function Signup(){
-    const [registerSuccess, setRegisterSuccess] = useState(false);
+function Signup() {
+  const { t } = useTranslation();
+  const [registerSuccess, setRegisterSuccess] = useState(false);
 
-    const validationSchema = yup.object({
-        mail: yup
-        .string()
-        .required('Ce champ doit être saisi')
-        .email('Email non valide'),
-        lastname: yup
-        .string()
-        .required('Ce champ doit être saisi'),
-        firstname: yup
-        .string()
-        .required('Ce champ doit être saisi'),
-        password: yup
-        .string()
-        .required('Ce champ doit être saisi')
-        .min(6, 'Au moins six caractères'),
-        passwordConfirm: yup
-        .string()
-        .required('Ce champ doit être saisi')
-        .oneOf([yup.ref('password'), null], 'Les mots de passe doivent correspondre')
-    });
-    const initialValues = {
-        mail: "",
-        lastname: "",
-        firstname: "",
-        password: "",
-        passwordConfirm: ""
+  const validationSchema = yup.object({
+    mail: yup
+      .string()
+      .required(<Trans>fieldRequired</Trans>)
+      .email(<Trans>fieldMail</Trans>),
+    lastname: yup.string().required(<Trans>fieldRequired</Trans>),
+    firstname: yup.string().required(<Trans>fieldRequired</Trans>),
+    password: yup
+      .string()
+      .required(<Trans>fieldRequired</Trans>)
+      .min(6, <Trans>fieldMin6</Trans>),
+    passwordConfirm: yup
+      .string()
+      .required(<Trans>fieldRequired</Trans>)
+      .oneOf(
+        [yup.ref("password"), null],
+        <Trans>fieldPasswordConfirm</Trans>
+      ),
+  });
+  const initialValues = {
+    mail: "",
+    lastname: "",
+    firstname: "",
+    password: "",
+    passwordConfirm: "",
+  };
+  const {
+    handleSubmit,
+    register,
+    formState: { errors, isSubmitting },
+    setError,
+  } = useForm({
+    initialValues,
+    resolver: yupResolver(validationSchema),
+  });
+
+  const submit = handleSubmit(async (values) => {
+    try {
+      if (await createUser(values)) {
+        setRegisterSuccess(true);
+      }
+    } catch (message) {
+      setError("generic", { type: "generic", message });
     }
-    const {
-        handleSubmit,
-        register,
-        formState: {errors, isSubmitting},
-        setError,
-    } = useForm({
-        initialValues,
-        resolver: yupResolver(validationSchema)
-    });
-
-    const submit = handleSubmit(async(values)=>{
-        try {
-            if(await createUser(values)){
-                setRegisterSuccess(true);
-            }
-        } catch (message) {
-            setError("generic", {type: 'generic', message});
-        }
-    })
-    return(
-        <div
+  });
+  return (
+    <div
       className={`d-flex flex-fill justify-content-center align-items-center ${style.appContainer}`}
     >
       {registerSuccess ? <Navigate to="/signin" /> : <></>}
       <form onSubmit={submit}>
-        <h2 className="mb10">S'inscrire</h2>
+        <h2 className="mb10">{t('signup')}</h2>
         <div className={`${style.group} mb20 mt20`}>
           <input type="text" id="mail" required {...register("mail")} />
           <span className={style.bar}></span>
@@ -70,7 +71,7 @@ function Signup(){
         <div className={`${style.group} mb20 mt20`}>
           <input type="text" id="lastname" required {...register("lastname")} />
           <span className={style.bar}></span>
-          <label htmlFor="lastname">Nom</label>
+          <label htmlFor="lastname">{t('lastname')}</label>
         </div>
         <div className={`${style.group} mb20 mt20`}>
           <input
@@ -80,7 +81,7 @@ function Signup(){
             {...register("firstname")}
           />
           <span className={style.bar}></span>
-          <label htmlFor="firstname">Prénom</label>
+          <label htmlFor="firstname">{t('firstname')}</label>
         </div>
         <div>
           <div className={`${style.group} mb20 mt20`}>
@@ -92,7 +93,7 @@ function Signup(){
               {...register("password")}
             />
             <span className={style.bar}></span>
-            <label htmlFor="password">Mot de passe</label>
+            <label htmlFor="password">{t('password')}</label>
           </div>
         </div>
         <div className={style.group}>
@@ -103,7 +104,7 @@ function Signup(){
             {...register("passwordConfirm")}
           />
           <span className={style.bar}></span>
-          <label htmlFor="passwordConfirm">Confirmation de mot de passe</label>
+          <label htmlFor="passwordConfirm">{t('passwordConfirm')}</label>
         </div>
         <ul className="errors-message d-flex flex-column mb20">
           {errors?.mail && (
@@ -129,17 +130,17 @@ function Signup(){
           disabled={isSubmitting}
           className={`btn btn-primary ${style.btnSubmit}`}
         >
-          S'inscrire
+          {t('signup')}
         </button>
         <Link
           to="/signin"
           className={`${style.login} d-flex justify-content-center my20`}
         >
-          Déjà inscrit
+          {t('alreadyRegistered')}
         </Link>
       </form>
     </div>
-    )
+  );
 }
 
 export default Signup;

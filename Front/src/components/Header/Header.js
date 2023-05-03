@@ -4,9 +4,11 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import EllipsisBar from "../Bar/EllipsisBar/EllipsisBar";
 import UserBar from "../Bar/UserBar/UserBar";
+import { useTranslation } from "react-i18next";
 
 function Header() {
   const { user } = useContext(AuthContext);
+  const {t} = useTranslation();
   const [showEllipsisBar, setShowEllipsisBar] = useState(false);
   const [showUserBar, setShowUserBar] = useState(false);
 
@@ -21,15 +23,14 @@ function Header() {
   return (
     <div className={`${style.header} d-flex`}>
       <div className={`${style.start} d-flex`}>
-        <i className="fas fa-bars" />
-        <h1 className={`d-flex align-items-center`}>
+        <h1 className={`d-flex align-items-center ml20`}>
           <Link to="/">EventMaster</Link>
         </h1>
       </div>
       <div
         className={`${style.center} d-flex align-items-center justify-content-center`}
       >
-        <input placeholder="search" />
+        <input placeholder={t('search')}/>
       </div>
       <div
         className={`${style.end} mr10 d-flex align-items-center justify-content-end`}
@@ -42,7 +43,7 @@ function Header() {
           <>
             <i onClick={handleClickEllipsis} className={`fas fa-ellipsis-vertical ${style.ellipsis}`} />
             <button className="btn btn-primary">
-              <Link to="/signin">Se connecter</Link>
+              <Link to="/signin">{t('signin')}</Link>
             </button>
           </>
         )}

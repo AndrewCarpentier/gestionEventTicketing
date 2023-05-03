@@ -13,7 +13,7 @@ import ResetPassword from "../pages/PasswordLost/ResetPassword/ResetPassword";
 
 export const router = createBrowserRouter([
   {
-    path: "/",
+    path: "",
     element: <App />,
     loader: userLoader,
     children: [
@@ -22,7 +22,7 @@ export const router = createBrowserRouter([
         element: <Homepage />,
       },
       {
-        path: "/signin",
+        path: "signin",
         element: (
           <ProtectedRoutesAuth>
             <Signin />
@@ -30,7 +30,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "/bookmark",
+        path: "bookmark",
         element: (
           <ProtectedRoutesNotAuth>
             <Homepage />
@@ -38,7 +38,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "/signup",
+        path: "signup",
         element: (
           <ProtectedRoutesAuth>
             <Signup />
@@ -46,7 +46,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "/profile/information",
+        path: "profile/information",
         element: (
           <ProtectedRoutesNotAuth>
             <Information />
@@ -54,7 +54,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "/passwordlost",
+        path: "passwordlost",
         element: (
           <ProtectedRoutesAuth>
             <PasswordLost />
@@ -66,11 +66,14 @@ export const router = createBrowserRouter([
             element: <SendLink />,
           },
           {
-            path: "passwordlost/:token",
+            path: ":token",
             element: <ResetPassword />,
           },
         ],
       },
+      {
+        path: "/*"
+      }
     ],
   },
 ]);

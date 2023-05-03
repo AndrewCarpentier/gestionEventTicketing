@@ -5,19 +5,21 @@ import {yupResolver} from '@hookform/resolvers/yup';
 import {Link} from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
+import { useTranslation, Trans } from 'react-i18next';
 
 function Signin(){
     const {signin} = useContext(AuthContext);
+    const {t} = useTranslation();
 
     const validationSchema = yup.object({
         mail: yup
         .string()
-        .required('Ce champ doit être saisi')
-        .email('Email non valide'),
+        .required(<Trans>fieldRequired</Trans>)
+        .email(<Trans>fieldmail</Trans>),
         password: yup
         .string()
-        .required('Ce champ doit être saisi')
-        .min(6, 'Au moins six caractères'),
+        .required(<Trans>fieldRequired</Trans>)
+        .min(6, <Trans>fieldMin6</Trans>),
     });
     const initialValues = {
         mail: "",
@@ -48,7 +50,7 @@ function Signin(){
       className={`d-flex flex-fill align-items-center justify-content-center ${style.appContainer}`}
     >
       <form onSubmit={submit}>
-        <h2 className="mb10">Se connecter</h2>
+        <h2 className="mb10">{t('signin')}</h2>
         <div className={`${style.group} mb20 mt20`}>
           <input type="text" id="mail" required {...register("mail")} />
           <span className={style.bar}></span>
@@ -62,9 +64,9 @@ function Signin(){
             {...register("password")}
           />
           <span className={style.bar}></span>
-          <label htmlFor="password">Mot de passe</label>
+          <label htmlFor="password">{t('password')}</label>
           <div className="m10">
-            <Link className={`${style.register}`} to="/passwordlost">Mot de passe oublié?</Link>
+            <Link className={`${style.register}`} to="/passwordlost">{t('passwordLost')} ?</Link>
           </div>
         </div>
         <ul className="errors-message d-flex flex-column mb20">
@@ -82,13 +84,13 @@ function Signin(){
           disabled={isSubmitting}
           className={`btn btn-primary ${style.btnSubmit}`}
         >
-          Se connecter
+          {t('signin')}
         </button>
         <Link
           to="/signup"
           className={`${style.register} d-flex justify-content-center my20`}
         >
-          S'inscrire
+          {t('signup')}
         </Link>
       </form>
     </div>

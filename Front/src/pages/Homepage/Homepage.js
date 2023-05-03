@@ -4,8 +4,10 @@ import Event from '../Event/Event/Event';
 import { getBookmarkEvents, getEvents } from '../../apis/Event';
 import { AuthContext } from '../../context/AuthContext';
 import {useLocation} from 'react-router-dom';
+import {useTranslation} from 'react-i18next';
 
 function Homepage(){
+    const {t} = useTranslation();
     const [eventList, setEventList] = useState([]);
     const {user} = useContext(AuthContext);
     const location = useLocation();
@@ -22,7 +24,7 @@ function Homepage(){
         <div>
             {
                 !eventList.length?(
-                    <div className='d-flex justify-content-center align-items-center'>Loading...</div>
+                    <div className='d-flex justify-content-center align-items-center'>{t('loading')}...</div>
                 ) : (
                     <div className={`${style.container} d-flex justify-content-center`}>
                         {
