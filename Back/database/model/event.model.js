@@ -41,6 +41,32 @@ class Event {
     });
   }
 
+  getCategory(){
+    return new Promise((resolve, reject)=>{
+      try {
+        connection.query('SELECT * FROM category', async (err, result) => {
+          if(err) throw err;
+          resolve(result);
+        })
+      } catch (error) {
+        reject(null);
+      }
+    });
+  }
+
+  getSubCategory(){
+    return new Promise((resolve,reject)=>{
+      try {
+        connection.query('SELECT * from subcategory', async (err,result)=>{
+          if(err) throw err;
+          resolve(result);
+        });
+      } catch (error) {
+        reject(null);
+      }
+    })
+  }
+
   getBookmarkEvents(idUser) {
     return new Promise((resolve, reject) => {
       try {

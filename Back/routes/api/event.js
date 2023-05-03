@@ -13,4 +13,9 @@ router.get('/getBookmarkEvents', async(req,res)=>{
     res.json(await event.getBookmarkEvents(id));
 });
 
+router.get('/getCategory', async(req,res)=>{
+    const event = new Event();
+    res.json({category : await event.getCategory(), subCategory : await event.getSubCategory()});
+});
+
 module.exports = router;

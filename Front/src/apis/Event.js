@@ -9,7 +9,7 @@ export async function getEvents(id){
         if(backResponse){
             throw backResponse;
         }else{
-            throw new Error('Error api create user');
+            throw new Error('Error api');
         }
     }
 }
@@ -23,7 +23,21 @@ export async function getBookmarkEvents(id){
         if(backResponse){
             throw backResponse;
         }else{
-            throw new Error('Error api create user');
+            throw new Error('Error api');
+        }
+    }
+}
+
+export async function getCategory(){
+    const response = await fetch(`${API_EVENT}/getCategory`);
+    const backResponse = await response.json();
+    if(response.ok){
+        return backResponse;
+    }else{
+        if(backResponse){
+            throw backResponse;
+        }else{
+            throw new Error('Error api')
         }
     }
 }

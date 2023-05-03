@@ -18,7 +18,7 @@ function App() {
     <AuthProvider>
       <div className={`d-flex flex-column ${styles.appContainer}`}>
             <Header/>
-            <div className='d-flex justify-content-center'>
+            <div>
             <Sidebar/>
             <MobileSidebar/>
             <Suspense>

@@ -42,12 +42,15 @@ function Header() {
       >
         {user ? (
           <>
+            <Link to="/createEvent/step1" className={`${style.createEvent}`}><i className={`fas fa-plus  `} /></Link>
             <i className={`fas fa-magnifying-glass ${style.searchMobile}`} />
             <i onClick={handleClickUserBar} className={`fas fa-circle-user`} />
           </>
         ) : (
           <>
-            <i className={`fas fa-magnifying-glass ${style.searchMobileNotConnected}`} />
+            <i
+              className={`fas fa-magnifying-glass ${style.searchMobileNotConnected}`}
+            />
             <i
               onClick={handleClickEllipsis}
               className={`fas fa-ellipsis-vertical ${style.ellipsis}`}
