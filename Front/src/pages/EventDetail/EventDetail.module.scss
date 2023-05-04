@@ -1,0 +1,41 @@
+.container{
+    margin-top: 50px;
+    margin-left: 200px;
+    @media only screen and (max-width: 600px) {
+        margin-left: 0;
+    }
+
+    .container2{
+        margin-top: 10px;
+        margin-left: 30px;
+        h1{
+            font-size: 50px;
+        }
+
+        .whereWhenContainer{
+            margin: 20px;
+        }
+
+        .whereWhen{
+            height: 70px;
+        }
+
+        .inRegardTo{
+            margin: 20px;
+        }
+
+        .showmap{
+            cursor: pointer;
+            color: var(--primary);
+            &:hover{
+                color: var(--dark);
+            }
+        }
+    }
+
+    .img{
+        height: 200px;
+        width: 100%;
+        border-radius: 0;
+    }
+}

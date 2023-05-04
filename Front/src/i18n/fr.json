@@ -34,5 +34,11 @@
     "fieldMail": "Email non valide",
     "fieldMin6": "Au moins six caractères",
     "fieldPasswordConfirm": "Les mots de passe doivent correspondre",
-    "information" : "Information"
+    "information" : "Information",
+    "whereAndWhen" : "Où et quand",
+    "dateAndHour" : "Date et heure",
+    "location" : "Lieu",
+    "showMap" : "Afficher la carte",
+    "hideMap" : "Masque la carte",
+    "inRegardsTo" : "A propos"
 }

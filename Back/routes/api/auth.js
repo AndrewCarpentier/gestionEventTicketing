@@ -48,7 +48,11 @@ router.get("/current", async (req, res) => {
 });
 
 router.delete("/", (req, res) => {
-  res.clearCookie("auth");
+  res.clearCookie("auth", {
+    sameSite : "none",
+    httpOnly : true,
+    secure : true
+  });
   res.end();
 });
 

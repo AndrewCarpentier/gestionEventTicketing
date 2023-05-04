@@ -41,30 +41,51 @@ class Event {
     });
   }
 
-  getCategory(){
-    return new Promise((resolve, reject)=>{
+  getEventById(idEvent) {
+    return new Promise((resolve, reject) => {
       try {
-        connection.query('SELECT * FROM category', async (err, result) => {
-          if(err) throw err;
+        connection.query(
+          "SELECT * FROM event WHERE id = ?",
+          [idEvent],
+          (err, result) => {
+            if (err) throw err;
+            result[0].startDate = result[0].startDate.toDateString();
+            result[0].creationDate = result[0].creationDate.toDateString();
+            result[0].endDate = result[0].endDate.toDateString();
+            result[0].datePublish = result[0].datePublish.toDateString();
+            resolve(result);
+          }
+        );
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
+  getCategory() {
+    return new Promise((resolve, reject) => {
+      try {
+        connection.query("SELECT * FROM category", async (err, result) => {
+          if (err) throw err;
           resolve(result);
-        })
+        });
       } catch (error) {
         reject(null);
       }
     });
   }
 
-  getSubCategory(){
-    return new Promise((resolve,reject)=>{
+  getSubCategory() {
+    return new Promise((resolve, reject) => {
       try {
-        connection.query('SELECT * from subcategory', async (err,result)=>{
-          if(err) throw err;
+        connection.query("SELECT * from subcategory", async (err, result) => {
+          if (err) throw err;
           resolve(result);
         });
       } catch (error) {
         reject(null);
       }
-    })
+    });
   }
 
   getBookmarkEvents(idUser) {

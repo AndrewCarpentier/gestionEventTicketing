@@ -18,4 +18,10 @@ router.get('/getCategory', async(req,res)=>{
     res.json({category : await event.getCategory(), subCategory : await event.getSubCategory()});
 });
 
+router.get('/getEvent/:idEvent', async(req,res)=>{
+    const {idEvent} = req.params;
+    const event = new Event();
+    res.json(await event.getEventById(idEvent));
+});
+
 module.exports = router;

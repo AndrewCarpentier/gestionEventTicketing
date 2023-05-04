@@ -12,6 +12,7 @@ import SendLink from "../pages/PasswordLost/SendLink/SendLink";
 import ResetPassword from "../pages/PasswordLost/ResetPassword/ResetPassword";
 import CreateEvent from "../pages/CreateEvent/CreateEvent";
 import Step1 from "../pages/CreateEvent/step/Step1";
+import EventDetail from "../pages/EventDetail/EventDetail";
 
 export const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <Homepage />,
+      },
+      {
+        path: ":id",
+        element: <EventDetail />,
       },
       {
         path: "signin",
@@ -62,12 +67,12 @@ export const router = createBrowserRouter([
             <CreateEvent />
           </ProtectedRoutesNotAuth>
         ),
-        children : [
+        children: [
           {
             path: "step1",
-            element: <Step1/>
-          }
-        ]
+            element: <Step1 />,
+          },
+        ],
       },
       {
         path: "passwordlost",
