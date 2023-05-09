@@ -3,8 +3,8 @@ const bcrypt = require("bcrypt");
 const jsonwebtoken = require("jsonwebtoken");
 const { key, keyPub } = require("../../keys");
 const User = require("../../database/model/user.model");
-const TokenGenerator = require('../../utils/Token');
-const sendMail = require('../../utils/Mail');
+const TokenGenerator = require("../../utils/Token");
+const sendMail = require("../../utils/Mail");
 
 router.post("/", async (req, res) => {
   const { mail, password } = req.body;
@@ -33,67 +33,68 @@ router.post("/", async (req, res) => {
 
 router.get("/current", async (req, res) => {
   const { auth } = req.cookies;
-  if(auth){
+  if (auth) {
     const decodedToken = jsonwebtoken.verify(auth, keyPub);
     const user = new User();
     await user.getById(decodedToken.sub);
-    if(user){
-        res.json(user.getUserWithoutPassword)
-    }else{
-        res.json(null);
+    if (user) {
+      res.json(user.getUserWithoutPassword);
+    } else {
+      res.json(null);
     }
-  }else{
+  } else {
     res.json(null);
   }
 });
 
 router.delete("/", (req, res) => {
   res.clearCookie("auth", {
-    sameSite : "none",
-    httpOnly : true,
-    secure : true
+    sameSite: "none",
+    httpOnly: true,
+    secure: true,
   });
   res.end();
 });
 
-router.post("/sendLinkPasswordLost", async(req,res)=>{
-  const {mail} = req.body;
+router.post("/sendLinkPasswordLost", async (req, res) => {
+  const { mail } = req.body;
   const user = new User();
   await user.getByMail(mail);
-  if(user.id !== null){
+  console.log("test");
+  if (user.id !== null) {
     const token = TokenGenerator(32);
-    if(user.setPasswordLost(token, user.id)){
-      if(await sendMail(token, mail)){
-        res.json('Un mail vous à était envoyer')
-      }else{
-        res.json('Oops une erreur est survenue');
+    if (user.setPasswordLost(token, user.id)) {
+      if (await sendMail(token, mail)) {
+        res.json("Un mail vous à était envoyer");
+      } else {
+        res.json("Oops une erreur est survenue");
       }
-    }else{
-      res.json('Oops une erreur est survenue');
+    } else {
+      res.json("Oops une erreur est survenue");
     }
-  }else{
+  } else {
     res.json("Ce mail n'existe pas");
   }
 });
 
-router.post('/resetPassword', async(req,res)=>{
-  const {token, password, passwordConfirm} = req.body;
+router.post("/resetPassword", async (req, res) => {
+  const { token, password, passwordConfirm } = req.body;
 
-  if(password == passwordConfirm){
+  if (password == passwordConfirm) {
     const user = new User();
     await user.getByPasswordLostToken(token);
-    if(bcrypt.compareSync(password, user.password)){
-      res.send('vous devez saisir un mot de passe different du précédent');
-    }else{
+    if (bcrypt.compareSync(password, user.password)) {
+      res.send("vous devez saisir un mot de passe different du précédent");
+    } else {
       const passwordHash = await bcrypt.hash(password, 10);
-      if(user.updatePassword(passwordHash, user.id)){
-        res.json('password à bien était modifier');
-      }else{
-        res.json('Oops une erreur est survenue');
+      if (user.updatePassword(passwordHash, user.id)) {
+        res.json(true);
+      } else {
+        res.json("Oops une erreur est survenue");
       }
     }
-  }else{
-    res.status(400).json('password pas identique');
+  } else {
+    res.status(400).json("password pas identique");
   }
 });
 

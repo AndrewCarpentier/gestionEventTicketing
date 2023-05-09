@@ -1,5 +1,9 @@
-.appContainer{
-    min-height: 100vh;
+.container{
+    position: fixed;
+    height: 100%;
+    top: 50px;
+    right: 0;
+    border-left: 1px solid var(--primary);
 }
 
 form{
@@ -12,8 +16,7 @@ form{
 }
 
 .group 			  { 
-  position: inherit;
-  margin-bottom:45px; 
+  margin-bottom:20px; 
 
   input 				{
     font-size:18px;
@@ -31,6 +34,8 @@ form{
     font-size:18px;
     font-weight:normal;
     pointer-events:none;
+    left:5px;
+    top:10px;
     transition:0.2s ease all; 
     -moz-transition:0.2s ease all; 
     -webkit-transition:0.2s ease all;
@@ -78,12 +83,4 @@ form{
 
 i{
   cursor: pointer;
-}
-
-.register{
-  cursor: pointer;
-  color: var(--primary);
-  &:hover{
-    color: var(--accent);
-  }
 }

@@ -55,3 +55,22 @@ export async function getCategory(){
         }
     }
 }
+
+export async function CreateEvent(event){
+    const response = await fetch(`${API_EVENT}/create`,{
+        method: "POST",
+        body: JSON.stringify(event),
+        headers: {"Content-Type" : "application/json"}
+    });
+    const backResponse = await response.json();
+    console.log(backResponse);
+    if(response.ok){
+        return backResponse;
+    }else{
+        if(backResponse){
+            throw backResponse;
+        }else{
+            throw new Error('Error api');
+        }
+    }
+}

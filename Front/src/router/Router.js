@@ -11,8 +11,11 @@ import PasswordLost from "../pages/PasswordLost/PasswordLost";
 import SendLink from "../pages/PasswordLost/SendLink/SendLink";
 import ResetPassword from "../pages/PasswordLost/ResetPassword/ResetPassword";
 import CreateEvent from "../pages/CreateEvent/CreateEvent";
-import Step1 from "../pages/CreateEvent/step/Step1";
+import Step1 from "../pages/CreateEvent/step/Step1/Step1";
 import EventDetail from "../pages/EventDetail/EventDetail";
+import Step2 from "../pages/CreateEvent/step/Step2/Step2";
+import Step3 from "../pages/CreateEvent/step/Step3/Step3";
+import Step4 from "../pages/CreateEvent/step/Step4/Step4";
 
 export const router = createBrowserRouter([
   {
@@ -71,6 +74,18 @@ export const router = createBrowserRouter([
           {
             path: "step1",
             element: <Step1 />,
+          },
+          {
+            path: "step2",
+            element: <Step2 />,
+          },
+          {
+            path: "step3",
+            element: <Step3 />,
+          },
+          {
+            path: "step4",
+            element: <Step4 />,
           },
         ],
       },

@@ -12,7 +12,6 @@ form{
 }
 
 .group 			  { 
-  position:relative; 
 
   input 				{
     font-size:18px;
@@ -29,7 +28,6 @@ form{
     color:var(--gray-1); 
     font-size:18px;
     font-weight:normal;
-    position:absolute;
     pointer-events:none;
     left:5px;
     top:10px;

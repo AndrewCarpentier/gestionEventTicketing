@@ -1,22 +1,49 @@
-const emailjs = require('@emailjs/nodejs');
-require('dotenv').config();
+const nodemailer = require("nodemailer");
+const hbs = require("nodemailer-express-handlebars");
+const path = require("path");
 
-async function send(token,mail){
-    const templateParams = {
-        token : token,
-        mail : mail
-    };
+async function send(token, mail) {
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "andr3wcarpentier@gmail.com",
+      pass: "lmebtehgfblqhvxb",
+    },
+    tls: {
+      // do not fail on invalid certs
+      rejectUnauthorized: false,
+    },
+  });
 
-    const response = await emailjs.send(process.env.SERVICE_MAIL, process.env.TEMPLATE_MAIL, templateParams, {
-        publicKey: process.env.PUBLIC_KEY_MAIL,
-        privateKey: process.env.PRIVATE_KEY_MAIL
-    })
-    
-    if(response.status == 200){
-        return true;
-    }else{
-        return false;
+  const handlebarOptions = {
+    viewEngine:  {
+      partialsDir:  path.resolve('./utils/views/'),
+      defaultLayout:  false
+    },
+    viewPath:  path.resolve('./utils/views/'),
+  };
+
+  transporter.use('compile', hbs(handlebarOptions));
+
+  const mailOptions = {
+    from: "andr3wcarpentier@gmail.com",
+    to: mail,
+    subject: "EVENTMASTER reset password",
+    template: "email",
+  
+    context: {
+      name: mail,
+      token : token
     }
+  };
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Email sent: " + info.response);
+    }
+  });
 }
 
 module.exports = send;

@@ -2,12 +2,15 @@ import style from "./ResetPassword.module.scss";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Link, useParams } from "react-router-dom";
-import {resetPassword} from '../../../apis/Auth';
-import {useTranslation, Trans} from 'react-i18next';
+import { Link, Navigate, useParams } from "react-router-dom";
+import { resetPassword } from "../../../apis/Auth";
+import { useTranslation, Trans } from "react-i18next";
+import { useState } from "react";
 
 function ResetPassword() {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
+  const [success, setSuccess] = useState(false);
+
   const { token } = useParams();
   const validationSchema = yup.object({
     password: yup
@@ -17,10 +20,7 @@ function ResetPassword() {
     passwordConfirm: yup
       .string()
       .required(<Trans>fieldRequired</Trans>)
-      .oneOf(
-        [yup.ref("password"), null],
-        <Trans>fieldPasswordConfirm</Trans>
-      ),
+      .oneOf([yup.ref("password"), null], <Trans>fieldPasswordConfirm</Trans>),
   });
   const initialValues = {
     password: "",
@@ -39,11 +39,15 @@ function ResetPassword() {
 
   const submit = handleSubmit(async (values) => {
     try {
-      resetPassword({
-        token,
-        password: values.password,
-        passwordConfirm: values.passwordConfirm,
-      });
+      if (
+        resetPassword({
+          token,
+          password: values.password,
+          passwordConfirm: values.passwordConfirm,
+        })
+      ) {
+        setSuccess(true);
+      }
       clearErrors();
     } catch (message) {
       setError("generic", { type: "generic", message });
@@ -54,9 +58,11 @@ function ResetPassword() {
     <div
       className={`d-flex flex-fill align-items-center justify-content-center ${style.appContainer}`}
     >
+      {success ? <Navigate to="/" /> : ""}
       <form onSubmit={submit}>
-        <h2 className="mb10">{t('passwordLost')}</h2>
+        <h2 className="mb10">{t("passwordLost")}</h2>
         <div className={`${style.group} mb20 mt20`}>
+          <label htmlFor="password">{t("password")}</label>
           <input
             type="password"
             id="password"
@@ -64,9 +70,9 @@ function ResetPassword() {
             {...register("password")}
           />
           <span className={style.bar}></span>
-          <label htmlFor="password">{t('password')}</label>
         </div>
         <div className={`${style.group} mb20 mt20`}>
+          <label htmlFor="passwordConfirm">{t("passwordConfirm")}</label>
           <input
             type="password"
             id="passwordConfirm"
@@ -74,7 +80,6 @@ function ResetPassword() {
             {...register("passwordConfirm")}
           />
           <span className={style.bar}></span>
-          <label htmlFor="passwordConfirm">{t('passwordConfirm')}</label>
         </div>
         <ul className="errors-message d-flex flex-column mb20">
           {errors?.mail && (
@@ -88,13 +93,13 @@ function ResetPassword() {
           disabled={isSubmitting}
           className={`btn btn-primary ${style.btnSubmit}`}
         >
-          {t('save')}
+          {t("save")}
         </button>
         <Link
           to="/signin"
           className={`${style.connection} d-flex justify-content-center my20`}
         >
-          {t('backToLoginPage')}
+          {t("backToLoginPage")}
         </Link>
       </form>
     </div>

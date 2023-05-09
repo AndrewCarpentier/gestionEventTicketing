@@ -25,10 +25,7 @@ function Signup() {
     passwordConfirm: yup
       .string()
       .required(<Trans>fieldRequired</Trans>)
-      .oneOf(
-        [yup.ref("password"), null],
-        <Trans>fieldPasswordConfirm</Trans>
-      ),
+      .oneOf([yup.ref("password"), null], <Trans>fieldPasswordConfirm</Trans>),
   });
   const initialValues = {
     mail: "",
@@ -62,18 +59,19 @@ function Signup() {
     >
       {registerSuccess ? <Navigate to="/signin" /> : <></>}
       <form onSubmit={submit}>
-        <h2 className="mb10">{t('signup')}</h2>
+        <h2 className="mb10">{t("signup")}</h2>
         <div className={`${style.group} mb20 mt20`}>
+          <label htmlFor="mail">E-Mail</label>
           <input type="text" id="mail" required {...register("mail")} />
           <span className={style.bar}></span>
-          <label htmlFor="mail">E-Mail</label>
         </div>
         <div className={`${style.group} mb20 mt20`}>
+          <label htmlFor="lastname">{t("lastname")}</label>
           <input type="text" id="lastname" required {...register("lastname")} />
           <span className={style.bar}></span>
-          <label htmlFor="lastname">{t('lastname')}</label>
         </div>
         <div className={`${style.group} mb20 mt20`}>
+          <label htmlFor="firstname">{t("firstname")}</label>
           <input
             type="text"
             id="firstname"
@@ -81,10 +79,10 @@ function Signup() {
             {...register("firstname")}
           />
           <span className={style.bar}></span>
-          <label htmlFor="firstname">{t('firstname')}</label>
         </div>
         <div>
           <div className={`${style.group} mb20 mt20`}>
+            <label htmlFor="password">{t("password")}</label>
             <input
               type="password"
               name="password"
@@ -93,10 +91,10 @@ function Signup() {
               {...register("password")}
             />
             <span className={style.bar}></span>
-            <label htmlFor="password">{t('password')}</label>
           </div>
         </div>
         <div className={style.group}>
+          <label htmlFor="passwordConfirm">{t("passwordConfirm")}</label>
           <input
             type="password"
             id="passwordConfirm"
@@ -104,7 +102,6 @@ function Signup() {
             {...register("passwordConfirm")}
           />
           <span className={style.bar}></span>
-          <label htmlFor="passwordConfirm">{t('passwordConfirm')}</label>
         </div>
         <ul className="errors-message d-flex flex-column mb20">
           {errors?.mail && (
@@ -122,21 +119,21 @@ function Signup() {
           {errors?.confirmPassword && (
             <li className="error-message">{errors.confirmPassword.message}</li>
           )}
-          {/* {errors.generic && (
+          {errors.generic && (
             <li className="error-message">{errors.generic.message}</li>
-          )} */}
+          )}
         </ul>
         <button
           disabled={isSubmitting}
           className={`btn btn-primary ${style.btnSubmit}`}
         >
-          {t('signup')}
+          {t("signup")}
         </button>
         <Link
           to="/signin"
           className={`${style.login} d-flex justify-content-center my20`}
         >
-          {t('alreadyRegistered')}
+          {t("alreadyRegistered")}
         </Link>
       </form>
     </div>

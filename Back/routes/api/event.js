@@ -24,4 +24,9 @@ router.get('/getEvent/:idEvent', async(req,res)=>{
     res.json(await event.getEventById(idEvent));
 });
 
+router.post('/create', async(req,res)=>{
+    const event = new Event();
+    res.json(await event.create(req.body));
+});
+
 module.exports = router;

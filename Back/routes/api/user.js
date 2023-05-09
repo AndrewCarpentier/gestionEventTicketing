@@ -41,7 +41,6 @@ router.post("/edit", async (req, res) => {
   const { id, mail, lastname, firstname } = req.body;
   const user = new User();
   await user.getByMail(mail);
-  console.log(user);
   if (user.id === null) {
     if (await user.update(id, mail, lastname, firstname)) {
       res.json(true);

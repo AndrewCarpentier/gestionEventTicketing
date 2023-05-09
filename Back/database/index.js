@@ -8,10 +8,10 @@ const mysql = require('mysql');
 // });
 
 const connection = mysql.createConnection({
-    host: "sql7.freemysqlhosting.net",
-    user: "sql7615877",
-    password: "daHCGe197j",
-    database: "sql7615877",
+    host: "localhost",
+    user: "root",
+    password: "",
+    database: "ticketing2",
 });
 
 connection.connect((err) => {

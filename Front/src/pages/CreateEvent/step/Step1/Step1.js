@@ -3,9 +3,10 @@ import style from "./Step1.module.scss";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { getCategory } from "../../../apis/Event";
+import { getCategory } from "../../../../apis/Event";
 import { useContext, useEffect, useState } from "react";
-import { CreateEventContext } from "../../../context/CreateEventContext";
+import { CreateEventContext } from "../../../../context/CreateEventContext";
+import { Navigate } from "react-router-dom";
 
 function Step1() {
   const { t } = useTranslation();
@@ -15,6 +16,7 @@ function Step1() {
   const [categoryChooseId, setCategoryChooseId] = useState(0);
   const [subCategoryChooseId, setSubCategoryChooseId] = useState(0);
   const [chooseLocation, setChooseLocation] = useState(true);
+  const [step1Success, setStep1Success] = useState(false);
 
   useEffect(() => {
     getCategory().then((c) => {
@@ -31,6 +33,8 @@ function Step1() {
     onlineLink: !chooseLocation
       ? yup.string().required(<Trans>fieldRequired</Trans>)
       : yup.string(),
+    startDate: yup.string().required(<Trans>fieldRequired</Trans>),
+    endDate: yup.string().required(<Trans>fieldRequired</Trans>),
   });
   const initialValues = {
     eventName: "",
@@ -52,19 +56,20 @@ function Step1() {
   const submit = handleSubmit(async (values) => {
     try {
       clearErrors();
-      let x = await step1({
-        value: values,
-        category: categoryChooseId,
-        subCategory: subCategoryChooseId,
-      });
-      console.log(x);
+      setStep1Success(
+        await step1({
+          value: values,
+          category: categoryChooseId,
+          subCategory: subCategoryChooseId,
+        })
+      );
     } catch (message) {
       setError("generic", { type: "generic", message });
     }
   });
 
   function changeCategory(e) {
-    if (e.target.value !== "Categorie") {
+    if (e.target.value !== t("category")) {
       setCategoryChooseId(e.target.value);
     } else {
       setCategoryChooseId(0);
@@ -72,7 +77,7 @@ function Step1() {
   }
 
   function changeSubCategory(e) {
-    if (e.target.value !== "SubCategorie") {
+    if (e.target.value !== t("subCategory")) {
       setSubCategoryChooseId(e.target.value);
     } else {
       setSubCategoryChooseId(0);
@@ -101,9 +106,11 @@ function Step1() {
     <div
       className={`d-flex flex-fill align-items-center justify-content-center ${style.appContainer}`}
     >
+      {step1Success ? <Navigate to="/createEvent/step2" /> : ""}
       <form onSubmit={submit}>
-        <h2 className="mb10">Info de base</h2>
+        <h2 className="mb10">{t("basicInformation")}</h2>
         <div className={`${style.group} mb20 mt20`}>
+          <label htmlFor="eventName">{t("eventName")} </label>
           <input
             type="text"
             id="eventName"
@@ -111,10 +118,9 @@ function Step1() {
             {...register("eventName")}
           />
           <span className={style.bar}></span>
-          <label htmlFor="eventName">Event name</label>
         </div>
         <select onChange={changeCategory}>
-          <option>Categorie</option>
+          <option>{t("category")}</option>
           {category.length
             ? category.map((c) => (
                 <option value={c.id} key={c.id}>
@@ -126,7 +132,7 @@ function Step1() {
 
         {categoryChooseId !== 0 ? (
           <select onChange={changeSubCategory}>
-            <option>SubCategorie</option>
+            <option>{t("subCategory")}</option>
             {subCategory.length
               ? subCategory
                   .filter(
@@ -144,14 +150,14 @@ function Step1() {
           ""
         )}
 
-        <h2 className="mb10">Lieu</h2>
+        <h2 className="mb10">{t("location")}</h2>
         <button
           onClick={() => changeLocation("location")}
           id="location"
           type="button"
           className="btn btn-primary"
         >
-          Lieu
+          {t("location")}
         </button>
         <button
           onClick={() => changeLocation("online")}
@@ -159,10 +165,11 @@ function Step1() {
           type="button"
           className="btn btn-primary-reverse"
         >
-          Online event
+          {t("onlineEvent")}
         </button>
         {chooseLocation ? (
           <div className={`${style.group} mb20 mt20`}>
+            <label htmlFor="location">{t("location")}</label>
             <input
               type="text"
               id="location"
@@ -170,13 +177,13 @@ function Step1() {
               {...register("location")}
             />
             <span className={style.bar}></span>
-            <label htmlFor="location">Lieu ou adresse</label>
           </div>
         ) : (
           ""
         )}
         {!chooseLocation ? (
           <div className={`${style.group} mb20 mt20`}>
+            <label htmlFor="onlineLink">{t("link")}</label>
             <input
               type="text"
               id="onlineLink"
@@ -184,15 +191,16 @@ function Step1() {
               {...register("onlineLink")}
             />
             <span className={style.bar}></span>
-            <label htmlFor="onlineLink">Link</label>
           </div>
         ) : (
           ""
         )}
 
-        <h2 className="mb10">Date et heure</h2>
+        <h2 className="mb10">{t("dateAndHour")}</h2>
+        <div>{t("startDate")}</div>
         <div className="d-flex">
           <div className={`${style.group} mb20 mt20`}>
+            <label htmlFor="location"></label>
             <input
               type="date"
               id="location"
@@ -200,7 +208,6 @@ function Step1() {
               {...register("startDate")}
             />
             <span className={style.bar}></span>
-            <label htmlFor="location"></label>
           </div>
           <select {...register("startHour")}>
             <option>00:00</option>
@@ -253,8 +260,10 @@ function Step1() {
             <option>23:30</option>
           </select>
         </div>
+        <div>{t("endDate")}</div>
         <div className="d-flex">
           <div className={`${style.group} mb20 mt20`}>
+            <label htmlFor="location"></label>
             <input
               type="date"
               id="location"
@@ -262,7 +271,6 @@ function Step1() {
               {...register("endDate")}
             />
             <span className={style.bar}></span>
-            <label htmlFor="location"></label>
           </div>
           <select {...register("endHour")}>
             <option>00:00</option>
@@ -322,9 +330,6 @@ function Step1() {
           {errors?.password && (
             <li className="error-message">{errors.password.message}</li>
           )}
-          {/* {errors.generic && (
-            <li className="error-message">{errors.generic.message}</li>
-          )} */}
         </ul>
         <button
           disabled={isSubmitting}

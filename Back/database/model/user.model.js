@@ -187,6 +187,7 @@ class User {
           [token, id],
           (err, result) => {
             if (err) throw err;
+            console.log(this.password)
             if (result.affectedRows == 1) {
               resolve(true);
             } else {
@@ -195,7 +196,7 @@ class User {
           }
         );
       } catch (error) {
-        resolve(null);
+        resolve("error");
       }
     });
   }
