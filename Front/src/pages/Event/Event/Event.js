@@ -32,7 +32,7 @@ function Event({ event }) {
   return (
     <Link to={`/${event.id}`}>
       <div className={`${style.card}`}>
-        <img src={event.urlThumbnail} alt="" />
+        <img src={event.urlImg} alt="" />
         <h2>
           <span className={`${style.title}`}>{event.name}</span>
           <i

@@ -21,7 +21,7 @@ router.get('/getCategory', async(req,res)=>{
 router.get('/getEvent/:idEvent', async(req,res)=>{
     const {idEvent} = req.params;
     const event = new Event();
-    res.json(await event.getEventById(idEvent));
+    res.json(event.getEventById(idEvent));
 });
 
 router.post('/create', async(req,res)=>{

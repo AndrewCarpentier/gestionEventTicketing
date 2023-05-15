@@ -19,7 +19,6 @@ function Step3() {
   const [step3Success, setStep3Success] = useState(false);
 
   useEffect(() => {
-    console.log(section[0]);
     if (section.length) {
       if (section[0].name == ".@-;;{,){" && section[0].ticket.length > 0) {
         setDisabledCreateSectionBtn(true);

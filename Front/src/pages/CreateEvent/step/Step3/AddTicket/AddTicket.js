@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import style from "./AddTicket.module.scss";
 import { useTranslation } from "react-i18next";
+import * as moment from 'moment-timezone';
 
 function AddTicket({
   section,
@@ -43,7 +44,14 @@ function AddTicket({
   }
 
   const submit = handleSubmit(async (values) => {
-    sectionFull.filter((e) => e.name == section.name)[0].ticket.push(values);
+    const ticket = {
+      name : values.name,
+      capacity : values.capacity,
+      price : values.price,
+      startSellDate : moment.tz(values.startSellDate + "T" + values.startSellHour , "Europe/Paris").utc().format(),
+      endSellDate : moment.tz(values.endSellDate + "T" + values.endSellHour , "Europe/Paris").utc().format()
+    }
+    sectionFull.filter((e) => e.name == section.name)[0].ticket.push(ticket);
     setSection(sectionFull);
     setShowAddTicket(false);
     if (sectionFull[0].name == ".@-;;{,){") {

@@ -1,6 +1,7 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { CreateEventContext } from "../context/CreateEventContext";
 import { CreateEvent } from "../apis/Event";
+import * as moment from 'moment-timezone';
 
 function CreateEventProvider({ children }) {
   const [event, setEvent] = useState(null);
@@ -11,10 +12,8 @@ function CreateEventProvider({ children }) {
       onlineLink: values.value.onlineLink,
       category: values.category,
       subCategory: values.subCategory,
-      startDate: values.value.startDate,
-      endDate: values.value.endDate,
-      startHour: values.value.startHour,
-      endHour: values.value.endHour,
+      startDate : moment.tz(values.value.startDate + "T" + values.value.startHour, "Europe/Paris").utc().format(),
+      endDate : moment.tz(values.value.endDate + "T" + values.value.endHour, "Europe/Paris").utc().format()
     });
     if (
       values.value.eventName != null &&
@@ -24,15 +23,14 @@ function CreateEventProvider({ children }) {
       values.subCategory != null &&
       values.subCategory != 0 &&
       values.value.startDate != null &&
-      values.value.endDate != null &&
-      values.value.startHour != null &&
-      values.value.endHour != null
+      values.value.endDate != null
     ) {
       return true;
     }
   }
 
   async function step2(values) {
+    console.log(event)
     setEvent({ ...event, file: values.file, information: values.information });
     if (values.file.length != 0 && values.information != null) {
       return true;
@@ -49,8 +47,7 @@ function CreateEventProvider({ children }) {
       ...e,
       private: values.values.private,
       public: values.values.public,
-      publishDate: values.values.publishDate,
-      publishHour: values.values.publishHour,
+      publishDate : moment.tz(values.values.publishDate + "T" + values.values.publishHour , "Europe/Paris").utc().format(),
       userId: values.user.id
     };
     return await CreateEvent(e);

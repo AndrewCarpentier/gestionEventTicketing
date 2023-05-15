@@ -1,6 +1,7 @@
 const connection = require("../../database/index");
 const Bookmark = require("./bookmark.model.js");
-
+const moment = require("moment-timezone");
+const Section = require("./section.model");
 class Event {
   constructor() {
     (this.id = null),
@@ -19,20 +20,47 @@ class Event {
   }
 
   create(event) {
+    console.log(event);
     return new Promise((resolve, reject) => {
-      const img = "https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg";
+      const img =
+        "https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg";
       try {
+        const creationDate = moment
+          .tz(Date.now(), "Europe/paris")
+          .utc()
+          .format();
         connection.query(
-          "INSERT INTO event (name, startDate, endDate, localisation, information, urlThumbnail, urlImg, creationDate, startHour, endHour, datePublish, hourPublish, id_user, id_category, id_subcategory) VALUES (?,?,?,?,?,?,?,NOW(),?,?,?,?,?,?,?)"
-        , [event.eventName, event.startDate, event.endDate, event.location, event.information, img, img, event.startHour, event.endHour, event.publishDate, event.publishHour, event.userId, event.category, event.subCategory], (err, result)=>{
-          if(err) throw err;
-          console.log(result);
-          if(result.affectedRows == 1){
-            resolve(true);
-          }else{
-            reject(false);
+          "INSERT INTO event (name, localisation, information, urlImg, public, password, creationDate, startDate, endDate, publishDate, id_user, id_category, id_subcategory) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+          [
+            event.eventName,
+            event.location,
+            event.information,
+            img,
+            event.public != null ? 1 : 0,
+            event.public == null ? event.password : "",
+            creationDate,
+            event.startDate.toString(),
+            event.endDate.toString(),
+            event.publishDate.toString(),
+            event.userId,
+            event.category,
+            event.subCategory
+          ],
+          async (err, result) => {
+            if (err) throw err;
+            console.log(result);
+            if (result.affectedRows == 1) {
+              const section = new Section(result.insertId, event.section);
+              if (await section.add()) {
+                resolve(true);
+              } else {
+                reject(false);
+              }
+            } else {
+              reject(false);
+            }
           }
-        });
+        );
       } catch (error) {
         reject("error api");
       }
@@ -42,20 +70,26 @@ class Event {
   getEvents(idUser) {
     return new Promise((resolve, reject) => {
       try {
-        connection.query("SELECT * FROM event ORDER BY id desc", async (err, result) => {
-          if (err) throw err;
-          await Promise.all(
-            result.map(async (e) => {
-              if (idUser !== "null") {
-                e.bookmark = await this.bookmark.userHaveBookmark(idUser, e.id);
-              } else {
-                e.bookmark = false;
-              }
-              return e;
-            })
-          );
-          resolve(result);
-        });
+        connection.query(
+          "SELECT * FROM event ORDER BY id desc",
+          async (err, result) => {
+            if (err) throw err;
+            await Promise.all(
+              result.map(async (e) => {
+                if (idUser !== "null") {
+                  e.bookmark = await this.bookmark.userHaveBookmark(
+                    idUser,
+                    e.id
+                  );
+                } else {
+                  e.bookmark = false;
+                }
+                return e;
+              })
+            );
+            resolve(result);
+          }
+        );
       } catch (error) {
         resolve(null);
       }

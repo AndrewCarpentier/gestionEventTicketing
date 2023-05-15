@@ -1,5 +1,4 @@
 const connection = require("../../database/index");
-
 class User {
   constructor() {
     this.id = null;
