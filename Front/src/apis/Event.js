@@ -57,11 +57,12 @@ export async function getCategory(){
 }
 
 export async function CreateEvent(event){
-    console.log(event)
+    const data = new FormData();
+    data.append('image', event.file);
+    data.append('event', JSON.stringify(event));
     const response = await fetch(`${API_EVENT}/create`,{
         method: "POST",
-        body: JSON.stringify(event),
-        headers: {"Content-Type" : "application/json"}
+        body: data,
     });
     const backResponse = await response.json();
     if(response.ok){

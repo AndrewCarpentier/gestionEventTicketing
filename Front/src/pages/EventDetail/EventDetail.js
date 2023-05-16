@@ -4,6 +4,7 @@ import { getEventById } from "../../apis/Event";
 import style from "./EventDetail.module.scss";
 import { useJsApiLoader, GoogleMap } from "@react-google-maps/api";
 import { Trans, useTranslation } from "react-i18next";
+import * as moment from "moment-timezone";
 
 function EventDetail() {
   const { t } = useTranslation();
@@ -15,11 +16,19 @@ function EventDetail() {
   const { id } = useParams();
   const [event, setEvent] = useState(null);
   const [map, setMap] = useState(null);
+  const [img, setImg] = useState(null);
   var mapShow = false;
 
   useEffect(() => {
     if (id) {
-      getEventById(id).then((e) => setEvent(e[0]));
+      getEventById(id)
+        .then((e) => {
+          console.log(e[0])
+          fetch(`http://localhost:8000/api/image/${e[0].urlImg}`).then((res) =>
+          setImg(res.url)
+        )
+          setEvent(e[0]);
+        })
     }
   }, []);
 
@@ -44,7 +53,7 @@ function EventDetail() {
         <div>{t("loading")}</div>
       ) : (
         <div>
-          <img className={`${style.img}`} src={event.urlImg} alt="" />
+          <img className={`${style.img}`} src={img} alt="" />
           <div className={`${style.container2}`}>
             <div>
               <h1>{event.name}</h1>
@@ -59,9 +68,18 @@ function EventDetail() {
                     <h3>{t("dateAndHour")}</h3>
                   </div>
                   <div>
-                    {event.startDate}{" "}
-                    {event.startHour.toString().replace(".", ":")} -{" "}
-                    {event.endHour.toString().replace(".", "h")}
+                    {/* {event.startHour.toString().replace(".", ":")} -{" "}
+                    {event.endHour.toString().replace(".", "h")} */}
+                    <div>
+                      {`${t("start")} : `}
+                      {moment
+                        .tz(event.startDate, "europe/paris")
+                        .format("LLLL")}
+                    </div>
+                    <div>
+                      {`${t("end")} : `}
+                      {moment.tz(event.endDate, "europe/paris").format("LLLL")}
+                    </div>
                   </div>
                 </div>
                 <div className="ml50">

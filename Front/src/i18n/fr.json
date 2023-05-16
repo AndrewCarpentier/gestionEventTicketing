@@ -68,6 +68,8 @@
     "private" : "Privée",
     "publishDate" : "Date de publication",
     "publish" : "Publier",
-    "mailSend" : "Mail envoyer"
+    "mailSend" : "Mail envoyer",
+    "start" : "Debut",
+    "end" : "Fin"
 
 }

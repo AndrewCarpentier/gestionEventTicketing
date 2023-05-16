@@ -8,18 +8,16 @@ import style from "./Step2.module.scss";
 import { useTranslation } from "react-i18next";
 
 function Step2() {
-
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const { step2 } = useContext(CreateEventContext);
   const [step2Success, setStep2Success] = useState(false);
+  const [img, setImg] = useState();
 
   const validationSchema = yup.object({
-    file: yup.mixed().required(),
     information: yup.string().required(),
   });
 
   const initialValues = {
-    file: "",
     information: "",
   };
 
@@ -33,15 +31,23 @@ function Step2() {
 
   const submit = handleSubmit(async (values) => {
     try {
-      if (values.file.length == 1) {
-        setStep2Success(await step2(values));
-      } else {
-      }
+      setStep2Success(await step2({...values, file : img}));
       clearErrors();
     } catch (message) {
       setError("generic", { type: "generic", message });
     }
   });
+
+  const displayImage = (e) => {
+    if (e.target.files[0]) {
+      setImg(e.target.files[0]);
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        document.querySelector("#img").setAttribute("src", e.target.result);
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  };
 
   return (
     <div>
@@ -50,7 +56,8 @@ function Step2() {
         <h2 className="mb10">{t("mediaEvent")}</h2>
         <div className="mb10">
           <h3 className="mb10">{t("image")}</h3>
-          <input type="file" accept="image/*" {...register("file")} />
+          <img id="img" src="" />
+          <input type="file" accept="image/*" onChange={displayImage} />
         </div>
         <div className="mb10">
           <h3 className="mb10">{t("information")}</h3>

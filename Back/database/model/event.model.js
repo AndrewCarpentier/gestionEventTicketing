@@ -22,8 +22,6 @@ class Event {
   create(event) {
     console.log(event);
     return new Promise((resolve, reject) => {
-      const img =
-        "https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg";
       try {
         const creationDate = moment
           .tz(Date.now(), "Europe/paris")
@@ -35,7 +33,7 @@ class Event {
             event.eventName,
             event.location,
             event.information,
-            img,
+            event.file,
             event.public != null ? 1 : 0,
             event.public == null ? event.password : "",
             creationDate,
@@ -104,10 +102,6 @@ class Event {
           [idEvent],
           (err, result) => {
             if (err) throw err;
-            result[0].startDate = result[0].startDate.toDateString();
-            result[0].creationDate = result[0].creationDate.toDateString();
-            result[0].endDate = result[0].endDate.toDateString();
-            result[0].datePublish = result[0].datePublish.toDateString();
             resolve(result);
           }
         );

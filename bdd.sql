@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mar. 09 mai 2023 à 01:11
+-- Généré le : mar. 16 mai 2023 à 01:26
 -- Version du serveur : 10.4.27-MariaDB
 -- Version de PHP : 8.2.0
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `ticketing2`
+-- Base de données : `eventgestion2`
 --
 
 -- --------------------------------------------------------
@@ -29,9 +29,17 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `bookmark` (
   `id` int(11) NOT NULL,
+  `date` varchar(255) NOT NULL,
   `id_event` int(11) NOT NULL,
   `id_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `bookmark`
+--
+
+INSERT INTO `bookmark` (`id`, `date`, `id_event`, `id_user`) VALUES
+(1, '', 21, 3);
 
 -- --------------------------------------------------------
 
@@ -74,27 +82,46 @@ INSERT INTO `category` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `command`
+--
+
+CREATE TABLE `command` (
+  `id` int(11) NOT NULL,
+  `number` varchar(255) NOT NULL,
+  `creationDate` varchar(255) NOT NULL,
+  `id_user` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `command_ticket`
+--
+
+CREATE TABLE `command_ticket` (
+  `id` int(11) NOT NULL,
+  `id_command` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `event`
 --
 
 CREATE TABLE `event` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `startDate` date NOT NULL,
-  `endDate` date DEFAULT NULL,
   `localisation` varchar(255) NOT NULL,
+  `linkOnlineEvent` varchar(255) NOT NULL,
   `information` text NOT NULL,
-  `nbPlace` int(11) DEFAULT NULL,
-  `placeSell` int(11) DEFAULT NULL,
-  `urlThumbnail` varchar(255) NOT NULL,
   `urlImg` varchar(255) NOT NULL,
-  `creationDate` date NOT NULL,
-  `startHour` float NOT NULL,
-  `endHour` float NOT NULL,
-  `password` varchar(50) NOT NULL,
-  `datePublish` date NOT NULL,
-  `hourPublish` float NOT NULL,
-  `linkOnlineEvent` varchar(50) NOT NULL,
+  `public` int(11) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `creationDate` varchar(255) NOT NULL,
+  `startDate` varchar(255) NOT NULL,
+  `endDate` varchar(255) DEFAULT NULL,
+  `publishDate` varchar(255) NOT NULL,
   `id_user` int(11) NOT NULL,
   `id_category` int(11) NOT NULL,
   `id_subCategory` int(11) NOT NULL
@@ -104,82 +131,24 @@ CREATE TABLE `event` (
 -- Déchargement des données de la table `event`
 --
 
-INSERT INTO `event` (`id`, `name`, `startDate`, `endDate`, `localisation`, `information`, `nbPlace`, `placeSell`, `urlThumbnail`, `urlImg`, `creationDate`, `startHour`, `endHour`, `password`, `datePublish`, `hourPublish`, `linkOnlineEvent`, `id_user`, `id_category`, `id_subCategory`) VALUES
-(2, 'concert', '2023-05-17', '2023-05-17', '5 rue marconi', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(3, 'concert', '2023-05-17', '2023-05-17', '5 rue marconi', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(4, 'concert', '2023-05-17', '2023-05-17', '5 rue marconi', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(5, 'concert', '2023-05-17', '2023-05-17', '5 rue marconi', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(6, 'concert', '2023-05-17', '2023-05-17', '5 rue marconi', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(7, 'concert', '2023-05-17', '2023-05-17', '5 rue marconi', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(8, 'concert', '2023-05-17', '2023-05-17', '5 rue marconi', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(9, 'concert', '2023-05-17', '2023-05-17', '5 rue marconi', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(10, 'concert', '2023-05-17', '2023-05-17', '5 rue marconi', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(11, 'concert', '2023-05-17', '2023-05-17', '5 rue marconi', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(12, 'concert', '2023-05-17', '2023-05-17', '5 rue marconi', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(13, 'concert', '2023-05-17', '2023-05-17', '5 rue marconi', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(14, 'concert', '2023-05-17', '2023-05-17', '5 rue marconi', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(15, 'concert', '2023-05-17', '2023-05-17', '5 rue marconi', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(16, 'concert', '2023-05-17', '2023-05-17', '5 rue marconi', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(17, 'concert', '2023-05-17', '2023-05-17', '5 rue marconi', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(18, 'concert', '2023-05-17', '2023-05-17', '5 rue marconi', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(19, 'concert', '2023-05-17', '2023-05-17', '5 rue marconi', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(20, 'concert', '2023-05-17', '2023-05-17', '5 rue marconi', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(21, 'concert', '2023-05-17', '2023-05-17', '5 rue marconi', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(22, 'concert', '2023-05-17', '2023-05-17', '5 rue marconi', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(23, 'concert', '2023-05-17', '2023-05-17', '5 rue marconi', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(24, 'concert', '2023-05-17', '2023-05-17', '5 rue marconi', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(25, 'concert', '2023-05-17', '2023-05-17', '5 rue marconi', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(26, 'concert', '2023-05-17', '2023-05-17', '5 rue marconi', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(27, 'concert', '2023-05-17', '2023-05-17', '5 rue marconi', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(28, 'concert', '2023-05-17', '2023-05-17', '5 rue marconi', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(29, 'concert', '2023-05-17', '2023-05-17', '5 rue marconi', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(30, 'concert', '2023-05-17', '2023-05-17', '5 rue marconi', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(31, 'concert', '2023-05-18', '2023-05-18', '100 Rue Pablo Picasso, 59220 Rouvignies', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(32, 'concert', '2023-05-18', '2023-05-18', '100 Rue Pablo Picasso, 59220 Rouvignies', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(33, 'concert', '2023-05-18', '2023-05-18', '100 Rue Pablo Picasso, 59220 Rouvignies', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(34, 'concert', '2023-05-18', '2023-05-18', '100 Rue Pablo Picasso, 59220 Rouvignies', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(35, 'concert', '2023-05-18', '2023-05-18', '100 Rue Pablo Picasso, 59220 Rouvignies', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(36, 'concert', '2023-05-18', '2023-05-18', '100 Rue Pablo Picasso, 59220 Rouvignies', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(37, 'concert', '2023-05-18', '2023-05-18', '100 Rue Pablo Picasso, 59220 Rouvignies', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(38, 'concert', '2023-05-18', '2023-05-18', '100 Rue Pablo Picasso, 59220 Rouvignies', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(39, 'concert', '2023-05-18', '2023-05-18', '100 Rue Pablo Picasso, 59220 Rouvignies', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(40, 'concert', '2023-05-18', '2023-05-18', '100 Rue Pablo Picasso, 59220 Rouvignies', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(41, 'concert', '2023-05-18', '2023-05-18', '100 Rue Pablo Picasso, 59220 Rouvignies', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(42, 'concert', '2023-05-18', '2023-05-18', '100 Rue Pablo Picasso, 59220 Rouvignies', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(43, 'concert', '2023-05-18', '2023-05-18', '100 Rue Pablo Picasso, 59220 Rouvignies', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(44, 'concert', '2023-05-18', '2023-05-18', '100 Rue Pablo Picasso, 59220 Rouvignies', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(45, 'concert', '2023-05-18', '2023-05-18', '100 Rue Pablo Picasso, 59220 Rouvignies', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(46, 'concert', '2023-05-18', '2023-05-18', '100 Rue Pablo Picasso, 59220 Rouvignies', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(47, 'concert', '2023-05-18', '2023-05-18', '100 Rue Pablo Picasso, 59220 Rouvignies', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(48, 'concert', '2023-05-18', '2023-05-18', '100 Rue Pablo Picasso, 59220 Rouvignies', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(49, 'concert', '2023-05-18', '2023-05-18', '100 Rue Pablo Picasso, 59220 Rouvignies', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(50, 'concert', '2023-05-18', '2023-05-18', '100 Rue Pablo Picasso, 59220 Rouvignies', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(51, 'concert', '2023-05-18', '2023-05-18', '100 Rue Pablo Picasso, 59220 Rouvignies', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(52, 'concert', '2023-05-18', '2023-05-18', '100 Rue Pablo Picasso, 59220 Rouvignies', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(53, 'concert', '2023-05-18', '2023-05-18', '100 Rue Pablo Picasso, 59220 Rouvignies', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(54, 'concert', '2023-05-18', '2023-05-18', '100 Rue Pablo Picasso, 59220 Rouvignies', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(55, 'concert', '2023-05-18', '2023-05-18', '100 Rue Pablo Picasso, 59220 Rouvignies', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(56, 'concert', '2023-05-18', '2023-05-18', '100 Rue Pablo Picasso, 59220 Rouvignies', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(57, 'concert', '2023-05-18', '2023-05-18', '100 Rue Pablo Picasso, 59220 Rouvignies', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(58, 'concert', '2023-05-18', '2023-05-18', '100 Rue Pablo Picasso, 59220 Rouvignies', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(59, 'concert', '2023-05-18', '2023-05-18', '100 Rue Pablo Picasso, 59220 Rouvignies', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(60, 'concert', '2023-05-18', '2023-05-18', '100 Rue Pablo Picasso, 59220 Rouvignies', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(61, 'concert', '2023-05-18', '2023-05-18', '100 Rue Pablo Picasso, 59220 Rouvignies', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(62, 'concert', '2023-05-18', '2023-05-18', '100 Rue Pablo Picasso, 59220 Rouvignies', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(63, 'concert', '2023-05-18', '2023-05-18', '100 Rue Pablo Picasso, 59220 Rouvignies', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(64, 'concert', '2023-05-18', '2023-05-18', '100 Rue Pablo Picasso, 59220 Rouvignies', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(65, 'concert', '2023-05-18', '2023-05-18', '100 Rue Pablo Picasso, 59220 Rouvignies', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(66, 'concert', '2023-05-18', '2023-05-18', '100 Rue Pablo Picasso, 59220 Rouvignies', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(67, 'concert', '2023-05-18', '2023-05-18', '100 Rue Pablo Picasso, 59220 Rouvignies', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(68, 'concert', '2023-05-18', '2023-05-18', '100 Rue Pablo Picasso, 59220 Rouvignies', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(69, 'concert', '2023-05-18', '2023-05-18', '100 Rue Pablo Picasso, 59220 Rouvignies', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(70, 'concert', '2023-05-18', '2023-05-18', '100 Rue Pablo Picasso, 59220 Rouvignies', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(71, 'concert', '2023-05-18', '2023-05-18', '100 Rue Pablo Picasso, 59220 Rouvignies', 'test', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete-750x375.jpg', '2023-05-03', 18.3, 20, '', '2023-05-04', 18, '', 1, 5, 30),
-(72, 'test', '2023-05-08', '2023-05-08', '6 rue marconi', 'dqssq', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', '2023-05-08', 0, 0, '', '2023-05-08', 0, '', 1, 1, 1),
-(73, 'test', '2023-05-08', '2023-05-08', '6 rue marconi', 'dqssq', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', '2023-05-08', 0, 0, '', '2023-05-08', 0, '', 1, 1, 1),
-(74, 'test', '2023-05-08', '2023-05-08', 'sqdsq', 'dsqdq', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', '2023-05-08', 0, 0, '', '2023-05-08', 0, '', 1, 1, 1),
-(75, 'test', '2023-05-08', '2023-05-08', 'sqdsq', 'trest', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', '2023-05-08', 0, 0, '', '2023-05-28', 0, '', 1, 3, 25),
-(76, 'test', '2023-05-08', '2023-05-08', 'sqdsq', 'aaaaaaaaaaaaaa', NULL, NULL, 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', 'https://icisete.fr/wp-content/uploads/2020/12/Concert-Sete.jpg', '2023-05-08', 0, 0, '', '2023-05-08', 0, '', 1, 3, 25);
+INSERT INTO `event` (`id`, `name`, `localisation`, `linkOnlineEvent`, `information`, `urlImg`, `public`, `password`, `creationDate`, `startDate`, `endDate`, `publishDate`, `id_user`, `id_category`, `id_subCategory`) VALUES
+(21, 'test', 'sqdsq', '', 'test', 'image_0.226383581382658461684186792586.png', 1, '', '2023-05-15T21:39:52Z', '2023-05-14T22:00:00Z', '2023-05-14T22:00:00Z', '2023-05-14T22:00:00Z', 3, 3, 24),
+(22, 'Belgian Crew\'s National Championship Ride', 'IzyCoffee Izegem 27 Nieuwstraat 8870 Izegem Belgique', '', 'Détails pratiques :\n\nDate : dimanche 4 juin 2023\n\nHeure: 9h00 collecte, 9h30 déploiement\n\nDistance : 100km (+/- 4h de vélo)\n\nVitesse moyenne : 27-28km/h, selon le groupe.\n\nTout le monde attend toujours.\n\nLa participation à l\'événement est ouverte à tous. Boisson gratuite après la balade.\n\nÉtiquette:\n\nRespectez le code de la route en tout temps, nous roulons 2 par 2.\n\nChaque participant garantit qu\'il est assuré.\n\nCasque obligatoire.\n\nAssurez-vous que votre vélo est en bon état avant de partir.\n\nApportez votre propre matériel de rechange.\n\nBelgian Crew ne peut être tenu responsable de tout ce qui se passe pendant l\'événement. En vous inscrivant et en participant, vous confirmez que vous acceptez toutes les mesures de sécurité. L\'inscription en ligne est obligatoire pour participer.', 'image_97911684190976566.jpg', 1, '', '2023-05-15T22:49:36Z', '2023-06-04T07:00:00Z', '2023-06-04T18:00:00Z', '2023-05-16T00:00:00Z', 3, 17, 158),
+(23, 'ICRT Animal Reiki Master avec un enseignant de centre agréé Sonora CA et en ligne', '', '', 'ICRT Animal Reiki Master Training - En ligne\n\nLe cours Animal Reiki Master fournit l\'énergie Animal Reiki, ainsi que les outils et les techniques nécessaires pour pratiquer, partager le Reiki avec les animaux et enseigner le Reiki Animal avec compétence et expertise. Vous apprendrez les outils et techniques plus approfondis pour les sessions, ainsi que la façon d\'enseigner les outils et techniques pour votre cours de Reiki animal en tant que maître praticien. Après avoir terminé ce cours, vous serez en mesure d\'enseigner des cours de niveau Animal Reiki I & II et Animal Reiki Master, en ligne et en personne.\n\nSi vous vous sentez appelé à aider les animaux ou si vous travaillez déjà avec des animaux mais souhaitez approfondir vos compétences et votre technique ou si vous vous sentez appelé à enseigner le Reiki animal, l\'énergie Animal Reiki est spécifiquement une énergie reiki pour les animaux. Le symbole Animal Reiki reçu dans cette classe de maître renforce la vitalité et la force vitale des animaux et des personnes. Il unifie la conscience humaine et animale chez le praticien Reiki. L\'énergie Animal Reiki et cette classe de maître sont profondément curatives pour les gens, autant que pour les animaux.\n\nLe cours Master est également livré avec le manuel complet du maître Animal Reiki avec les plans de classe inclus.\n\nDans ce cours de 3 jours, vous allez :\n\nApprenez des compétences supplémentaires pour aider à guérir et travailler avec des animaux en utilisant le Reiki.\n\nRecevez quatre allumages à l\'énergie animale Reiki.\n\nRecevez le symbole Animal Reiki Energy.\n\nRecevez des expériences et des méditations.\n\nÊtre qualifié pour enseigner Animal Reiki I & II et Animal Reiki Master à la fin du cours.\n\nCe cours de Master est idéal si vous souhaitez :\n\nApprofondissez votre expérience, vos connaissances et votre communion avec les animaux et la Terre Divine.\n\nApprenez des outils de guérison supplémentaires pour les praticiens et des outils de guérison Animal Reiki - y compris comment harmoniser les animaux à l\'énergie Animal Reiki.\n\nEnseignez le Reiki Animal aux autres.\n\nRecevez des instructions sur la façon de donner des stages pour Animal Reiki I & II, Master et comment mener les expériences et quatre allumages pour Animal Reiki Master.\n\nAvoir du temps de pratique pratique tous les jours de cours.\n\nApprenez les outils et les techniques pour créer un cours de Reiki Animal, y compris les techniques de cours en ligne.\n\nLa formation Animal Reiki Master est un cours de trois jours. Ce cours est ouvert à toutes les lignées de Reiki et à tous les systèmes de croyances ayant des relations avec les animaux, mais vous devez être au niveau Animal Reiki I & II et humain Reiki Master pour vous inscrire.', 'image_71821684191181143.jpg', 1, '', '2023-05-15T22:53:01Z', '2023-06-02T16:00:00Z', '2023-06-05T00:30:00Z', '2023-05-15T22:00:00Z', 3, 6, 62),
+(24, 'Grande Vente de Plantes - Lille', 'Garage 34 Boulevard Carnot 59800 Lille', '', 'GOOD NEWS ! Plantes Pour Tous revient à Lille avec sa Grande Vente de Plantes de FOLIE à prix mini ????\n\n???? Garage - 34 boulevard Carnot, Lille\n\n???? Pour rappel, toute notre sélection est direct producteur et arrive le matin même du 1er jour de vente. Nous n\'avons pas de réassort durant le week-end - Premier arrivé, premier servi !\n\n⚠️ Paiement CB uniquement ????\n\nRéserve ton billet ici, c\'est gratuit !\n\n____________________\n\nAU PROGRAMME\n\n- Un max de plantes à prix mini,\n\n- Un choix unique en ville (+ de 150 variétés de plantes), Monstera, Pilea, Ficus, Calathea*…,\n\n- Des plantes d’intérieur et d’extérieur directs producteurs pour un max de fraîcheur,\n\n-﻿ Des herbes aromatiques pour sublimer tes plats,\n\n- Des grandes plantes et plantes rares à 15€ et +,\n\n- Des plantes triées par catégories pour t’aider à faire ton choix (Pour débutants, plantes d’ombre, les increvables…),\n\n- Des accessoires à la pelle, pots, cache-pots... pour pimper tes plantes !\n\n???? Et parce-qu\'on aime vous surprendre, chaque dernier jour de vente te réservera dorénavant une surprise pour laquelle tu succomberas peut-être !? ???? ????\n\n____________________\n\nINFOS PRATIQUES\n\n???? Garage - 34 boulevard Carnot, Lille\n\n???? Jeudi 1 juin de 10h à 19h\n\n???? Vendredi 2 juin de 10h à 19h\n\n???? Samedi 3 juin de 10h à 17h\n\n???? Paiement CB uniquement.\n\n♿️ Accessible aux personnes à mobilité réduite.\n\n???? Événement Pet Friendly\n\nPrépare-toi pour la jungle ✌️\n\n* Sous réserve de disponibilités auprès des producteurs.', 'image_46831684191428727.jpg', 1, '', '2023-05-15T22:57:08Z', '2023-06-01T08:00:00Z', '2023-06-03T15:00:00Z', '2023-05-15T22:00:00Z', 3, 15, 137),
+(25, 'Salon Agro Hauts-de-France', 'Artois Expo 50 Avenue Roger Salengro 62223 Saint-Laurent-Blangy', '', 'Vous êtes un professionnel du secteur agroalimentaire ?\n\nInscrivez-vous pour recevoir votre badge d\'entrée !\n\nEntrée gratuite mais inscription obligatoire.\n\nAvec plus de 800 établissements représentant quelque 45 000 salariés, la filière agroalimentaire est l’un des piliers économiques de la région Hauts-de-France. Le Salon Agro Hauts-de-France a pour ambition de mettre en relation les industriels de la filière avec leurs fournisseurs >>> Voir la liste des exposants\n\nP﻿lus d\'infos sur : salonagro-hdf.fr\n\nLe même jour, profitez du RV Formulation, le salon de l’ingrédient organisé par l’Adrianor, destiné lui aussi aux industriels de l’agroalimentaire', 'image_75101684191556101.jpg', 1, '', '2023-05-15T22:59:16Z', '2023-05-23T07:00:00Z', '2023-05-23T15:00:00Z', '2023-05-15T22:00:00Z', 3, 20, 196),
+(26, 'EuroBasket Women 2023 Preparation: Belgian Cats vs. Greece', 'Mons Arena Rue des Laminoirs 2 7012 Mons Belgium', '', 'Les Belgian Cats jouent 4 matchs de préparation à domicile avant de se rendre à l\'EuroBasket Women 2023 :\n\n26/5 à Mons vs. Grèce\n28/5 à Braine vs. Grèce\n8/5 à Courtrai vs. Chine\n10/6 à Louvain vs. Chine\n\nACHETEZ VOTRE MAILLOT OFFICIEL 2023 AVANT LE 21/5 ET RÉCUPÉREZ-LE AVANT LE MATCH.\nAchetez votre maillot de fan et gagnez une chance de participer à l\'EuroBasket Women avec les Cats !\n\nPour chaque chemise vendue, un numéro entrera dans la loterie. Le billet de loterie gagnant sera tiré au sort le 10/6. Le prix ? Un voyage pour 2 à l\'EuroBasket Women ! Consultez tous les détails et conditions de cette promotion sur www.basketballbelgium.be/tickets-vip.', 'image_65291684191667446.jpg', 1, '', '2023-05-15T23:01:07Z', '2023-05-26T18:00:00Z', '2023-05-26T21:30:00Z', '2023-05-15T22:00:00Z', 3, 17, 153),
+(27, 'SCOTT H. BIRAM w/ LITTLE LEGS', 'Place Saint-Pierre 13-14 Place Saint-Pierre 7500 Tournai Belgium', '', 'Scott H. Biram\n\nThe Dirty Old One Man Band\n\nAustin, TX USA\n\nLabel: Bloodshot Records\n\nScott H. Biram unleashes a fervent display of conviction through, not\n\nonly the genuine blues, classic country, bluegrass, and rock n roll,\n\nbut he seals the deal with punk, heavy metal, and frankly, anything\n\nelse he wants to. He’s The Dirty Old One Man Band.\n\nHe will still the room with haunting South Texas blues, then turn it\n\nupside down, into a truck driver\'s mosh pit. Like he says, it might be\n\nbaptism, or it might be murder, either way...you gonna see the light.\n\nThis legally ordained preacher’s singing, yodeling, growling, leering\n\nand brash preachin\' and hollerin\' is accompanied by sloppy riffs, and\n\nlicks literally yanked, one at a time, out of his collection of\n\ncrusty, worn out, Gibson hollowbody guitars, and battle axes. All this\n\nheld down with a pounding backbeat brought forth by his amplified left\n\nfoot, and self customed stomp board. The remainder of this brutally\n\ncharming one-man band consists of an unwieldy combination of beat-up\n\namplifiers and old microphones strung together by a tangled mess of\n\nguitar cables. Don’t get too close! You gonna get some grease on ya!\n\nYears of compulsive touring, along with a steady diet of down and\n\ndirty blues, rock, punk, country, and hillbilly have developed Scott\n\nH. Biram\'s signature concoction, attracting a hefty array of fans who\n\ndig the bizarre and twisted sides of the rock and roll spectrum. His\n\nlive shows, performed all over the world, deliver a take no prisoners\n\nattitude, a stomping, pulsing John Lee Hooker-channeling, and cockeyed\n\ntales of black water baptisms and murder, all while romanticizing the\n\non-the-road lifestyle. SCOTT H. BIRAM IS THE DIRTY OLD ONE MAN BAND.\n\n©1974\n\nLITTLE LEGS(BE) & His Biscuit Tin Boogie System\n\nWho is?\n\nGilles \"Little Legs\" Haumont, multi-instrumentalist, born in 1975 in Belgium, has been tinkering with his instruments since early childhood. His concept of \"trash\" lutherie is not new, but it was not until 2013 that the idea of making a \"100% recycled\" one-man band took shape. Since then, he\'s been touring with his musical hodgepodge all over Belgium and France.\n\nWhat\'s that?\n\nA guy standing behind a plethora of \"homemade\" instruments, cookie tins, cans and wooden boxes: it looks like a flea market and a puppet theater. It\'s very pretty, but sometimes it\'s hard to believe that all this junk can sound! And yet... Once plugged in, the whole thing sounds terrific! It is powerful and fragile at the same time, hypnotic and funny. It\'s country blues, oldtime, sounds inspired by world folklore and noises... In the compositions of the one man band, the border is thin between Berber music, blues from the hills of Mississippi and oldtime from Appalachia. It is tribal and sometimes even techno! Always musical.\n\nAnd then, it\'s a sight to behold: a skeleton dancing frantically to catchy grooves, a bird pounding a cookie tin with its beak while a guy plays slide with his beer bottle on a homemade guitar while accompanying himself on the harmonica... A real band that performs, a show wrapped in a neat graphic universe.\n\nLittle Legs\' trademark is humor and generosity. The bluesman produces a primal boogie full of finesse, a pure country blues - in the sense of authentic - but not \"purist\". For Little Legs, what counts is the pleasure of playing, freely. A pleasure that embraces everyone: men, women and children.\n\nUnique in its kind...\n\nSome key moments...\n\n- April 2013 : Little Legs creates a first version of its \"Biscuit Tin Boogie System\", a small kit of three pedal percussions. There will be many more after that, always more sophisticated...\n\n- November 18, 2015: Little Legs in first part of \"The Hillbilly Moon Explosion\" at the Aeronef of Lille (Fr).\n\n- 2016: Little Legs participates in the album \"Vance, Mississippi\" with Jake Calypso and Archie Lee Hooker (the nephew of John Lee...).\n\n- Between 2017 and 2018: Little Legs accompanies Archie Lee Hooker at the Bay Car Blues Fest. (Fr), at the Mojo Working Fest. (Sp), at the Jazz & Blues Fest. in Goovy (Be), at the 50th anniversary of the Blues News Mag. in Helsinki (Fi) and at the Viva Las Vegas Weekend (USA).\n\n- June 9, 2018: Little Legs shares the stage with Dr. Feelgood during the 4th Label Guit\'Art in Esquelbecq (Fr). - 2018Little Legs releases the album \"The Magic Goes Down The Drain\" (Cuckoo Custom Records).\n\n- October 19, 2019: Little Legs opens for DELUXE at Ancienne Belgique (Be).\n\n- In 2019 and 2022: Little Legs plays on the stage of the Jyva\'Zik Fest (Be)\n\n- May 15, 2021:Little Legs plays on the.... balcony of the Blues Sphere in Liège (Be).\n\n- May 21, 2022: Little Legs plays on the stage of the Farm & Village in Drouges (Fr)....', 'image_46381684191768311.jpg', 1, '', '2023-05-15T23:02:48Z', '2023-06-22T17:00:00Z', '2023-06-22T19:30:00Z', '2023-05-15T22:00:00Z', 3, 5, 30),
+(28, 'Barbecue party et DJ', 'COLOFT LESQUIN 9 Rue des Bouleaux 59810 Lesquin', '', 'L﻿e soleil et la chaleur pointent doucement le bout de leur nez, et vous savez ce que cela signifie ? Le retour des soirées entre amis et collègues !\n\nP﻿our l\'occasion, on vous propose une Barbecue party ! En prime, un DJ sera de la partie pour vous faire danser sur ses sons endiablés !\n\nH﻿appy hour, grillades, frites, c\'est ambiance garantie !\n\nP﻿rix : 20€', 'image_18851684191896700.jpg', 1, '', '2023-05-15T23:04:56Z', '2023-05-25T16:00:00Z', '2023-05-25T20:00:00Z', '2023-05-15T22:00:00Z', 3, 9, 88),
+(29, 'FEEL FESTIVAL', 'Halle aux Sucres 1 Rue de l\'Entrepôt 59800 Lille', '', 'Bienvenue à FEEL FESTIVAL. Un événement unique qui promet de stimuler vos cinq sens et de vous emmener dans un voyage multi-sensoriel, lors d’une belle journée d’été.\n\nImaginez-vous plongé dans un monde de parfums enivrants, de sons captivants, de goûts délicieux, de textures surprenantes et de couleurs éblouissantes. Tout cela dans un seul endroit, à Lille.\n\nPendant ce parcours participatif, vous pourrez explorer différentes zones dédiées à chacun de vos sens. Nous vous promettons une véritable expérience sensorielle, une invitation à la découverte de vos 5 sens. Musique, nourriture, art, sport, divertissement… Autant de domaines qui vous permettront de passer une journée mémorable.\n\nL\'événement FEEL FESTIVAL est un voyage inoubliable à travers vos cinq sens, conçu pour éveiller votre curiosité, stimuler votre imagination et vous connecter avec votre environnement de manière nouvelle et surprenante.\n\nVous avez envie de passer une bonne journée placée sous le signe de la découverte et de ressentir des sensations que vous n’avez jamais expérimenté ? Que vous veniez seul, en famille, entre amis, en amoureux ou entre collègues, ne manquez pas FEEL FESTIVAL, une expérience sensorielle unique à Lille !\n\nR﻿endez-vous le samedi 30 juin 2023, de 16h00 à 22h00 aux Halles au Sucre.\n\n1 Rue de l\'Entrepôt, 59800 Lille', 'image_54331684191997331.jpg', 1, '', '2023-05-15T23:06:37Z', '2023-06-30T14:00:00Z', '2023-06-30T20:00:00Z', '2023-05-15T22:00:00Z', 3, 5, 54),
+(30, 'Job Dating - Employeurs', 'Centre Régional de Formation des Professionnels de l\'Enfance 465 Rue Courtois 59000 Lille', '', 'A l\'occasion d\'un Job Dating organisé par le CRFPE (Centre Régional de Formation des Professionnels de l\'Enfance), participez à un processus de recrutement entre futurs diplômés et employeurs !\n\nVous êtes employeur et vous cherchez à recruter un.e ou plusieurs :\n\nEducateur(s).trice(s) de Jeunes Enfants (EJE),\nTitulaire d’un CAP AEPE (Accompagnant Educatif Petite Enfance),\nAuxiliaire de Puériculture.\nVenez proposer votre ou vos offres d\'emploi à nos futurs diplômés !\n\nCe Job Dating aura lieu le mercredi 28 juin 2023 de 13h00 à 17h00, au 465 rue Courtois 59042 Lille\n\nFin des inscriptions : vendredi 28 avril 2023 à 23h30\n\nInformations pratiques\nNous mettrons à votre disposition : une table, deux chaises et un accès à notre réseau wifi.\n\nNous vous recontacterons début juin pour vous faire parvenir le nombre de futurs diplômés qui souhaitent vous rencontrer ainsi que leur CV.\n\nInscription\nNous vous invitons à cliquer sur le bouton s\'inscrire. Attention, ne réalisez qu\'une seule inscription par structure.\n\nLors de l\'inscription, vous nous indiquerez le nombre de postes disponibles, la ou les personnes présentes (2 personnes max) de votre structure et vous nous indiquerez éventuellement vos besoins en matériel.\n\nContact\nSi vous avez une question, n\'hésitez pas à contacter Carole VERBURGHT par mail : caroleverburght@crfpe.fr', 'image_66961684192128852.jpg', 1, '', '2023-05-15T23:08:48Z', '2023-06-28T11:00:00Z', '2023-06-28T15:00:00Z', '2023-05-15T22:00:00Z', 3, 20, 196),
+(31, 'VERSUS', 'Kinepolis 1 Rue du Château d\'Isenghien 59160 Lille', '', 'Devenez acteur de votre prochaine convention préférée ! ⚡️\n\nVenez vivre tout l\'univers du Manga et des Comics et assistez à des tournois de e-sport, tout en vous amusant avec nos divers stands : musique, danse, jeux, food trucks... ????\n\n???? Rendez-vous ce 27 Mai pour voir les surprises que nous vous avons réservées !', 'image_88081684192253430.jpg', 1, '', '2023-05-15T23:10:53Z', '2023-05-27T08:00:00Z', '2023-05-27T21:00:00Z', '2023-05-15T22:00:00Z', 3, 12, 106),
+(32, 'SOIREE COULEURS 2023', 'GRAND CABARET 1095 Rue d\'Estaires 59232 VIEUX BERQUIN', '', '> 1﻿8h : Accueil > 4 ateliers thématiques au choix > 20h15 : Repas\n\n> 21h15 : Conférence prônant l\'intensité et la passion\n\n\"Métamorphosez-vous, réinventez-vous, mettez de la passion dans vos jobs, de l’intensité dans votre quotidien, de l’implication, de l’engagement, c’est le seul moyen pour tutoyer les étoiles\" avec Valérie Marie, pianiste et conférencière.', 'image_61211684192358515.jpg', 1, '', '2023-05-15T23:12:38Z', '2023-06-15T16:00:00Z', '2023-06-15T21:00:00Z', '2023-05-15T22:00:00Z', 3, 5, 37),
+(33, 'European Cup Boulder', 'All. des Sports 12 12 Allée des Sports 6280 Gerpinnes Belgium', '', 'S﻿ATURDAY 27/05 - QUALIFICATIONS - FREE ENTRANCE\n\nS﻿UNDAY 28/05- FINALS - 5€ (free entrance for children under 12 years old)\n\nSeated places, without pre-booking.\n\nIndoor competition with a lot of different outdoor activities for the public !', 'image_45521684192524660.jpg', 1, '', '2023-05-15T23:15:24Z', '2023-05-28T06:00:00Z', '2023-05-28T21:00:00Z', '2023-05-15T22:00:00Z', 3, 17, 151),
+(34, '« Les Olympiades du feu sacré »', 'Château de la Fontaine allée des 2 lions 59170 CROIX', '', 'Dans la mythologie grecque, le feu est à l’origine de toutes les civilisations. Zeus, roi des dieux de l’Olympe, décide de créer la race humaine. Prométhée, fils du titan Japet, décide de voler le feu sacré dans l’Olympe pour le donner aux Hommes, afin de les aider. Mais Zeus entre alors dans une colère noire, et décide de le punir pour cet acte.\n\nLes humains, répartis en équipes, vont donc devoir aller voler le feu sacré de l’Olympe. Seulement les dieux ont protégé leur domaine et organisé des épreuves pour y parvenir. Seule une personne à la fois rusée, habile, intelligente, forte, et maligne réussira à trouver le feu sacré, pour le donner aux humains. En équipes de 10, les humains devront s’organiser selon leur force pour les épreuves individuelles, et travailler en coopération pour réussir les défis collectifs.\n\nPour fêter le retour du feu sacré parmi vous, un divin goûter vous sera proposé à l’issue des épreuves.', 'image_54261684192626876.jpg', 1, '', '2023-05-15T23:17:06Z', '2023-06-24T12:30:00Z', '2023-05-24T16:00:00Z', '2023-05-15T22:00:00Z', 3, 17, 151),
+(35, 'Ethan Gold @ Café Central', 'Café Central 168 Otegemstraat 8550 Zwevegem Belgium', '', 'C\'est l\'heure. Nous sommes fiers d\'annoncer notre premier artiste étranger. Le samedi 3 juin, l\'auteur-compositeur-interprète Ethan Gold, qui a grandi en Californie et vit actuellement à Berlin, jouera au Café Central. Ce compositeur d\'albums et de musiques de films de renommée internationale est de retour en concert après des années de rééducation suite à une blessure à la tête. Son dernier album alternatif indépendant Earth City 1: The Longing est le premier volet d\'une trilogie. C\'est une collection de chansons, dont certaines qu\'il a écrites - on ne plaisante pas - pendant qu\'il rêvait. Les paroles reflètent sa perspective particulière sur la façon dont nous nous rapportons à nous-mêmes, les uns aux autres et à la nature qui nous entoure.\n\nD﻿EURS: 19h30\n\nCONCERT DÉBUT : 20h30', 'image_67901684192705455.jpg', 1, '', '2023-05-15T23:18:25Z', '2023-06-03T17:00:00Z', '2023-06-03T20:00:00Z', '2023-05-15T22:00:00Z', 3, 5, 30),
+(36, 'EuroBasket Women 2023 Preparation: Belgian Cats vs. China', 'Sportcampus Lange Munte 22 Bad Godesberglaan 8500 Kortrijk Belgium', '', 'Les Belgian Cats jouent 4 matchs de préparation à domicile avant de se rendre à l\'EuroBasket Women 2023 :\n\n26/5 à Mons vs. Grèce\n28/5 à Braine vs. Grèce\n8/5 à Courtrai vs. Chine\n10/6 à Louvain vs. Chine\n\nACHETEZ VOTRE MAILLOT OFFICIEL 2023 AVANT LE 2/6 ET RÉCUPÉREZ-LE AVANT LE MATCH.\n\nAchetez votre maillot de fan et gagnez une chance de participer à l\'EuroBasket Women avec les Cats !\n\nPour chaque chemise vendue, un numéro entrera dans la loterie. Le billet de loterie gagnant sera tiré au sort le 10/6. Le prix ? Un voyage pour 2 à l\'EuroBasket Women ! Consultez tous les détails et conditions de cette promotion sur www.basketballbelgium.be/tickets-vip.', 'image_26561684192798428.jpg', 1, '', '2023-05-15T23:19:58Z', '2023-06-08T18:30:00Z', '2023-06-08T21:30:00Z', '2023-05-15T22:00:00Z', 3, 17, 153),
+(37, 'Webinar: Welkom Puppy - Instaples Puppy Coaching', '', '', 'Élever un chiot ne consiste pas à dresser votre animal de compagnie, mais à vous entraîner vous-même. Expert Joke Monteny est un gagnant quand il s\'agit de la langue du chien. Elle enseigne à ce sujet à l\'Université des sciences appliquées de Vives, a écrit le livre \"Welkom Puppy\" et guide les propriétaires et leurs chiens de manière professionnelle avec sa société \"Dog Inform\". Chaque mois, elle enseigne une leçon théorique avec WelloPet pour vous apprendre à voir le monde à travers les yeux d\'un chiot. Étape par étape, vous apprendrez à mieux comprendre votre chiot, de sorte que l\'éducation se déroulera beaucoup plus facilement et que vous pourrez construire un lien affectueux ensemble. En plus des connaissances générales sur le fonctionnement de votre chiot, de nombreux conseils et faits pratiques sont également fournis.', 'image_97451684192922298.jpg', 1, '', '2023-05-15T23:22:02Z', '2023-06-04T07:00:00Z', '2023-06-04T08:30:00Z', '2023-05-15T22:00:00Z', 3, 6, 62);
 
 -- --------------------------------------------------------
 
@@ -200,6 +169,7 @@ CREATE TABLE `event_tag` (
 
 CREATE TABLE `history` (
   `id` int(11) NOT NULL,
+  `date` varchar(255) NOT NULL,
   `id_event` int(11) NOT NULL,
   `id_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -207,26 +177,15 @@ CREATE TABLE `history` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `password_lost`
+-- Structure de la table `passwordlost`
 --
 
-CREATE TABLE `password_lost` (
+CREATE TABLE `passwordlost` (
   `id` int(11) NOT NULL,
   `token` varchar(255) NOT NULL,
+  `creationDate` varchar(50) NOT NULL,
   `id_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Déchargement des données de la table `password_lost`
---
-
-INSERT INTO `password_lost` (`id`, `token`, `id_user`) VALUES
-(1, 'cEuFEXWwkIyhMg4qcPzqOP23bRnfpKjA', 2),
-(2, 'LNb4qFE5cZ1cYH9WLcC1PAygUa3RFXt9', 2),
-(3, 'uxJwrBmJuwuRHbzRI3U1AdmfEGZlnfuq', 2),
-(4, '3yJoKRgh2D2NigQkBSQruiM5psmkV7jp', 2),
-(5, 'kr0h2XSEGczSxUcFt2CycVMW21TCsdxf', 2),
-(6, 'hvVIjsTAW6Bnv5Fl3Tic4PdMmhp3TSQ1', 2);
 
 -- --------------------------------------------------------
 
@@ -236,10 +195,32 @@ INSERT INTO `password_lost` (`id`, `token`, `id_user`) VALUES
 
 CREATE TABLE `section` (
   `id` int(11) NOT NULL,
-  `placeNumber` int(11) NOT NULL,
+  `capacity` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `id_event` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `section`
+--
+
+INSERT INTO `section` (`id`, `capacity`, `name`, `id_event`) VALUES
+(21, 0, '.@-;;{,){', 22),
+(22, 0, '.@-;;{,){', 23),
+(23, 0, '.@-;;{,){', 24),
+(24, 0, '.@-;;{,){', 25),
+(25, 0, '.@-;;{,){', 26),
+(26, 0, '.@-;;{,){', 27),
+(27, 0, '.@-;;{,){', 28),
+(28, 0, '.@-;;{,){', 29),
+(29, 0, '.@-;;{,){', 30),
+(30, 0, '.@-;;{,){', 31),
+(31, 0, '.@-;;{,){', 32),
+(32, 0, '.@-;;{,){', 33),
+(33, 0, '.@-;;{,){', 34),
+(34, 0, '.@-;;{,){', 35),
+(35, 0, '.@-;;{,){', 36),
+(36, 0, '.@-;;{,){', 37);
 
 -- --------------------------------------------------------
 
@@ -476,6 +457,19 @@ INSERT INTO `subcategory` (`id`, `name`, `id_category`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `subscribe`
+--
+
+CREATE TABLE `subscribe` (
+  `id` int(11) NOT NULL,
+  `creationDate` varchar(50) NOT NULL,
+  `idUser` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `tag`
 --
 
@@ -492,18 +486,36 @@ CREATE TABLE `tag` (
 
 CREATE TABLE `ticket` (
   `id` int(11) NOT NULL,
-  `numCommand` int(11) NOT NULL,
-  `urlQRCode` varchar(255) NOT NULL,
-  `placeNumber` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `capacity` int(11) NOT NULL,
   `price` float NOT NULL,
-  `startDateSell` date NOT NULL,
-  `endDateSell` date NOT NULL,
-  `startHourSell` float NOT NULL,
-  `endHourSell` float NOT NULL,
-  `sell` int(11) NOT NULL,
-  `id_section` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL
+  `numberSell` int(11) NOT NULL,
+  `startSellDate` varchar(255) NOT NULL,
+  `endSellDate` varchar(255) NOT NULL,
+  `id_section` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `ticket`
+--
+
+INSERT INTO `ticket` (`id`, `name`, `capacity`, `price`, `numberSell`, `startSellDate`, `endSellDate`, `id_section`) VALUES
+(11, 'ticket', 1000, 0, 0, '2023-05-15T22:00:00Z', '2023-05-15T22:00:00Z', 21),
+(12, 'test', 500, 325, 0, '2023-05-15T22:00:00Z', '2023-05-15T22:00:00Z', 22),
+(13, 'test', 500, 0, 0, '2023-05-15T22:00:00Z', '2023-05-15T22:00:00Z', 23),
+(14, 'dsqdsq', 500, 0, 0, '2023-05-15T22:00:00Z', '2023-05-15T22:00:00Z', 24),
+(15, 'dsqdsq', 500, 50, 0, '2023-05-15T22:00:00Z', '2023-05-15T22:00:00Z', 25),
+(16, 'dsqdsq', 500, 15, 0, '2023-05-15T22:00:00Z', '2023-05-15T22:00:00Z', 26),
+(17, 'dsqdsq', 500, 20, 0, '2023-05-15T22:00:00Z', '2023-05-15T22:00:00Z', 27),
+(18, 'test', 500, 0, 0, '2023-05-15T22:00:00Z', '2023-05-15T22:00:00Z', 28),
+(19, 'dsqdsq', 500, 0, 0, '2023-05-15T22:00:00Z', '2023-05-15T22:00:00Z', 29),
+(20, 'dsqdsq', 500, 20, 0, '2023-05-15T22:00:00Z', '2023-05-15T22:00:00Z', 30),
+(21, 'dsqdsq', 500, 40, 0, '2023-05-15T22:00:00Z', '2023-05-15T22:00:00Z', 31),
+(22, 'dsqdsq', 500, 5, 0, '2023-05-15T22:00:00Z', '2023-05-15T22:00:00Z', 32),
+(23, 'dsqdsq', 500, 0, 0, '2023-05-15T22:00:00Z', '2023-05-15T22:00:00Z', 33),
+(24, 'dsqdsq', 0, 22, 0, '2023-05-15T22:00:00Z', '2023-05-15T22:00:00Z', 34),
+(25, 'dsqdsq', 500, 8, 0, '2023-05-15T22:00:00Z', '2023-05-15T22:00:00Z', 35),
+(26, 'dsqdsq', 500, 20, 0, '2023-05-15T22:00:00Z', '2023-05-15T22:00:00Z', 36);
 
 -- --------------------------------------------------------
 
@@ -528,7 +540,8 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `mail`, `firstname`, `lastname`, `password`, `urlThumbnail`, `gender`, `creationDate`) VALUES
 (1, 'test@test.fr', 'andrew', 'Carpentier', '$2b$10$e6LZ/Zeq2PhtzXxZ4dmqTuyfQMdqTTnmbm1pQn/SVRHIKr8Aqn4e2', '', 0, '2023-05-03'),
-(2, 'andr3wcarpentier@gmail.com', 'andrew', 'Carpentier', '$2b$10$ebRdqIl0eXcAo1oeL2IIfu1aZ0qumbLZBTrPQT7uliMmFtsr3Gzw6', '', 0, '2023-05-09');
+(2, 'andr3wcarpentier@gmail.com', 'andrew', 'Carpentier', '$2b$10$ebRdqIl0eXcAo1oeL2IIfu1aZ0qumbLZBTrPQT7uliMmFtsr3Gzw6', '', 0, '2023-05-09'),
+(3, 'andr3wcarpentiertest@gmail.com', 'andrew', 'Carpentier', '$2b$10$jwWuyZoHHlT8TJDJHUxbCexh2NOafpeyu1hK6djzZHhGn4zPu3bva', '', 0, '2023-05-15');
 
 --
 -- Index pour les tables déchargées
@@ -547,6 +560,20 @@ ALTER TABLE `bookmark`
 --
 ALTER TABLE `category`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `command`
+--
+ALTER TABLE `command`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `command_user_FK` (`id_user`);
+
+--
+-- Index pour la table `command_ticket`
+--
+ALTER TABLE `command_ticket`
+  ADD PRIMARY KEY (`id`,`id_command`),
+  ADD KEY `command_ticket_command0_FK` (`id_command`);
 
 --
 -- Index pour la table `event`
@@ -573,10 +600,11 @@ ALTER TABLE `history`
   ADD KEY `history_user0_FK` (`id_user`);
 
 --
--- Index pour la table `password_lost`
+-- Index pour la table `passwordlost`
 --
-ALTER TABLE `password_lost`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `passwordlost`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `passwordLost_user_FK` (`id_user`);
 
 --
 -- Index pour la table `section`
@@ -593,6 +621,13 @@ ALTER TABLE `subcategory`
   ADD KEY `subCategory_category_FK` (`id_category`);
 
 --
+-- Index pour la table `subscribe`
+--
+ALTER TABLE `subscribe`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `subscribe_user_FK` (`id_user`);
+
+--
 -- Index pour la table `tag`
 --
 ALTER TABLE `tag`
@@ -603,8 +638,7 @@ ALTER TABLE `tag`
 --
 ALTER TABLE `ticket`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `ticket_section_FK` (`id_section`),
-  ADD KEY `ticket_user0_FK` (`id_user`);
+  ADD KEY `ticket_section_FK` (`id_section`);
 
 --
 -- Index pour la table `user`
@@ -620,7 +654,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT pour la table `bookmark`
 --
 ALTER TABLE `bookmark`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `category`
@@ -629,10 +663,16 @@ ALTER TABLE `category`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
+-- AUTO_INCREMENT pour la table `command`
+--
+ALTER TABLE `command`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT pour la table `event`
 --
 ALTER TABLE `event`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT pour la table `history`
@@ -641,22 +681,28 @@ ALTER TABLE `history`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT pour la table `password_lost`
+-- AUTO_INCREMENT pour la table `passwordlost`
 --
-ALTER TABLE `password_lost`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+ALTER TABLE `passwordlost`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `section`
 --
 ALTER TABLE `section`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT pour la table `subcategory`
 --
 ALTER TABLE `subcategory`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=217;
+
+--
+-- AUTO_INCREMENT pour la table `subscribe`
+--
+ALTER TABLE `subscribe`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `tag`
@@ -668,13 +714,13 @@ ALTER TABLE `tag`
 -- AUTO_INCREMENT pour la table `ticket`
 --
 ALTER TABLE `ticket`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Contraintes pour les tables déchargées
@@ -686,6 +732,19 @@ ALTER TABLE `user`
 ALTER TABLE `bookmark`
   ADD CONSTRAINT `bookmark_event_FK` FOREIGN KEY (`id_event`) REFERENCES `event` (`id`),
   ADD CONSTRAINT `bookmark_user0_FK` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`);
+
+--
+-- Contraintes pour la table `command`
+--
+ALTER TABLE `command`
+  ADD CONSTRAINT `command_user_FK` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`);
+
+--
+-- Contraintes pour la table `command_ticket`
+--
+ALTER TABLE `command_ticket`
+  ADD CONSTRAINT `command_ticket_command0_FK` FOREIGN KEY (`id_command`) REFERENCES `command` (`id`),
+  ADD CONSTRAINT `command_ticket_ticket_FK` FOREIGN KEY (`id`) REFERENCES `ticket` (`id`);
 
 --
 -- Contraintes pour la table `event`
@@ -710,6 +769,12 @@ ALTER TABLE `history`
   ADD CONSTRAINT `history_user0_FK` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`);
 
 --
+-- Contraintes pour la table `passwordlost`
+--
+ALTER TABLE `passwordlost`
+  ADD CONSTRAINT `passwordLost_user_FK` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`);
+
+--
 -- Contraintes pour la table `section`
 --
 ALTER TABLE `section`
@@ -722,11 +787,16 @@ ALTER TABLE `subcategory`
   ADD CONSTRAINT `subCategory_category_FK` FOREIGN KEY (`id_category`) REFERENCES `category` (`id`);
 
 --
+-- Contraintes pour la table `subscribe`
+--
+ALTER TABLE `subscribe`
+  ADD CONSTRAINT `subscribe_user_FK` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`);
+
+--
 -- Contraintes pour la table `ticket`
 --
 ALTER TABLE `ticket`
-  ADD CONSTRAINT `ticket_section_FK` FOREIGN KEY (`id_section`) REFERENCES `section` (`id`),
-  ADD CONSTRAINT `ticket_user0_FK` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `ticket_section_FK` FOREIGN KEY (`id_section`) REFERENCES `section` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

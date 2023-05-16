@@ -1,14 +1,14 @@
 import { useState } from "react";
 import style from "./EllipsisBar.module.scss";
-import i18n from 'i18next';
-import {useTranslation} from 'react-i18next';
+import i18n from "i18next";
+import { useTranslation } from "react-i18next";
 
 function EllipsisBar() {
-  const {t} = useTranslation();
-  
+  const { t } = useTranslation();
+
   const [showChangeApparence, setShowChangeApparence] = useState(false);
   const [showChangeLangage, setShowChangeLangage] = useState(false);
-  
+
   function handleClickChangeApparence() {
     setShowChangeApparence(!showChangeApparence);
   }
@@ -18,22 +18,22 @@ function EllipsisBar() {
   }
 
   function darkMode() {
-    localStorage.setItem('mode', 'dark');
+    localStorage.setItem("mode", "dark");
     document.documentElement.setAttribute("data-theme", "dark");
   }
 
   function lightMode() {
-    localStorage.setItem('mode', '');
+    localStorage.setItem("mode", "");
     document.documentElement.setAttribute("data-theme", "");
   }
 
-  function changeLangage(x){
-    localStorage.setItem('lng', x);
+  function changeLangage(x) {
+    localStorage.setItem("lng", x);
     i18n.changeLanguage(x);
   }
 
   return (
-    <>
+    <div id="ellipsisBar">
       {showChangeApparence ? (
         <div className={style.container}>
           <div
@@ -63,30 +63,38 @@ function EllipsisBar() {
           >
             <i className="fas fa-arrow-left" />
           </div>
-          <div onClick={()=>changeLangage('fr')} className={`${style.item} d-flex align-items-center`}>
+          <div
+            onClick={() => changeLangage("fr")}
+            className={`${style.item} d-flex align-items-center`}
+          >
             {t("french")}
           </div>
-          <div onClick={()=>changeLangage('en')} className={`${style.item} d-flex align-items-center`}>
+          <div
+            onClick={() => changeLangage("en")}
+            className={`${style.item} d-flex align-items-center`}
+          >
             {t("english")}
           </div>
         </div>
       ) : (
-        <div className={`${style.container}`}>
+        <div className={`${style.container}`} id="ellipsisBar">
           <div
             onClick={handleClickChangeApparence}
             className={`${style.item} ${style.item_top} d-flex align-items-center justify-content-center`}
+            id="ellipsisBar"
           >
             {t("appearance")}
           </div>
           <div
             onClick={handleClickChangeLangage}
             className={`${style.item} d-flex align-items-center justify-content-center`}
+            id="ellipsisBar"
           >
-            {t("language")}
+            {t("language")} 
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
 

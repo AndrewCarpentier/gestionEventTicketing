@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import style from "./Header.module.scss";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import EllipsisBar from "../Bar/EllipsisBar/EllipsisBar";
 import UserBar from "../Bar/UserBar/UserBar";
@@ -11,6 +11,23 @@ function Header() {
   const { t } = useTranslation();
   const [showEllipsisBar, setShowEllipsisBar] = useState(false);
   const [showUserBar, setShowUserBar] = useState(false);
+
+  useEffect(() => {
+    document.onclick = (e) => {
+      console.log(e.target.id)
+      if (e.target.id === "userBar") {
+        setShowUserBar(true);
+      } else {
+        setShowUserBar(false);
+      }
+
+      if (e.target.id === "ellipsisBar") {
+        setShowEllipsisBar(true);
+      } else {
+        setShowEllipsisBar(false);
+      }
+    };
+  }, []);
 
   function handleClickEllipsis() {
     setShowEllipsisBar(!showEllipsisBar);
@@ -42,9 +59,15 @@ function Header() {
       >
         {user ? (
           <>
-            <Link to="/createEvent/step1" className={`${style.createEvent}`}><i className={`fas fa-plus  `} /></Link>
+            <Link to="/createEvent/step1" className={`${style.createEvent}`}>
+              <i className={`fas fa-plus  `} />
+            </Link>
             <i className={`fas fa-magnifying-glass ${style.searchMobile}`} />
-            <i onClick={handleClickUserBar} className={`fas fa-circle-user`} />
+            <i
+              onClick={handleClickUserBar}
+              className={`fas fa-circle-user`}
+              id="userBar"
+            />
           </>
         ) : (
           <>
@@ -52,6 +75,7 @@ function Header() {
               className={`fas fa-magnifying-glass ${style.searchMobileNotConnected}`}
             />
             <i
+              id="ellipsisBar"
               onClick={handleClickEllipsis}
               className={`fas fa-ellipsis-vertical ${style.ellipsis}`}
             />
@@ -62,7 +86,13 @@ function Header() {
         )}
       </div>
       {showEllipsisBar && !user ? <EllipsisBar /> : ""}
-      {showUserBar && user ? <UserBar /> : ""}
+      {showUserBar && user ? (
+        <div id="userBar">
+          <UserBar />
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 }

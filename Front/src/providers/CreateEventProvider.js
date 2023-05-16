@@ -30,7 +30,6 @@ function CreateEventProvider({ children }) {
   }
 
   async function step2(values) {
-    console.log(event)
     setEvent({ ...event, file: values.file, information: values.information });
     if (values.file.length != 0 && values.information != null) {
       return true;
