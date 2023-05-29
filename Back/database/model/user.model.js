@@ -31,6 +31,19 @@ class User {
     };
   }
 
+  static getAll() {
+    return new Promise((resolve, reject) => {
+      try {
+        connection.query("SELECT * FROM user", (err, result) => {
+          if (err) throw err;
+          resolve(result);
+        });
+      } catch (error) {
+        reject("API error");
+      }
+    });
+  }
+
   getByMail(mail) {
     return new Promise((resolve, reject) => {
       try {
@@ -136,7 +149,32 @@ class User {
     });
   }
 
+  delete(id) {
+    return new Promise((resolve, reject) => {
+      try {
+        connection.query(
+          "DELETE FROM user WHERE id = ?",
+          [id],
+          (err, result) => {
+            if (err) throw err;
+            if (result.affectedRows === 1) {
+              resolve(true);
+            } else {
+              resolve(false);
+            }
+          }
+        );
+      } catch (error) {
+        reject("API error");
+      }
+    });
+  }
+
   update(id, mail, lastname, firstname) {
+    mail = mail === undefined ? this.mail : mail;
+    lastname = lastname === undefined ? this.lastname : lastname;
+    firstname = firstname === undefined ? this.firstname : firstname;
+
     return new Promise((resolve, reject) => {
       try {
         connection.query(
@@ -157,7 +195,7 @@ class User {
     });
   }
 
-  updatePassword(password, id){
+  updatePassword(password, id) {
     return new Promise((resolve, reject) => {
       try {
         connection.query(
@@ -178,7 +216,7 @@ class User {
     });
   }
 
-  setPasswordLost(token, id){
+  setPasswordLost(token, id) {
     return new Promise((resolve, reject) => {
       try {
         connection.query(
@@ -186,7 +224,7 @@ class User {
           [token, id],
           (err, result) => {
             if (err) throw err;
-            console.log(this.password)
+            console.log(this.password);
             if (result.affectedRows == 1) {
               resolve(true);
             } else {
@@ -199,6 +237,6 @@ class User {
       }
     });
   }
-};
+}
 
 module.exports = User;

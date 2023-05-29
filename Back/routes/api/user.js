@@ -2,6 +2,16 @@ const router = require("express").Router();
 const bcrypt = require("bcrypt");
 const User = require("../../database/model/user.model");
 
+router.get('/all', async(req,res)=>{
+  res.json(await User.getAll());
+})
+
+router.get('/:id', async(req,res)=>{
+  const {id} = req.params;
+  const user = new User();
+  res.json(await user.getById(id))
+})
+
 router.post("/", async (req, res) => {
   const { mail, firstname, lastname, password, passwordConfirm } = req.body;
   const newUser = {
@@ -37,7 +47,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.post("/edit", async (req, res) => {
+router.put("/", async (req, res) => {
   const { id, mail, lastname, firstname } = req.body;
   const user = new User();
   await user.getByMail(mail);
@@ -60,6 +70,12 @@ router.post("/edit", async (req, res) => {
   } else {
     res.status(400).json("Oops une erreur est survenue");
   }
+});
+
+router.delete("/", async (req, res) => {
+  const {id} = req.query;
+  const user = new User();
+  res.json(await user.delete(id));
 });
 
 module.exports = router;
