@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mar. 16 mai 2023 à 01:26
+-- Généré le : mer. 31 mai 2023 à 19:54
 -- Version du serveur : 10.4.27-MariaDB
 -- Version de PHP : 8.2.0
 
@@ -16,6 +16,10 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de données : `eventgestion2`
+--
 
 -- --------------------------------------------------------
 
@@ -35,7 +39,10 @@ CREATE TABLE `bookmark` (
 --
 
 INSERT INTO `bookmark` (`id`, `date`, `id_event`, `id_user`) VALUES
-(1, '', 21, 3);
+(1, '', 21, 3),
+(2, '', 36, 1),
+(3, '', 31, 1),
+(4, '', 21, 1);
 
 -- --------------------------------------------------------
 
@@ -182,6 +189,25 @@ CREATE TABLE `passwordlost` (
   `creationDate` varchar(50) NOT NULL,
   `id_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `role`
+--
+
+CREATE TABLE `role` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `role`
+--
+
+INSERT INTO `role` (`id`, `name`) VALUES
+(1, 'user'),
+(2, 'admin');
 
 -- --------------------------------------------------------
 
@@ -527,17 +553,18 @@ CREATE TABLE `user` (
   `password` varchar(255) NOT NULL,
   `urlThumbnail` varchar(255) NOT NULL,
   `gender` int(11) NOT NULL,
-  `creationDate` date NOT NULL
+  `creationDate` date NOT NULL,
+  `idRole` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `user`
 --
 
-INSERT INTO `user` (`id`, `mail`, `firstname`, `lastname`, `password`, `urlThumbnail`, `gender`, `creationDate`) VALUES
-(1, 'test@test.fr', 'andrew', 'Carpentier', '$2b$10$e6LZ/Zeq2PhtzXxZ4dmqTuyfQMdqTTnmbm1pQn/SVRHIKr8Aqn4e2', '', 0, '2023-05-03'),
-(2, 'andr3wcarpentier@gmail.com', 'andrew', 'Carpentier', '$2b$10$ebRdqIl0eXcAo1oeL2IIfu1aZ0qumbLZBTrPQT7uliMmFtsr3Gzw6', '', 0, '2023-05-09'),
-(3, 'andr3wcarpentiertest@gmail.com', 'andrew', 'Carpentier', '$2b$10$jwWuyZoHHlT8TJDJHUxbCexh2NOafpeyu1hK6djzZHhGn4zPu3bva', '', 0, '2023-05-15');
+INSERT INTO `user` (`id`, `mail`, `firstname`, `lastname`, `password`, `urlThumbnail`, `gender`, `creationDate`, `idRole`) VALUES
+(1, 'test@test.fr', 'test', 'test', '$2b$10$e6LZ/Zeq2PhtzXxZ4dmqTuyfQMdqTTnmbm1pQn/SVRHIKr8Aqn4e2', '', 0, '2023-05-03', 2),
+(2, 'andr3wcarpentier@gmail.com', 'andrew', 'Carpentier', '$2b$10$ebRdqIl0eXcAo1oeL2IIfu1aZ0qumbLZBTrPQT7uliMmFtsr3Gzw6', '', 0, '2023-05-09', 1),
+(3, 'andr3wcarpentier2@gmail.com', 'andrew', 'carpentier', '$2b$10$jwWuyZoHHlT8TJDJHUxbCexh2NOafpeyu1hK6djzZHhGn4zPu3bva', '', 0, '2023-05-15', 1);
 
 --
 -- Index pour les tables déchargées
@@ -603,6 +630,12 @@ ALTER TABLE `passwordlost`
   ADD KEY `passwordLost_user_FK` (`id_user`);
 
 --
+-- Index pour la table `role`
+--
+ALTER TABLE `role`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Index pour la table `section`
 --
 ALTER TABLE `section`
@@ -650,7 +683,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT pour la table `bookmark`
 --
 ALTER TABLE `bookmark`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pour la table `category`
@@ -681,6 +714,12 @@ ALTER TABLE `history`
 --
 ALTER TABLE `passwordlost`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `role`
+--
+ALTER TABLE `role`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pour la table `section`
@@ -716,7 +755,7 @@ ALTER TABLE `ticket`
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Contraintes pour les tables déchargées

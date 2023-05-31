@@ -18,6 +18,8 @@ import Step3 from "../pages/CreateEvent/step/Step3/Step3";
 import Step4 from "../pages/CreateEvent/step/Step4/Step4";
 import Admin from "../pages/Admin/Admin";
 import ProtectedRouteAdmin from "../protectedRoutes/ProtectedRouteAdmin";
+import Users from "../pages/Admin/Users/Users";
+import Events from "../pages/Admin/Events/Events";
 
 export const router = createBrowserRouter([
   {
@@ -116,6 +118,24 @@ export const router = createBrowserRouter([
             <Admin />
           </ProtectedRouteAdmin>
         ),
+        children: [
+          {
+            path: "users",
+            element: (
+              <ProtectedRouteAdmin>
+                <Users />
+              </ProtectedRouteAdmin>
+            ),
+          },
+          {
+            path: "events",
+            element: (
+              <ProtectedRouteAdmin>
+                <Events />
+              </ProtectedRouteAdmin>
+            ),
+          },
+        ],
       },
     ],
   },

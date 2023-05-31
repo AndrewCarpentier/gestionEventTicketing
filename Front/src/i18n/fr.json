@@ -71,6 +71,8 @@
     "mailSend" : "Mail envoyer",
     "start" : "Debut",
     "end" : "Fin",
-    "youAreAdmin" : "Vous êtes admin"
-
+    "youAreAdmin" : "Vous êtes admin",
+    "edit" : "Modifier",
+    "delete" : "Supprimer",
+    "searchNone" : "Aucune recherche trouver"
 }

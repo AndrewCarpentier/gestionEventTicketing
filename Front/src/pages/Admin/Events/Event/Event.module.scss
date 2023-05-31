@@ -1,8 +1,14 @@
-.px300{
-    width: 300px;
+.name{
+    width: 80%;
 }
 
-.edit{
+.item{
+    &:hover{
+        background-color: var(--gray-1);
+    }
+}
+
+.detail{
     cursor: pointer;
     &:hover{
         color: var(--gray-2);

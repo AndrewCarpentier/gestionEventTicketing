@@ -59,7 +59,7 @@ function Header() {
       >
         {user ? (
           <>
-            {user.role === "admin" && <Link to="/admin">{t("youAreAdmin")}</Link>}
+            {user.role === "admin" && <Link to="/admin/users">{t("youAreAdmin")}</Link>}
             <Link to="/createEvent/step1" className={`${style.createEvent}`}>
               <i className={`fas fa-plus  `} />
             </Link>

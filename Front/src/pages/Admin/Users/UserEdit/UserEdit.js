@@ -3,9 +3,11 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { editUser } from "../../../../apis/Users";
-import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 function UserEdit({ user, users, setUsers, setIdUserEdit }) {
+  const { t } = useTranslation();
+
   const validationSchema = yup.object({
     lastname: yup.string().required(),
     firstname: yup.string().required(),
@@ -32,8 +34,8 @@ function UserEdit({ user, users, setUsers, setIdUserEdit }) {
 
   const onSubmit = handleSubmit(async (values) => {
     if (await editUser({ ...values, id: user.id })) {
-      const usersIndex = users.findIndex(u => (u.id === user.id));
-      users[usersIndex] = {id: user.id, ...values};
+      const usersIndex = users.findIndex((u) => u.id === user.id);
+      users[usersIndex] = { id: user.id, ...values };
       setUsers(users);
       setIdUserEdit(0);
     }
@@ -51,10 +53,10 @@ function UserEdit({ user, users, setUsers, setIdUserEdit }) {
         <input defaultValue={user.mail} {...register("mail")} />
       </div>
       <button onClick={onCancel} className="btn btn-primary-reverse">
-        Cancel
+        {t("cancel")}
       </button>
       <button onClick={onSubmit} className="ml10 btn btn-primary">
-        Validate
+        {t("save")}
       </button>
     </div>
   );
