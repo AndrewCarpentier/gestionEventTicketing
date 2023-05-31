@@ -1,0 +1,17 @@
+.px300{
+    width: 300px;
+}
+
+.edit{
+    cursor: pointer;
+    &:hover{
+        color: var(--primary);
+    }
+}
+
+.delete{
+    cursor: pointer;
+    &:hover{
+        color: var(--error);
+    }
+}

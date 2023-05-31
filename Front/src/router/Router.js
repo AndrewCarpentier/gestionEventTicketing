@@ -16,6 +16,8 @@ import EventDetail from "../pages/EventDetail/EventDetail";
 import Step2 from "../pages/CreateEvent/step/Step2/Step2";
 import Step3 from "../pages/CreateEvent/step/Step3/Step3";
 import Step4 from "../pages/CreateEvent/step/Step4/Step4";
+import Admin from "../pages/Admin/Admin";
+import ProtectedRouteAdmin from "../protectedRoutes/ProtectedRouteAdmin";
 
 export const router = createBrowserRouter([
   {
@@ -106,6 +108,14 @@ export const router = createBrowserRouter([
             element: <ResetPassword />,
           },
         ],
+      },
+      {
+        path: "admin",
+        element: (
+          <ProtectedRouteAdmin>
+            <Admin />
+          </ProtectedRouteAdmin>
+        ),
       },
     ],
   },

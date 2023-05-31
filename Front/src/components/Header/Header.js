@@ -14,7 +14,6 @@ function Header() {
 
   useEffect(() => {
     document.onclick = (e) => {
-      console.log(e.target.id)
       if (e.target.id === "userBar") {
         setShowUserBar(true);
       } else {
@@ -54,11 +53,13 @@ function Header() {
           placeholder={t("search")}
         />
       </div>
+
       <div
         className={`${style.end} mr10 d-flex align-items-center justify-content-end`}
       >
         {user ? (
           <>
+            {user.role === "admin" && <Link to="/admin">{t("youAreAdmin")}</Link>}
             <Link to="/createEvent/step1" className={`${style.createEvent}`}>
               <i className={`fas fa-plus  `} />
             </Link>

@@ -8,6 +8,7 @@ class User {
     this.password = null;
     this.urlThumbnail = null;
     this.gender = null;
+    this.role = null;
   }
 
   reset() {
@@ -18,6 +19,7 @@ class User {
     this.password = null;
     this.urlThumbnail = null;
     this.gender = null;
+    this.role = null;
   }
 
   get getUserWithoutPassword() {
@@ -28,16 +30,20 @@ class User {
       lastname: this.lastname,
       urlThumbnail: this.urlThumbnail,
       gender: this.gender,
+      role: this.role,
     };
   }
 
   static getAll() {
     return new Promise((resolve, reject) => {
       try {
-        connection.query("SELECT * FROM user", (err, result) => {
-          if (err) throw err;
-          resolve(result);
-        });
+        connection.query(
+          "SELECT u.id, u.mail, u.firstname, u.lastname, u.password, u.urlThumbnail, u.gender, u.creationDate, r.name as role FROM user u INNER JOIN role r ON r.id = u.idRole",
+          (err, result) => {
+            if (err) throw err;
+            resolve(result);
+          }
+        );
       } catch (error) {
         reject("API error");
       }
@@ -48,7 +54,7 @@ class User {
     return new Promise((resolve, reject) => {
       try {
         connection.query(
-          "SELECT * FROM user WHERE mail = ?",
+          "SELECT u.id, u.mail, u.firstname, u.lastname, u.password, u.urlThumbnail, u.gender, u.creationDate, r.name as role FROM user u INNER JOIN role r ON r.id = u.idRole WHERE u.mail = ?",
           [mail],
           (err, result) => {
             if (err) throw err;
@@ -60,6 +66,7 @@ class User {
               this.password = result[0].password;
               this.urlThumbnail = result[0].urlThumbnail;
               this.gender = result[0].gender;
+              this.role = result[0].role;
             } else {
               this.reset();
             }
@@ -76,7 +83,7 @@ class User {
     return new Promise((resolve, reject) => {
       try {
         connection.query(
-          "SELECT * FROM user WHERE id = ?",
+          "SELECT u.id, u.mail, u.firstname, u.lastname, u.password, u.urlThumbnail, u.gender, u.creationDate, r.name as role FROM user u INNER JOIN role r ON r.id = u.idRole WHERE u.id = ?",
           [id],
           (err, result) => {
             if (err) throw err;
@@ -88,6 +95,7 @@ class User {
               this.password = result[0].password;
               this.urlThumbnail = result[0].urlThumbnail;
               this.gender = result[0].gender;
+              this.role = result[0].role;
             } else {
               this.reset();
             }
@@ -116,6 +124,7 @@ class User {
               this.password = result[0].password;
               this.urlThumbnail = result[0].urlThumbnail;
               this.gender = result[0].gender;
+              this.role = result[0].role;
             } else {
               this.reset();
             }
@@ -132,7 +141,7 @@ class User {
     return new Promise((resolve, reject) => {
       try {
         connection.query(
-          "INSERT INTO user(mail, firstname, lastname, password, creationDate) VALUES (?,?,?,?,NOW())",
+          "INSERT INTO user(mail, firstname, lastname, password, creationDate, idRole) VALUES (?,?,?,?,NOW(),1)",
           [mail, firstname, lastname, password],
           (err, result) => {
             if (err) throw err;
@@ -149,7 +158,7 @@ class User {
     });
   }
 
-  delete(id) {
+  static delete(id) {
     return new Promise((resolve, reject) => {
       try {
         connection.query(

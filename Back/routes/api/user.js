@@ -2,18 +2,18 @@ const router = require("express").Router();
 const bcrypt = require("bcrypt");
 const User = require("../../database/model/user.model");
 
-router.get('/all', async(req,res)=>{
+router.get("/all", async (req, res) => {
   res.json(await User.getAll());
-})
+});
 
-router.get('/:id', async(req,res)=>{
-  const {id} = req.params;
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
   const user = new User();
-  res.json(await user.getById(id))
-})
+  res.json(await user.getById(id));
+});
 
 router.post("/", async (req, res) => {
-  const { mail, firstname, lastname, password, passwordConfirm } = req.body;
+  const { mail, firstname, lastname, password, passwordConfirm } = req.query;
   const newUser = {
     mail,
     firstname,
@@ -52,6 +52,7 @@ router.put("/", async (req, res) => {
   const user = new User();
   await user.getByMail(mail);
   if (user.id === null) {
+    await user.getById(id);
     if (await user.update(id, mail, lastname, firstname)) {
       res.json(true);
     } else {
@@ -72,10 +73,9 @@ router.put("/", async (req, res) => {
   }
 });
 
-router.delete("/", async (req, res) => {
-  const {id} = req.query;
-  const user = new User();
-  res.json(await user.delete(id));
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+  res.json(await User.delete(id));
 });
 
 module.exports = router;

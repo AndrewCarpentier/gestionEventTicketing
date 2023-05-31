@@ -70,6 +70,7 @@
     "publish" : "Publier",
     "mailSend" : "Mail envoyer",
     "start" : "Debut",
-    "end" : "Fin"
+    "end" : "Fin",
+    "youAreAdmin" : "Vous êtes admin"
 
 }
