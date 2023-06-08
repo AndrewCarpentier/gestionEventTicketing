@@ -3,13 +3,18 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { createUser } from "../../apis/Users";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { useTranslation, Trans } from "react-i18next";
+import ReactGA from "react-ga4";
 
 function Signup() {
   const { t } = useTranslation();
   const [registerSuccess, setRegisterSuccess] = useState(false);
+
+  useEffect(() => {
+    ReactGA.send({hitType : "pageview", page : "signup"})
+  }, []);
 
   const validationSchema = yup.object({
     mail: yup

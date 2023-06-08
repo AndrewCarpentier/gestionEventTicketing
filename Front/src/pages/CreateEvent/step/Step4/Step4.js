@@ -1,18 +1,23 @@
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CreateEventContext } from "../../../../context/CreateEventContext";
 import { AuthContext } from "../../../../context/AuthContext";
 import { Navigate } from "react-router-dom";
 import style from "./Step4.module.scss";
 import { useTranslation } from "react-i18next";
+import ReactGA from "react-ga4";
 
 function Step4() {
   const {t} = useTranslation();
   const { step4 } = useContext(CreateEventContext);
   const { user } = useContext(AuthContext);
   const [step4Success, setStep4Success] = useState(false);
+
+  useEffect(() => {
+    ReactGA.send({hitType : "pageview", page : "create event step 4"})
+  }, []);
 
   const validationSchema = yup.object({
     publishDate: yup.string().required(),

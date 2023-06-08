@@ -5,12 +5,17 @@ import style from "./EventDetail.module.scss";
 import { useJsApiLoader, GoogleMap } from "@react-google-maps/api";
 import { Trans, useTranslation } from "react-i18next";
 import * as moment from "moment-timezone";
+import ReactGA from "react-ga4";
 
 function EventDetail() {
   const { t } = useTranslation();
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: "",
   });
+
+  useEffect(() => {
+    ReactGA.send({hitType : "pageview", page : "detail event"})
+  }, []);
 
   const center = { lat: 50.3347806, lng: 3.4520547 };
   const { id } = useParams();

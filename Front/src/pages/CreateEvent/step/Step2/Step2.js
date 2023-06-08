@@ -1,17 +1,22 @@
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CreateEventContext } from "../../../../context/CreateEventContext";
 import { Navigate } from "react-router-dom";
 import style from "./Step2.module.scss";
 import { useTranslation } from "react-i18next";
+import ReactGA from "react-ga4";
 
 function Step2() {
   const { t } = useTranslation();
   const { step2 } = useContext(CreateEventContext);
   const [step2Success, setStep2Success] = useState(false);
   const [img, setImg] = useState();
+
+  useEffect(() => {
+    ReactGA.send({hitType : "pageview", page : "create event step 2"})
+  }, []);
 
   const validationSchema = yup.object({
     information: yup.string().required(),

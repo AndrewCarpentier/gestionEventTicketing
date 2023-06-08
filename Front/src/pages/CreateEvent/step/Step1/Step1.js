@@ -7,6 +7,7 @@ import { getCategory } from "../../../../apis/Event";
 import { useContext, useEffect, useState } from "react";
 import { CreateEventContext } from "../../../../context/CreateEventContext";
 import { Navigate } from "react-router-dom";
+import ReactGA from "react-ga4";
 
 function Step1() {
   const { t } = useTranslation();
@@ -17,6 +18,10 @@ function Step1() {
   const [subCategoryChooseId, setSubCategoryChooseId] = useState(0);
   const [chooseLocation, setChooseLocation] = useState(true);
   const [step1Success, setStep1Success] = useState(false);
+
+  useEffect(() => {
+    ReactGA.send({hitType : "pageview", page : "create event step 1"})
+  }, []);
 
   useEffect(() => {
     getCategory().then((c) => {

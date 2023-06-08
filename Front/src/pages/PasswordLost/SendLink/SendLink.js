@@ -5,11 +5,17 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Link } from "react-router-dom";
 import { sendLinkPasswordLost } from "../../../apis/Auth";
 import { useTranslation, Trans } from "react-i18next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import ReactGA from "react-ga4";
 
 function SendLink() {
   const { t } = useTranslation();
   const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    ReactGA.send({hitType : "pageview", page : "password lost submition page"})
+  }, []);
+
   const validationSchema = yup.object({
     mail: yup
       .string()

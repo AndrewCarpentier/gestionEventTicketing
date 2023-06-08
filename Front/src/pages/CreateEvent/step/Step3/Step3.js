@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import style from "./Step3.module.scss";
 import { useTranslation } from "react-i18next";
+import ReactGA from "react-ga4";
 
 function Step3() {
   const {t} = useTranslation();
@@ -17,6 +18,10 @@ function Step3() {
     useState(false);
   const [disabledTicket, setDisabledTicket] = useState(false);
   const [step3Success, setStep3Success] = useState(false);
+
+  useEffect(() => {
+    ReactGA.send({hitType : "pageview", page : "create event step 3"})
+  }, []);
 
   useEffect(() => {
     if (section.length) {

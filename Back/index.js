@@ -18,6 +18,54 @@ app.use((req, res, next) => {
   next();
 });
 
+// const {google} = require('googleapis');
+// const keyfile = require("./keyfile.json");
+// const auth = new google.auth.GoogleAuth({
+//   credentials: keyfile,
+//   scopes: ['https://www.googleapis.com/auth/analytics.readonly'],
+// });
+// const analyticsreporting = google.analyticsreporting({
+//   version: 'v4',
+//   auth: auth,
+// });
+// async function fetchData() {
+//   try {
+//     const response = await analyticsreporting.reports.batchGet({
+//       requestBody: {
+//         reportRequests: [
+//           {
+//             property: '5370449255',
+//             dateRanges: [
+//               {
+//                 startDate: '2023-06-07',
+//                 endDate: '2023-06-09',
+//               },
+//             ],
+//             metrics: [
+//               {
+//                 expression: 'ga:sessions',
+//               },
+//               {
+//                 expression: 'ga:pageviews',
+//               },
+//             ],
+//             dimensions: [
+//               {
+//                 name: 'ga:date',
+//               },
+//             ],
+//           },
+//         ],
+//       },
+//     });
+
+//     console.log(response.data);
+//   } catch (error) {
+//     console.error('Error fetching data from Google Analytics:', error);
+//   }
+// }
+
+// fetchData();
 app.use(cookie());
 
 app.use(bodyParser.json());

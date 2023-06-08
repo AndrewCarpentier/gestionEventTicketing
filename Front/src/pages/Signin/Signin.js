@@ -3,13 +3,18 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { useTranslation, Trans } from "react-i18next";
+import ReactGA from "react-ga4";
 
 function Signin() {
   const { signin } = useContext(AuthContext);
   const { t } = useTranslation();
+
+  useEffect(() => {
+    ReactGA.send({hitType : "pageview", page : "signin"})
+  }, []);
 
   const validationSchema = yup.object({
     mail: yup

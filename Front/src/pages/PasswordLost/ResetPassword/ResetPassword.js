@@ -5,11 +5,16 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { resetPassword } from "../../../apis/Auth";
 import { useTranslation, Trans } from "react-i18next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import ReactGA from "react-ga4";
 
 function ResetPassword() {
   const { t } = useTranslation();
   const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    ReactGA.send({hitType : "pageview", page : "password lost change password"})
+  }, []);
 
   const { token } = useParams();
   const validationSchema = yup.object({

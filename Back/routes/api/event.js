@@ -40,6 +40,16 @@ router.post('/create', uploadImage.single('image') ,async(req,res)=>{
     res.json(await event.create({...JSON.parse(req.body.event), file : req.file.filename}));
 });
 
+router.put('/update', async(req,res)=>{
+    const {eventName, location, information, public, password, startDate, endDate, publishDate, userId, category, subCategory, id} = req.query;
+    const event = new Event();
+    if(id === undefined){
+        res.status(400).json("Il manque l'id de l'evenement");
+    }else{
+        res.json(await event.update({eventName, location, information, public, password, startDate, endDate, publishDate, userId, category, subCategory, id}));
+    }
+})
+
 router.delete('/:id', async(req,res)=>{
     const {id} = req.params;
     res.json(await Event.delete(id));
