@@ -16,7 +16,7 @@ function App() {
   }
 
   useEffect(() => {
-    ReactGA.initialize("", { debug: true });
+    ReactGA.initialize("G-8CEWSH2D89", { debug: true });
   }, []);
 
   return (

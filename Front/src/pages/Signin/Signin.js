@@ -42,6 +42,11 @@ function Signin() {
   });
 
   const submit = handleSubmit(async (values) => {
+    ReactGA.event({
+      category : "signin",
+      action : "signinClick",
+      label : "click on sign in"
+    })
     try {
       clearErrors();
       await signin(values);

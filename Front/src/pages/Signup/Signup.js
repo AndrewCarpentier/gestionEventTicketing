@@ -50,6 +50,11 @@ function Signup() {
   });
 
   const submit = handleSubmit(async (values) => {
+    ReactGA.event({
+      category : "signup",
+      action : "signupClick",
+      label : "click on sign up"
+    })
     try {
       if (await createUser(values)) {
         setRegisterSuccess(true);
