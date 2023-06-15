@@ -7,6 +7,7 @@ import AuthProvider from "./providers/AuthProvider";
 import "./i18n/i18n";
 import MobileSidebar from "./components/Bar/MobileSidebar/MobileSidebar";
 import ReactGA from "react-ga4";
+import AdminProvider from "./providers/AdminProvider";
 
 function App() {
   if (localStorage.getItem("mode") === "dark") {
@@ -21,16 +22,18 @@ function App() {
 
   return (
     <AuthProvider>
-      <div className={`d-flex flex-column ${styles.appContainer}`}>
-        <Header />
-        <div>
-          <Sidebar />
-          <MobileSidebar />
-          <Suspense>
-            <Outlet />
-          </Suspense>
+      <AdminProvider>
+        <div className={`d-flex flex-column ${styles.appContainer}`}>
+          <Header />
+          <div>
+            <Sidebar />
+            <MobileSidebar />
+            <Suspense>
+              <Outlet />
+            </Suspense>
+          </div>
         </div>
-      </div>
+      </AdminProvider>
     </AuthProvider>
   );
 }

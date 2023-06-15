@@ -41,8 +41,10 @@ router.post('/create', uploadImage.single('image') ,async(req,res)=>{
 });
 
 router.put('/update', async(req,res)=>{
-    const {eventName, location, information, public, password, startDate, endDate, publishDate, userId, category, subCategory, id} = req.query;
+    const {eventName, location, information, public, password, startDate, endDate, publishDate, userId, category, subCategory, id} = req.body;
+    console.log(eventName, location, information, public, password, startDate, endDate, publishDate, userId, category, subCategory, id)
     const event = new Event();
+    
     if(id === undefined){
         res.status(400).json("Il manque l'id de l'evenement");
     }else{

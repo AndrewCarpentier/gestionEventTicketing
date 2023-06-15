@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 31 mai 2023 à 19:54
+-- Généré le : ven. 16 juin 2023 à 01:17
 -- Version du serveur : 10.4.27-MariaDB
 -- Version de PHP : 8.2.0
 
@@ -39,10 +39,8 @@ CREATE TABLE `bookmark` (
 --
 
 INSERT INTO `bookmark` (`id`, `date`, `id_event`, `id_user`) VALUES
-(1, '', 21, 3),
 (2, '', 36, 1),
-(3, '', 31, 1),
-(4, '', 21, 1);
+(3, '', 31, 1);
 
 -- --------------------------------------------------------
 
@@ -135,7 +133,6 @@ CREATE TABLE `event` (
 --
 
 INSERT INTO `event` (`id`, `name`, `localisation`, `linkOnlineEvent`, `information`, `urlImg`, `public`, `password`, `creationDate`, `startDate`, `endDate`, `publishDate`, `id_user`, `id_category`, `id_subCategory`) VALUES
-(21, 'test', 'sqdsq', '', 'test', 'image_0.226383581382658461684186792586.png', 1, '', '2023-05-15T21:39:52Z', '2023-05-14T22:00:00Z', '2023-05-14T22:00:00Z', '2023-05-14T22:00:00Z', 3, 3, 24),
 (22, 'Belgian Crew\'s National Championship Ride', 'IzyCoffee Izegem 27 Nieuwstraat 8870 Izegem Belgique', '', 'Détails pratiques :\n\nDate : dimanche 4 juin 2023\n\nHeure: 9h00 collecte, 9h30 déploiement\n\nDistance : 100km (+/- 4h de vélo)\n\nVitesse moyenne : 27-28km/h, selon le groupe.\n\nTout le monde attend toujours.\n\nLa participation à l\'événement est ouverte à tous. Boisson gratuite après la balade.\n\nÉtiquette:\n\nRespectez le code de la route en tout temps, nous roulons 2 par 2.\n\nChaque participant garantit qu\'il est assuré.\n\nCasque obligatoire.\n\nAssurez-vous que votre vélo est en bon état avant de partir.\n\nApportez votre propre matériel de rechange.\n\nBelgian Crew ne peut être tenu responsable de tout ce qui se passe pendant l\'événement. En vous inscrivant et en participant, vous confirmez que vous acceptez toutes les mesures de sécurité. L\'inscription en ligne est obligatoire pour participer.', 'image_97911684190976566.jpg', 1, '', '2023-05-15T22:49:36Z', '2023-06-04T07:00:00Z', '2023-06-04T18:00:00Z', '2023-05-16T00:00:00Z', 3, 17, 158),
 (23, 'ICRT Animal Reiki Master avec un enseignant de centre agréé Sonora CA et en ligne', '', '', 'ICRT Animal Reiki Master Training - En ligne\n\nLe cours Animal Reiki Master fournit l\'énergie Animal Reiki, ainsi que les outils et les techniques nécessaires pour pratiquer, partager le Reiki avec les animaux et enseigner le Reiki Animal avec compétence et expertise. Vous apprendrez les outils et techniques plus approfondis pour les sessions, ainsi que la façon d\'enseigner les outils et techniques pour votre cours de Reiki animal en tant que maître praticien. Après avoir terminé ce cours, vous serez en mesure d\'enseigner des cours de niveau Animal Reiki I & II et Animal Reiki Master, en ligne et en personne.\n\nSi vous vous sentez appelé à aider les animaux ou si vous travaillez déjà avec des animaux mais souhaitez approfondir vos compétences et votre technique ou si vous vous sentez appelé à enseigner le Reiki animal, l\'énergie Animal Reiki est spécifiquement une énergie reiki pour les animaux. Le symbole Animal Reiki reçu dans cette classe de maître renforce la vitalité et la force vitale des animaux et des personnes. Il unifie la conscience humaine et animale chez le praticien Reiki. L\'énergie Animal Reiki et cette classe de maître sont profondément curatives pour les gens, autant que pour les animaux.\n\nLe cours Master est également livré avec le manuel complet du maître Animal Reiki avec les plans de classe inclus.\n\nDans ce cours de 3 jours, vous allez :\n\nApprenez des compétences supplémentaires pour aider à guérir et travailler avec des animaux en utilisant le Reiki.\n\nRecevez quatre allumages à l\'énergie animale Reiki.\n\nRecevez le symbole Animal Reiki Energy.\n\nRecevez des expériences et des méditations.\n\nÊtre qualifié pour enseigner Animal Reiki I & II et Animal Reiki Master à la fin du cours.\n\nCe cours de Master est idéal si vous souhaitez :\n\nApprofondissez votre expérience, vos connaissances et votre communion avec les animaux et la Terre Divine.\n\nApprenez des outils de guérison supplémentaires pour les praticiens et des outils de guérison Animal Reiki - y compris comment harmoniser les animaux à l\'énergie Animal Reiki.\n\nEnseignez le Reiki Animal aux autres.\n\nRecevez des instructions sur la façon de donner des stages pour Animal Reiki I & II, Master et comment mener les expériences et quatre allumages pour Animal Reiki Master.\n\nAvoir du temps de pratique pratique tous les jours de cours.\n\nApprenez les outils et les techniques pour créer un cours de Reiki Animal, y compris les techniques de cours en ligne.\n\nLa formation Animal Reiki Master est un cours de trois jours. Ce cours est ouvert à toutes les lignées de Reiki et à tous les systèmes de croyances ayant des relations avec les animaux, mais vous devez être au niveau Animal Reiki I & II et humain Reiki Master pour vous inscrire.', 'image_71821684191181143.jpg', 1, '', '2023-05-15T22:53:01Z', '2023-06-02T16:00:00Z', '2023-06-05T00:30:00Z', '2023-05-15T22:00:00Z', 3, 6, 62),
 (24, 'Grande Vente de Plantes - Lille', 'Garage 34 Boulevard Carnot 59800 Lille', '', 'GOOD NEWS ! Plantes Pour Tous revient à Lille avec sa Grande Vente de Plantes de FOLIE à prix mini ????\n\n???? Garage - 34 boulevard Carnot, Lille\n\n???? Pour rappel, toute notre sélection est direct producteur et arrive le matin même du 1er jour de vente. Nous n\'avons pas de réassort durant le week-end - Premier arrivé, premier servi !\n\n⚠️ Paiement CB uniquement ????\n\nRéserve ton billet ici, c\'est gratuit !\n\n____________________\n\nAU PROGRAMME\n\n- Un max de plantes à prix mini,\n\n- Un choix unique en ville (+ de 150 variétés de plantes), Monstera, Pilea, Ficus, Calathea*…,\n\n- Des plantes d’intérieur et d’extérieur directs producteurs pour un max de fraîcheur,\n\n-﻿ Des herbes aromatiques pour sublimer tes plats,\n\n- Des grandes plantes et plantes rares à 15€ et +,\n\n- Des plantes triées par catégories pour t’aider à faire ton choix (Pour débutants, plantes d’ombre, les increvables…),\n\n- Des accessoires à la pelle, pots, cache-pots... pour pimper tes plantes !\n\n???? Et parce-qu\'on aime vous surprendre, chaque dernier jour de vente te réservera dorénavant une surprise pour laquelle tu succomberas peut-être !? ???? ????\n\n____________________\n\nINFOS PRATIQUES\n\n???? Garage - 34 boulevard Carnot, Lille\n\n???? Jeudi 1 juin de 10h à 19h\n\n???? Vendredi 2 juin de 10h à 19h\n\n???? Samedi 3 juin de 10h à 17h\n\n???? Paiement CB uniquement.\n\n♿️ Accessible aux personnes à mobilité réduite.\n\n???? Événement Pet Friendly\n\nPrépare-toi pour la jungle ✌️\n\n* Sous réserve de disponibilités auprès des producteurs.', 'image_46831684191428727.jpg', 1, '', '2023-05-15T22:57:08Z', '2023-06-01T08:00:00Z', '2023-06-03T15:00:00Z', '2023-05-15T22:00:00Z', 3, 15, 137),
@@ -151,7 +148,8 @@ INSERT INTO `event` (`id`, `name`, `localisation`, `linkOnlineEvent`, `informati
 (34, '« Les Olympiades du feu sacré »', 'Château de la Fontaine allée des 2 lions 59170 CROIX', '', 'Dans la mythologie grecque, le feu est à l’origine de toutes les civilisations. Zeus, roi des dieux de l’Olympe, décide de créer la race humaine. Prométhée, fils du titan Japet, décide de voler le feu sacré dans l’Olympe pour le donner aux Hommes, afin de les aider. Mais Zeus entre alors dans une colère noire, et décide de le punir pour cet acte.\n\nLes humains, répartis en équipes, vont donc devoir aller voler le feu sacré de l’Olympe. Seulement les dieux ont protégé leur domaine et organisé des épreuves pour y parvenir. Seule une personne à la fois rusée, habile, intelligente, forte, et maligne réussira à trouver le feu sacré, pour le donner aux humains. En équipes de 10, les humains devront s’organiser selon leur force pour les épreuves individuelles, et travailler en coopération pour réussir les défis collectifs.\n\nPour fêter le retour du feu sacré parmi vous, un divin goûter vous sera proposé à l’issue des épreuves.', 'image_54261684192626876.jpg', 1, '', '2023-05-15T23:17:06Z', '2023-06-24T12:30:00Z', '2023-05-24T16:00:00Z', '2023-05-15T22:00:00Z', 3, 17, 151),
 (35, 'Ethan Gold @ Café Central', 'Café Central 168 Otegemstraat 8550 Zwevegem Belgium', '', 'C\'est l\'heure. Nous sommes fiers d\'annoncer notre premier artiste étranger. Le samedi 3 juin, l\'auteur-compositeur-interprète Ethan Gold, qui a grandi en Californie et vit actuellement à Berlin, jouera au Café Central. Ce compositeur d\'albums et de musiques de films de renommée internationale est de retour en concert après des années de rééducation suite à une blessure à la tête. Son dernier album alternatif indépendant Earth City 1: The Longing est le premier volet d\'une trilogie. C\'est une collection de chansons, dont certaines qu\'il a écrites - on ne plaisante pas - pendant qu\'il rêvait. Les paroles reflètent sa perspective particulière sur la façon dont nous nous rapportons à nous-mêmes, les uns aux autres et à la nature qui nous entoure.\n\nD﻿EURS: 19h30\n\nCONCERT DÉBUT : 20h30', 'image_67901684192705455.jpg', 1, '', '2023-05-15T23:18:25Z', '2023-06-03T17:00:00Z', '2023-06-03T20:00:00Z', '2023-05-15T22:00:00Z', 3, 5, 30),
 (36, 'EuroBasket Women 2023 Preparation: Belgian Cats vs. China', 'Sportcampus Lange Munte 22 Bad Godesberglaan 8500 Kortrijk Belgium', '', 'Les Belgian Cats jouent 4 matchs de préparation à domicile avant de se rendre à l\'EuroBasket Women 2023 :\n\n26/5 à Mons vs. Grèce\n28/5 à Braine vs. Grèce\n8/5 à Courtrai vs. Chine\n10/6 à Louvain vs. Chine\n\nACHETEZ VOTRE MAILLOT OFFICIEL 2023 AVANT LE 2/6 ET RÉCUPÉREZ-LE AVANT LE MATCH.\n\nAchetez votre maillot de fan et gagnez une chance de participer à l\'EuroBasket Women avec les Cats !\n\nPour chaque chemise vendue, un numéro entrera dans la loterie. Le billet de loterie gagnant sera tiré au sort le 10/6. Le prix ? Un voyage pour 2 à l\'EuroBasket Women ! Consultez tous les détails et conditions de cette promotion sur www.basketballbelgium.be/tickets-vip.', 'image_26561684192798428.jpg', 1, '', '2023-05-15T23:19:58Z', '2023-06-08T18:30:00Z', '2023-06-08T21:30:00Z', '2023-05-15T22:00:00Z', 3, 17, 153),
-(37, 'Webinar: Welkom Puppy - Instaples Puppy Coaching', '', '', 'Élever un chiot ne consiste pas à dresser votre animal de compagnie, mais à vous entraîner vous-même. Expert Joke Monteny est un gagnant quand il s\'agit de la langue du chien. Elle enseigne à ce sujet à l\'Université des sciences appliquées de Vives, a écrit le livre \"Welkom Puppy\" et guide les propriétaires et leurs chiens de manière professionnelle avec sa société \"Dog Inform\". Chaque mois, elle enseigne une leçon théorique avec WelloPet pour vous apprendre à voir le monde à travers les yeux d\'un chiot. Étape par étape, vous apprendrez à mieux comprendre votre chiot, de sorte que l\'éducation se déroulera beaucoup plus facilement et que vous pourrez construire un lien affectueux ensemble. En plus des connaissances générales sur le fonctionnement de votre chiot, de nombreux conseils et faits pratiques sont également fournis.', 'image_97451684192922298.jpg', 1, '', '2023-05-15T23:22:02Z', '2023-06-04T07:00:00Z', '2023-06-04T08:30:00Z', '2023-05-15T22:00:00Z', 3, 6, 62);
+(37, 'Webinar: Welkom Puppy - Instaples Puppy Coaching', '', '', 'Élever un chiot ne consiste pas à dresser votre animal de compagnie, mais à vous entraîner vous-même. Expert Joke Monteny est un gagnant quand il s\'agit de la langue du chien. Elle enseigne à ce sujet à l\'Université des sciences appliquées de Vives, a écrit le livre \"Welkom Puppy\" et guide les propriétaires et leurs chiens de manière professionnelle avec sa société \"Dog Inform\". Chaque mois, elle enseigne une leçon théorique avec WelloPet pour vous apprendre à voir le monde à travers les yeux d\'un chiot. Étape par étape, vous apprendrez à mieux comprendre votre chiot, de sorte que l\'éducation se déroulera beaucoup plus facilement et que vous pourrez construire un lien affectueux ensemble. En plus des connaissances générales sur le fonctionnement de votre chiot, de nombreux conseils et faits pratiques sont également fournis.', 'image_97451684192922298.jpg', 1, '', '2023-05-15T23:22:02Z', '2023-06-04T07:00:00Z', '2023-06-04T08:30:00Z', '2023-05-15T22:00:00Z', 3, 6, 62),
+(42, 'Belgian Crew\'s National Championship Ride', 'IzyCoffee Izegem 27 Nieuwstraat 8870 Izegem Belgique', '', 'Détails pratiques :\n\nDate : dimanche 4 juin 2023\n\nHeure: 9h00 collecte, 9h30 déploiement\n\nDistance : 100km (+/- 4h de vélo)\n\nVitesse moyenne : 27-28km/h, selon le groupe.\n\nTout le monde attend toujours.\n\nLa participation à l\'événement est ouverte à tous. Boisson gratuite après la balade.\n\nÉtiquette:\n\nRespectez le code de la route en tout temps, nous roulons 2 par 2.\n\nChaque participant garantit qu\'il est assuré.\n\nCasque obligatoire.\n\nAssurez-vous que votre vélo est en bon état avant de partir.\n\nApportez votre propre matériel de rechange.\n\nBelgian Crew ne peut être tenu responsable de tout ce qui se passe pendant l\'événement. En vous inscrivant et en participant, vous confirmez que vous acceptez toutes les mesures de sécurité. L\'inscription en ligne est obligatoire pour participer.', 'image_97911684190976566.jpg', 1, '', '2023-05-15T22:49:36Z', '2023-06-04T07:00:00Z', '2023-06-04T18:00:00Z', '2023-05-16T00:00:00Z', 3, 17, 158);
 
 -- --------------------------------------------------------
 
@@ -562,9 +560,11 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `mail`, `firstname`, `lastname`, `password`, `urlThumbnail`, `gender`, `creationDate`, `idRole`) VALUES
-(1, 'test@test.fr', 'test', 'test', '$2b$10$e6LZ/Zeq2PhtzXxZ4dmqTuyfQMdqTTnmbm1pQn/SVRHIKr8Aqn4e2', '', 0, '2023-05-03', 2),
-(2, 'andr3wcarpentier@gmail.com', 'andrew', 'Carpentier', '$2b$10$ebRdqIl0eXcAo1oeL2IIfu1aZ0qumbLZBTrPQT7uliMmFtsr3Gzw6', '', 0, '2023-05-09', 1),
-(3, 'andr3wcarpentier2@gmail.com', 'andrew', 'carpentier', '$2b$10$jwWuyZoHHlT8TJDJHUxbCexh2NOafpeyu1hK6djzZHhGn4zPu3bva', '', 0, '2023-05-15', 1);
+(1, 'test@test.fr', 'andrew', 'test', '$2b$10$e6LZ/Zeq2PhtzXxZ4dmqTuyfQMdqTTnmbm1pQn/SVRHIKr8Aqn4e2', '', 0, '2023-05-03', 2),
+(3, 'andr3wcarpentier2@gmail.com', 'andrew', 'carpentier', '$2b$10$jwWuyZoHHlT8TJDJHUxbCexh2NOafpeyu1hK6djzZHhGn4zPu3bva', '', 0, '2023-05-15', 1),
+(14, 'test2@test.fr', 'andrew', 'carpentier', '$2b$10$PP9cBX1izO0VrbCGTOEiJucWXQZVt1zlsp2PaVqXq2ug2ktX0wU/G', '', 0, '2023-05-31', 1),
+(15, 'test@test.fr', 'test', 'test', '$2b$10$e6LZ/Zeq2PhtzXxZ4dmqTuyfQMdqTTnmbm1pQn/SVRHIKr8Aqn4e2', '', 0, '2023-05-03', 2),
+(16, 'test2@test.fr', 'andrew', 'carpentier', '$2b$10$PP9cBX1izO0VrbCGTOEiJucWXQZVt1zlsp2PaVqXq2ug2ktX0wU/G', '', 0, '2023-05-31', 1);
 
 --
 -- Index pour les tables déchargées
@@ -574,9 +574,7 @@ INSERT INTO `user` (`id`, `mail`, `firstname`, `lastname`, `password`, `urlThumb
 -- Index pour la table `bookmark`
 --
 ALTER TABLE `bookmark`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `bookmark_event_FK` (`id_event`),
-  ADD KEY `bookmark_user0_FK` (`id_user`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `category`
@@ -588,46 +586,37 @@ ALTER TABLE `category`
 -- Index pour la table `command`
 --
 ALTER TABLE `command`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `command_user_FK` (`id_user`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `command_ticket`
 --
 ALTER TABLE `command_ticket`
-  ADD PRIMARY KEY (`id`,`id_command`),
-  ADD KEY `command_ticket_command0_FK` (`id_command`);
+  ADD PRIMARY KEY (`id`,`id_command`);
 
 --
 -- Index pour la table `event`
 --
 ALTER TABLE `event`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `event_user_FK` (`id_user`),
-  ADD KEY `event_category0_FK` (`id_category`),
-  ADD KEY `event_subCategory1_FK` (`id_subCategory`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `event_tag`
 --
 ALTER TABLE `event_tag`
-  ADD PRIMARY KEY (`id`,`id_event`),
-  ADD KEY `event_tag_event0_FK` (`id_event`);
+  ADD PRIMARY KEY (`id`,`id_event`);
 
 --
 -- Index pour la table `history`
 --
 ALTER TABLE `history`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `history_event_FK` (`id_event`),
-  ADD KEY `history_user0_FK` (`id_user`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `passwordlost`
 --
 ALTER TABLE `passwordlost`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `passwordLost_user_FK` (`id_user`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `role`
@@ -639,22 +628,19 @@ ALTER TABLE `role`
 -- Index pour la table `section`
 --
 ALTER TABLE `section`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `section_event_FK` (`id_event`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `subcategory`
 --
 ALTER TABLE `subcategory`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `subCategory_category_FK` (`id_category`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `subscribe`
 --
 ALTER TABLE `subscribe`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `subscribe_user_FK` (`id_user`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `tag`
@@ -666,8 +652,7 @@ ALTER TABLE `tag`
 -- Index pour la table `ticket`
 --
 ALTER TABLE `ticket`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `ticket_section_FK` (`id_section`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `user`
@@ -701,7 +686,7 @@ ALTER TABLE `command`
 -- AUTO_INCREMENT pour la table `event`
 --
 ALTER TABLE `event`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT pour la table `history`
@@ -755,83 +740,8 @@ ALTER TABLE `ticket`
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
---
--- Contraintes pour les tables déchargées
---
-
---
--- Contraintes pour la table `bookmark`
---
-ALTER TABLE `bookmark`
-  ADD CONSTRAINT `bookmark_event_FK` FOREIGN KEY (`id_event`) REFERENCES `event` (`id`),
-  ADD CONSTRAINT `bookmark_user0_FK` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`);
-
---
--- Contraintes pour la table `command`
---
-ALTER TABLE `command`
-  ADD CONSTRAINT `command_user_FK` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`);
-
---
--- Contraintes pour la table `command_ticket`
---
-ALTER TABLE `command_ticket`
-  ADD CONSTRAINT `command_ticket_command0_FK` FOREIGN KEY (`id_command`) REFERENCES `command` (`id`),
-  ADD CONSTRAINT `command_ticket_ticket_FK` FOREIGN KEY (`id`) REFERENCES `ticket` (`id`);
-
---
--- Contraintes pour la table `event`
---
-ALTER TABLE `event`
-  ADD CONSTRAINT `event_category0_FK` FOREIGN KEY (`id_category`) REFERENCES `category` (`id`),
-  ADD CONSTRAINT `event_subCategory1_FK` FOREIGN KEY (`id_subCategory`) REFERENCES `subcategory` (`id`),
-  ADD CONSTRAINT `event_user_FK` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`);
-
---
--- Contraintes pour la table `event_tag`
---
-ALTER TABLE `event_tag`
-  ADD CONSTRAINT `event_tag_event0_FK` FOREIGN KEY (`id_event`) REFERENCES `event` (`id`),
-  ADD CONSTRAINT `event_tag_tag_FK` FOREIGN KEY (`id`) REFERENCES `tag` (`id`);
-
---
--- Contraintes pour la table `history`
---
-ALTER TABLE `history`
-  ADD CONSTRAINT `history_event_FK` FOREIGN KEY (`id_event`) REFERENCES `event` (`id`),
-  ADD CONSTRAINT `history_user0_FK` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`);
-
---
--- Contraintes pour la table `passwordlost`
---
-ALTER TABLE `passwordlost`
-  ADD CONSTRAINT `passwordLost_user_FK` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`);
-
---
--- Contraintes pour la table `section`
---
-ALTER TABLE `section`
-  ADD CONSTRAINT `section_event_FK` FOREIGN KEY (`id_event`) REFERENCES `event` (`id`);
-
---
--- Contraintes pour la table `subcategory`
---
-ALTER TABLE `subcategory`
-  ADD CONSTRAINT `subCategory_category_FK` FOREIGN KEY (`id_category`) REFERENCES `category` (`id`);
-
---
--- Contraintes pour la table `subscribe`
---
-ALTER TABLE `subscribe`
-  ADD CONSTRAINT `subscribe_user_FK` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`);
-
---
--- Contraintes pour la table `ticket`
---
-ALTER TABLE `ticket`
-  ADD CONSTRAINT `ticket_section_FK` FOREIGN KEY (`id_section`) REFERENCES `section` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

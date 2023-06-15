@@ -1,9 +1,9 @@
+import styles from "./EventDetail.module.scss";
 import { useEffect, useState } from "react";
 import { getCategoryById, getSubCategoryById } from "../../../../../apis/Event";
 import * as moment from "moment-timezone";
 
-function EventDetail({ event }) {
-  // console.log(event);
+function EventDetail({ event, setUpdate }) {
   const [category, setCategory] = useState("");
   const [subCategory, setSubCategory] = useState("");
 
@@ -16,6 +16,9 @@ function EventDetail({ event }) {
 
   return (
     <div>
+      <button className={`btn btn-primary ${styles.updateBtn}`} onClick={()=> setUpdate(true)}>
+        Modifier
+      </button>
       <div>
         Date de creation :{" "}
         {moment.tz(event.creationDate, "europe/paris").format("LLLL")}
@@ -41,9 +44,10 @@ function EventDetail({ event }) {
         {moment.tz(event.publishDate, "europe/paris").format("LLLL")}
       </div>
       <div>
-        {
-            event.public === 1 ? ("Cette evenement est public") : ("Cette evenement est privée le mot de passe pour y acceder est " + event.password)
-        }
+        {event.public === 1
+          ? "Cette evenement est public"
+          : "Cette evenement est privée le mot de passe pour y acceder est " +
+            event.password}
       </div>
     </div>
   );

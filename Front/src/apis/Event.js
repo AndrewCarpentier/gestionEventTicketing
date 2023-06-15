@@ -103,6 +103,23 @@ export async function CreateEvent(event) {
     }
   }
 }
+export async function UpdateEvent(event){
+  const response = await fetch(`${API_EVENT}/update`, {
+    method: "PUT",
+    headers : {"Content-Type" : "application/json"},
+    body : JSON.stringify(event)
+  });
+  const backResponse = await response.json();
+  if (response.ok) {
+    return backResponse;
+  } else {
+    if (backResponse) {
+      throw backResponse;
+    } else {
+      throw new Error("API error");
+    }
+  }
+}
 
 export async function DeleteEvent(id) {
   const response = await fetch(`${API_EVENT}/${id}`, {

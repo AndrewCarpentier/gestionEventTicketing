@@ -4,8 +4,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { editUser } from "../../../../apis/Users";
 import { useTranslation } from "react-i18next";
+import { useContext } from "react";
+import { AdminContext } from "../../../../context/AdminContext";
 
 function UserEdit({ user, users, setUsers, setIdUserEdit }) {
+  const {setShowEditAlertSuccess} = useContext(AdminContext);
   const { t } = useTranslation();
 
   const validationSchema = yup.object({
@@ -38,6 +41,7 @@ function UserEdit({ user, users, setUsers, setIdUserEdit }) {
       users[usersIndex] = { id: user.id, ...values };
       setUsers(users);
       setIdUserEdit(0);
+      setShowEditAlertSuccess(true);
     }
   });
 
@@ -55,7 +59,7 @@ function UserEdit({ user, users, setUsers, setIdUserEdit }) {
       <button onClick={onCancel} className="btn btn-primary-reverse">
         {t("cancel")}
       </button>
-      <button onClick={onSubmit} className="ml10 btn btn-primary">
+      <button onClick={onSubmit} className="ml10 btn btn-primary" disabled={isSubmitting}>
         {t("save")}
       </button>
     </div>
