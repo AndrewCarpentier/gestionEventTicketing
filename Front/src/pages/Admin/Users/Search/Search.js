@@ -1,3 +1,4 @@
+import styles from "./Search.module.scss";
 import { useTranslation } from "react-i18next";
 
 function Search({  tabBackUp, setTab, onSearch }) {
@@ -21,7 +22,7 @@ function Search({  tabBackUp, setTab, onSearch }) {
 
   return (
     <div>
-      <input onChange={onChange}  placeholder={t("search") + "..."} />
+      <input className={styles.input} onChange={onChange}  placeholder={t("search") + "..."} />
     </div>
   );
 }
